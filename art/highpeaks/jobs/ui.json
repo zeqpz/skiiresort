@@ -1,0 +1,120 @@
+[
+ {
+  "name": "logo_game",
+  "aspect_ratio": "16:9",
+  "background": "transparent",
+  "prompt": "A slot-game title logo on a fully transparent background: the words \"HIGH PEAKS\" in huge chunky bubbly cartoon letters with a thick black outline, icy white-and-sky-blue letters capped with dripping snow, a small green cannabis leaf dotting the I, a snowy mountain peak behind the words. Wide horizontal layout, the letters fill the frame edge to edge, the spelling must be exactly \"HIGH PEAKS\", nothing else in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "logo_chance",
+  "aspect_ratio": "16:9",
+  "background": "transparent",
+  "prompt": "A slot-game title logo on a fully transparent background: the words \"HIGHER CHANCE\" in huge chunky bubbly cartoon letters with a thick black outline, HIGHER in lime green and CHANCE in sunny yellow, little puffs of smoke around the letters. Wide horizontal layout, the letters fill the frame edge to edge, the spelling must be exactly \"HIGHER CHANCE\", nothing else in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "logo_fillup",
+  "aspect_ratio": "16:9",
+  "background": "transparent",
+  "prompt": "A slot-game title logo on a fully transparent background: the words \"STASH\" in huge chunky bubbly cartoon letters with a thick black outline, bright green letters with gold trim, a few cartoon buds tumbling off the letters. Wide horizontal layout, the letters fill the frame edge to edge, the spelling must be exactly \"STASH\", nothing else in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "logo_premium",
+  "aspect_ratio": "16:9",
+  "background": "transparent",
+  "prompt": "A slot-game title logo on a fully transparent background: the words \"FRESH POWDER\" in huge chunky bubbly cartoon letters with a thick black outline, white snowy letters with icy blue shading, snowflakes and snow spray. Wide horizontal layout, the letters fill the frame edge to edge, the spelling must be exactly \"FRESH POWDER\", nothing else in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "logo_nitro",
+  "aspect_ratio": "16:9",
+  "background": "transparent",
+  "prompt": "A slot-game title logo on a fully transparent background: the words \"AVALANCHE SPIN\" in huge chunky bubbly cartoon letters with a thick black outline, electric blue letters crashing with a wave of snow, lightning bolts. Wide horizontal layout, the letters fill the frame edge to edge, the spelling must be exactly \"AVALANCHE SPIN\", nothing else in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "logo_midnight",
+  "aspect_ratio": "16:9",
+  "background": "transparent",
+  "prompt": "A slot-game title logo on a fully transparent background: the words \"BLACK DIAMOND\" in huge chunky bubbly cartoon letters with a thick black outline, black and deep purple letters with silver rims, a small black diamond ski sign and stars. Wide horizontal layout, the letters fill the frame edge to edge, the spelling must be exactly \"BLACK DIAMOND\", nothing else in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "title_features",
+  "aspect_ratio": "16:9",
+  "background": "transparent",
+  "prompt": "A slot-game title logo on a fully transparent background: the words \"HOT FEATURES\" in huge chunky bubbly cartoon letters with a thick black outline, HOT in orange with flames, FEATURES in cream white, stacked on two lines. Wide horizontal layout, the letters fill the frame edge to edge, the spelling must be exactly \"HOT FEATURES\", nothing else in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "title_bonus",
+  "aspect_ratio": "16:9",
+  "background": "transparent",
+  "prompt": "A slot-game title logo on a fully transparent background: the words \"BIG BONUSES\" in huge chunky bubbly cartoon letters with a thick black outline, BIG in lime green, BONUSES in cream white, stacked on two lines. Wide horizontal layout, the letters fill the frame edge to edge, the spelling must be exactly \"BIG BONUSES\", nothing else in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "title_max",
+  "aspect_ratio": "16:9",
+  "background": "transparent",
+  "prompt": "A slot-game title logo on a fully transparent background: the words \"MAX WIN\" in huge chunky bubbly cartoon letters with a thick black outline, MAX in icy blue, WIN in cream white, stacked on two lines. Wide horizontal layout, the letters fill the frame edge to edge, the spelling must be exactly \"MAX WIN\", nothing else in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "jp_mini",
+  "aspect_ratio": "16:9",
+  "background": "transparent",
+  "prompt": "A slot-game title logo on a fully transparent background: the words \"MINI\" in huge chunky bubbly cartoon letters with a thick black outline, bright lime-green letters on a rounded pill-shaped green plaque with a white rim. Wide horizontal layout, the letters fill the frame edge to edge, the spelling must be exactly \"MINI\", nothing else in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "jp_minor",
+  "aspect_ratio": "16:9",
+  "background": "transparent",
+  "prompt": "A slot-game title logo on a fully transparent background: the words \"MINOR\" in huge chunky bubbly cartoon letters with a thick black outline, sky-blue letters on a rounded pill-shaped blue plaque with a white rim. Wide horizontal layout, the letters fill the frame edge to edge, the spelling must be exactly \"MINOR\", nothing else in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "jp_major",
+  "aspect_ratio": "16:9",
+  "background": "transparent",
+  "prompt": "A slot-game title logo on a fully transparent background: the words \"MAJOR\" in huge chunky bubbly cartoon letters with a thick black outline, purple letters on a rounded pill-shaped purple plaque with a white rim. Wide horizontal layout, the letters fill the frame edge to edge, the spelling must be exactly \"MAJOR\", nothing else in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "jp_grand",
+  "aspect_ratio": "16:9",
+  "background": "transparent",
+  "prompt": "A slot-game title logo on a fully transparent background: the words \"GRAND\" in huge chunky bubbly cartoon letters with a thick black outline, shiny gold letters on a rounded pill-shaped gold plaque with sparkles and a tiny crown. Wide horizontal layout, the letters fill the frame edge to edge, the spelling must be exactly \"GRAND\", nothing else in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "menu_chance",
+  "aspect_ratio": "16:9",
+  "prompt": "Slot-game bonus-buy card artwork, full-bleed, no text, no letters, no logos: a grinning cartoon cannabis-leaf mascot wearing ski goggles rides a chairlift up a snowy peak, a big round gauge dial beside it with its needle swinging into the green, puffs of smoke. Bold, busy, colourful composition that fills the whole frame, set in a cartoon snowy mountain ski resort.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "menu_nitro",
+  "aspect_ratio": "2:3",
+  "prompt": "Slot-game bonus-buy card artwork, full-bleed, no text, no letters, no logos: a gigantic cartoon avalanche of snow roaring down the mountain with a laughing snowboarder surfing the front of it, lightning bolts, chunks of snow flying. Bold, busy, colourful composition that fills the whole frame, set in a cartoon snowy mountain ski resort.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "menu_fillup",
+  "aspect_ratio": "2:3",
+  "prompt": "Slot-game bonus-buy card artwork, full-bleed, no text, no letters, no logos: a giant glass stash jar on the snow filling up with glowing green, gold and red cannabis buds raining down from the sky, a cosy ski lodge behind. Bold, busy, colourful composition that fills the whole frame, set in a cartoon snowy mountain ski resort.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "menu_premium",
+  "aspect_ratio": "2:3",
+  "prompt": "Slot-game bonus-buy card artwork, full-bleed, no text, no letters, no logos: a goofy cartoon snowboarder carving through deep fresh powder snow, a huge white spray of snow, big snowflakes falling, bright blue sky. Bold, busy, colourful composition that fills the whole frame, set in a cartoon snowy mountain ski resort.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "menu_midnight",
+  "aspect_ratio": "2:3",
+  "prompt": "Slot-game bonus-buy card artwork, full-bleed, no text, no letters, no logos: a night ski run under a big moon and green northern lights, a black diamond trail sign in the foreground, a skier with a glowing headlamp. Bold, busy, colourful composition that fills the whole frame, set in a cartoon snowy mountain ski resort.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "load_features",
+  "aspect_ratio": "2:3",
+  "prompt": "Slot-game bonus-buy card artwork, full-bleed, no text, no letters, no logos: a pile of cartoon game pieces on the snow: a lime-green lighter with a big flame, a yellow snow cannon blasting snow, a teal lift pass ticket and a purple mystery coin with a question mark. Bold, busy, colourful composition that fills the whole frame, set in a cartoon snowy mountain ski resort.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "load_bonus",
+  "aspect_ratio": "2:3",
+  "prompt": "Slot-game bonus-buy card artwork, full-bleed, no text, no letters, no logos: a stash jar spilling glowing cannabis buds, golden coins with snowy peaks and a black diamond coin, bursting out of the snow. Bold, busy, colourful composition that fills the whole frame, set in a cartoon snowy mountain ski resort.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "load_max",
+  "aspect_ratio": "2:3",
+  "prompt": "Slot-game bonus-buy card artwork, full-bleed, no text, no letters, no logos: a huge avalanche of gold coins and green cannabis buds pouring down a snowy mountain, sparkles everywhere. Bold, busy, colourful composition that fills the whole frame, set in a cartoon snowy mountain ski resort.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ }
+]

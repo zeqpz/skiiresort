@@ -1,0 +1,191 @@
+{
+    "enterBonus": {
+        "type": "enterBonus",
+        "reason": "fillup",
+        "bought": true,
+        "positions": []
+    },
+    "gauge": {
+        "type": "gauge",
+        "fuel": 3,
+        "reason": "start"
+    },
+    "fillUpLand": {
+        "type": "fillUpLand",
+        "spin": 0,
+        "cells": [
+            {
+                "reel": 1,
+                "row": 2,
+                "name": "FD",
+                "value": 20
+            },
+            {
+                "reel": 3,
+                "row": 5,
+                "name": "FD",
+                "value": 0.5
+            },
+            {
+                "reel": 4,
+                "row": 1,
+                "name": "FD",
+                "value": 2
+            }
+        ],
+        "boardTotal": 22.5
+    },
+    "collect": {
+        "type": "collect",
+        "kind": "scratch",
+        "reel": 6,
+        "row": 3,
+        "collected": [
+            {
+                "reel": 5,
+                "row": 3,
+                "name": "FD",
+                "value": 0.2
+            }
+        ],
+        "total": 0.2,
+        "mult": 1,
+        "removed": false,
+        "boardTotal": 26.3
+    },
+    "fillUpEnd": {
+        "type": "fillUpEnd",
+        "reason": "empty",
+        "spins": 10,
+        "drops": [
+            {
+                "reel": 0,
+                "row": 1,
+                "value": 0.5
+            },
+            {
+                "reel": 1,
+                "row": 1,
+                "value": 0.2
+            },
+            {
+                "reel": 1,
+                "row": 2,
+                "value": 20
+            },
+            {
+                "reel": 1,
+                "row": 3,
+                "value": 0.5
+            },
+            {
+                "reel": 2,
+                "row": 1,
+                "value": 0.5
+            },
+            {
+                "reel": 2,
+                "row": 3,
+                "value": 1
+            },
+            {
+                "reel": 3,
+                "row": 2,
+                "value": 0.2
+            },
+            {
+                "reel": 3,
+                "row": 4,
+                "value": 0.5
+            },
+            {
+                "reel": 3,
+                "row": 5,
+                "value": 0.5
+            },
+            {
+                "reel": 4,
+                "row": 1,
+                "value": 2
+            },
+            {
+                "reel": 6,
+                "row": 1,
+                "value": 0.2
+            }
+        ],
+        "collectors": [
+            {
+                "reel": 6,
+                "row": 3,
+                "name": "ST",
+                "value": 0.2
+            }
+        ],
+        "boardTotal": 26.3,
+        "win": 2630
+    },
+    "setWin": {
+        "type": "setWin",
+        "amount": 2630,
+        "winLevel": 6
+    },
+    "setTotalWin": {
+        "type": "setTotalWin",
+        "amount": 2630
+    },
+    "freeSpinEnd": {
+        "type": "freeSpinEnd",
+        "amount": 2630,
+        "winLevel": 5
+    },
+    "finalWin": {
+        "type": "finalWin",
+        "amount": 2630
+    },
+    "pumpBoost": {
+        "type": "pumpBoost",
+        "reel": 0,
+        "row": 3,
+        "mult": 2,
+        "boosted": [
+            {
+                "reel": 0,
+                "row": 2,
+                "name": "FD",
+                "from": 0.2,
+                "to": 0.4
+            },
+            {
+                "reel": 0,
+                "row": 5,
+                "name": "FD",
+                "from": 0.2,
+                "to": 0.4
+            }
+        ],
+        "boardTotal": 24.5
+    },
+    "fillUpRetrigger": {
+        "type": "fillUpRetrigger",
+        "reel": 0,
+        "row": 4,
+        "added": 5,
+        "fuel": 8
+    },
+    "jackpotDrop": {
+        "type": "jackpotDrop",
+        "reel": 4,
+        "row": 3
+    },
+    "jackpotWin": {
+        "type": "jackpotWin",
+        "level": "mini",
+        "mult": 10,
+        "amount": 1000
+    },
+    "wincap": {
+        "type": "wincap",
+        "amount": 5000000
+    }
+}

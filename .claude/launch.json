@@ -1,0 +1,4 @@
+{"version":"0.0.1","configurations":[
+ {"name":"highpeaks","runtimeExecutable":"/Users/drewabbott/Documents/HighPeaks/.venv/bin/python","runtimeArgs":["rgs/mock_rgs.py"],"port":8755},
+ {"name":"falcos-reference","runtimeExecutable":"/Users/drewabbott/Documents/Falcos/.venv/bin/python","runtimeArgs":["/Users/drewabbott/Documents/Falcos/rgs/mock_rgs.py"],"port":8733}
+]}

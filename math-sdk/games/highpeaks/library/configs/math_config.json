@@ -1,0 +1,4686 @@
+{
+    "game_id": "highpeaks",
+    "bet_modes": [
+        {
+            "bet_mode": "base",
+            "cost": 1.0,
+            "rtp": 0.965,
+            "max_win": 50000.0
+        },
+        {
+            "bet_mode": "chance",
+            "cost": 3.0,
+            "rtp": 0.965,
+            "max_win": 50000.0
+        },
+        {
+            "bet_mode": "fillup",
+            "cost": 100.0,
+            "rtp": 0.965,
+            "max_win": 50000.0
+        },
+        {
+            "bet_mode": "premium",
+            "cost": 300.0,
+            "rtp": 0.965,
+            "max_win": 50000.0
+        },
+        {
+            "bet_mode": "nitro",
+            "cost": 500.0,
+            "rtp": 0.965,
+            "max_win": 50000.0
+        },
+        {
+            "bet_mode": "midnight",
+            "cost": 500.0,
+            "rtp": 0.965,
+            "max_win": 50000.0
+        }
+    ],
+    "fences": [
+        {
+            "bet_mode": "base",
+            "fences": [
+                {
+                    "name": "wincap",
+                    "avg_win": "50000.0",
+                    "rtp": "0.00625",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": 50000.0,
+                        "win_range_end": 50000.0,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "midnight",
+                    "hr": "14000.0",
+                    "rtp": "0.0828571",
+                    "identity_condition": {
+                        "search": [
+                            {
+                                "name": "symbol",
+                                "value": "midnight"
+                            }
+                        ],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "premium",
+                    "hr": "2700.0",
+                    "rtp": "0.1851852",
+                    "identity_condition": {
+                        "search": [
+                            {
+                                "name": "symbol",
+                                "value": "premium"
+                            }
+                        ],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "fillup",
+                    "hr": "400.0",
+                    "rtp": "0.295",
+                    "identity_condition": {
+                        "search": [
+                            {
+                                "name": "symbol",
+                                "value": "fillup"
+                            }
+                        ],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "0",
+                    "avg_win": "0",
+                    "rtp": "0",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": 0,
+                        "win_range_end": 0,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "basegame",
+                    "hr": "3.0",
+                    "rtp": "0.3957077",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                }
+            ]
+        },
+        {
+            "bet_mode": "chance",
+            "fences": [
+                {
+                    "name": "wincap",
+                    "avg_win": "50000.0",
+                    "rtp": "0.0035417",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": 50000.0,
+                        "win_range_end": 50000.0,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "midnight",
+                    "hr": "8235.29411764706",
+                    "rtp": "0.0447807",
+                    "identity_condition": {
+                        "search": [
+                            {
+                                "name": "symbol",
+                                "value": "midnight"
+                            }
+                        ],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "premium",
+                    "hr": "1588.235294117647",
+                    "rtp": "0.1049383",
+                    "identity_condition": {
+                        "search": [
+                            {
+                                "name": "symbol",
+                                "value": "premium"
+                            }
+                        ],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "fillup",
+                    "hr": "235.29411764705884",
+                    "rtp": "0.1671667",
+                    "identity_condition": {
+                        "search": [
+                            {
+                                "name": "symbol",
+                                "value": "fillup"
+                            }
+                        ],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "0",
+                    "avg_win": "0",
+                    "rtp": "0",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": 0,
+                        "win_range_end": 0,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "basegame",
+                    "hr": "2.5",
+                    "rtp": "0.6445726",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                }
+            ]
+        },
+        {
+            "bet_mode": "fillup",
+            "fences": [
+                {
+                    "name": "wincap",
+                    "avg_win": "50000.0",
+                    "rtp": "0.002",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": 50000.0,
+                        "win_range_end": 50000.0,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "bigwin",
+                    "hr": "21195.5373",
+                    "rtp": "0.005",
+                    "identity_condition": {
+                        "search": [
+                            {
+                                "name": "symbol",
+                                "value": "bigwin"
+                            }
+                        ],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "fillup",
+                    "hr": "x",
+                    "rtp": "0.958",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                }
+            ]
+        },
+        {
+            "bet_mode": "premium",
+            "fences": [
+                {
+                    "name": "wincap",
+                    "avg_win": "50000.0",
+                    "rtp": "0.0008333",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": 50000.0,
+                        "win_range_end": 50000.0,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "bigwin",
+                    "hr": "47127.3301",
+                    "rtp": "0.0011667",
+                    "identity_condition": {
+                        "search": [
+                            {
+                                "name": "symbol",
+                                "value": "bigwin"
+                            }
+                        ],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "premium",
+                    "hr": "x",
+                    "rtp": "0.963",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                }
+            ]
+        },
+        {
+            "bet_mode": "nitro",
+            "fences": [
+                {
+                    "name": "wincap",
+                    "avg_win": "50000.0",
+                    "rtp": "0.0005",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": 50000.0,
+                        "win_range_end": 50000.0,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "bigwin",
+                    "hr": "41774.1479",
+                    "rtp": "0.0007",
+                    "identity_condition": {
+                        "search": [
+                            {
+                                "name": "symbol",
+                                "value": "bigwin"
+                            }
+                        ],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "highwin",
+                    "hr": "58.8235",
+                    "rtp": "0.2541181",
+                    "identity_condition": {
+                        "search": [
+                            {
+                                "name": "symbol",
+                                "value": "highwin"
+                            }
+                        ],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "0",
+                    "avg_win": "0",
+                    "rtp": "0",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": 0,
+                        "win_range_end": 0,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "nitro",
+                    "hr": "1.277186",
+                    "rtp": "0.7096819",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                }
+            ]
+        },
+        {
+            "bet_mode": "midnight",
+            "fences": [
+                {
+                    "name": "wincap",
+                    "avg_win": "50000.0",
+                    "rtp": "0.0005",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": 50000.0,
+                        "win_range_end": 50000.0,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "bigwin",
+                    "hr": "42951.9424",
+                    "rtp": "0.0007",
+                    "identity_condition": {
+                        "search": [
+                            {
+                                "name": "symbol",
+                                "value": "bigwin"
+                            }
+                        ],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "highwin",
+                    "hr": "83.3333",
+                    "rtp": "0.1623983",
+                    "identity_condition": {
+                        "search": [
+                            {
+                                "name": "symbol",
+                                "value": "highwin"
+                            }
+                        ],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                },
+                {
+                    "name": "midnight",
+                    "hr": "x",
+                    "rtp": "0.8014017",
+                    "identity_condition": {
+                        "search": [],
+                        "win_range_start": -1,
+                        "win_range_end": -1,
+                        "opposite": false
+                    }
+                }
+            ]
+        }
+    ],
+    "dresses": [
+        {
+            "bet_mode": "base",
+            "dresses": [
+                {
+                    "fence": "basegame",
+                    "scale_factor": "2.4510569631691173",
+                    "identity_condition_win_range": [
+                        0.195,
+                        0.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.7045087417928915",
+                    "identity_condition_win_range": [
+                        0.295,
+                        0.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.49819754660604604",
+                    "identity_condition_win_range": [
+                        0.395,
+                        0.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.14540523972952107",
+                    "identity_condition_win_range": [
+                        0.495,
+                        0.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.1383306640024926",
+                    "identity_condition_win_range": [
+                        0.595,
+                        0.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.03684078625398312",
+                    "identity_condition_win_range": [
+                        0.695,
+                        0.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.11468955021200714",
+                    "identity_condition_win_range": [
+                        0.795,
+                        0.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.018717058933594825",
+                    "identity_condition_win_range": [
+                        0.895,
+                        0.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.04573654595296494",
+                    "identity_condition_win_range": [
+                        0.995,
+                        1.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.016099048940553043",
+                    "identity_condition_win_range": [
+                        1.095,
+                        1.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.06847499894091492",
+                    "identity_condition_win_range": [
+                        1.195,
+                        1.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.005235793680793898",
+                    "identity_condition_win_range": [
+                        1.295,
+                        1.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.03357344864069729",
+                    "identity_condition_win_range": [
+                        1.395,
+                        1.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.010283192808276317",
+                    "identity_condition_win_range": [
+                        1.495,
+                        1.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.04671318221370643",
+                    "identity_condition_win_range": [
+                        1.595,
+                        1.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00365017789044044",
+                    "identity_condition_win_range": [
+                        1.695,
+                        1.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.023710584557605947",
+                    "identity_condition_win_range": [
+                        1.795,
+                        1.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.005079058623084077",
+                    "identity_condition_win_range": [
+                        1.895,
+                        1.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.03889953624082635",
+                    "identity_condition_win_range": [
+                        1.995,
+                        2.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.005185394530247239",
+                    "identity_condition_win_range": [
+                        2.095,
+                        2.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.01193440744215148",
+                    "identity_condition_win_range": [
+                        2.195,
+                        2.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.004203404754321809",
+                    "identity_condition_win_range": [
+                        2.295,
+                        2.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.02852775285097833",
+                    "identity_condition_win_range": [
+                        2.395,
+                        2.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0022805621773309653",
+                    "identity_condition_win_range": [
+                        2.495,
+                        2.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.012455615258578863",
+                    "identity_condition_win_range": [
+                        2.595,
+                        2.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.004480345568239431",
+                    "identity_condition_win_range": [
+                        2.695,
+                        2.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.010352895759863688",
+                    "identity_condition_win_range": [
+                        2.795,
+                        2.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0022324848063962777",
+                    "identity_condition_win_range": [
+                        2.895,
+                        2.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.01058848520850863",
+                    "identity_condition_win_range": [
+                        2.995,
+                        3.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0017413426471686634",
+                    "identity_condition_win_range": [
+                        3.095,
+                        3.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.01278081141487561",
+                    "identity_condition_win_range": [
+                        3.195,
+                        3.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0021269090576262555",
+                    "identity_condition_win_range": [
+                        3.295,
+                        3.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.006251174145265899",
+                    "identity_condition_win_range": [
+                        3.395,
+                        3.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.002130128724130621",
+                    "identity_condition_win_range": [
+                        3.495,
+                        3.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.009424553120656638",
+                    "identity_condition_win_range": [
+                        3.595,
+                        3.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0012066346432073449",
+                    "identity_condition_win_range": [
+                        3.695,
+                        3.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0040694985346385725",
+                    "identity_condition_win_range": [
+                        3.795,
+                        3.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.001352035777815256",
+                    "identity_condition_win_range": [
+                        3.895,
+                        3.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.007820864141171746",
+                    "identity_condition_win_range": [
+                        3.995,
+                        4.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0007231899947463344",
+                    "identity_condition_win_range": [
+                        4.095,
+                        4.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.006097585870026377",
+                    "identity_condition_win_range": [
+                        4.195,
+                        4.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0011737592689238059",
+                    "identity_condition_win_range": [
+                        4.295,
+                        4.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.005183103176239569",
+                    "identity_condition_win_range": [
+                        4.395,
+                        4.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0012900597593602187",
+                    "identity_condition_win_range": [
+                        4.495,
+                        4.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.002199301672159337",
+                    "identity_condition_win_range": [
+                        4.595,
+                        4.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0005280458305733767",
+                    "identity_condition_win_range": [
+                        4.695,
+                        4.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.005018166437911008",
+                    "identity_condition_win_range": [
+                        4.795,
+                        4.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004167121399899126",
+                    "identity_condition_win_range": [
+                        4.895,
+                        4.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0032179055292318854",
+                    "identity_condition_win_range": [
+                        4.995,
+                        5.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0019115213940265657",
+                    "identity_condition_win_range": [
+                        5.095,
+                        5.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.005568344930425213",
+                    "identity_condition_win_range": [
+                        5.195,
+                        5.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0012466443874086298",
+                    "identity_condition_win_range": [
+                        5.295,
+                        5.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.003989262039707615",
+                    "identity_condition_win_range": [
+                        5.395,
+                        5.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0010804251357541456",
+                    "identity_condition_win_range": [
+                        5.495,
+                        5.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.006108557498302285",
+                    "identity_condition_win_range": [
+                        5.595,
+                        5.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0014544184519767348",
+                    "identity_condition_win_range": [
+                        5.695,
+                        5.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0032828302201760584",
+                    "identity_condition_win_range": [
+                        5.795,
+                        5.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0009557606970132829",
+                    "identity_condition_win_range": [
+                        5.895,
+                        5.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.005319016052943487",
+                    "identity_condition_win_range": [
+                        5.995,
+                        6.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0009557606970132829",
+                    "identity_condition_win_range": [
+                        6.095,
+                        6.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0037399331622258894",
+                    "identity_condition_win_range": [
+                        6.195,
+                        6.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0012050895744950088",
+                    "identity_condition_win_range": [
+                        6.295,
+                        6.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.008975839589342135",
+                    "identity_condition_win_range": [
+                        6.395,
+                        6.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0005402125678770728",
+                    "identity_condition_win_range": [
+                        6.495,
+                        6.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.004321700543016583",
+                    "identity_condition_win_range": [
+                        6.595,
+                        6.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0009557606970132829",
+                    "identity_condition_win_range": [
+                        6.695,
+                        6.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.004321700543016583",
+                    "identity_condition_win_range": [
+                        6.795,
+                        6.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0007064318195315569",
+                    "identity_condition_win_range": [
+                        6.895,
+                        6.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.003407494658916921",
+                    "identity_condition_win_range": [
+                        6.995,
+                        7.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0009557606970132829",
+                    "identity_condition_win_range": [
+                        7.095,
+                        7.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.005111241988375381",
+                    "identity_condition_win_range": [
+                        7.195,
+                        7.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0007064318195315569",
+                    "identity_condition_win_range": [
+                        7.295,
+                        7.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00253484358773088",
+                    "identity_condition_win_range": [
+                        7.395,
+                        7.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0007479866324451778",
+                    "identity_condition_win_range": [
+                        7.495,
+                        7.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0035737139105714052",
+                    "identity_condition_win_range": [
+                        7.595,
+                        7.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00045710294204983086",
+                    "identity_condition_win_range": [
+                        7.695,
+                        7.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0027426176522989854",
+                    "identity_condition_win_range": [
+                        7.795,
+                        7.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00045710294204983086",
+                    "identity_condition_win_range": [
+                        7.895,
+                        7.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.003615268723485026",
+                    "identity_condition_win_range": [
+                        7.995,
+                        8.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0006233221937043149",
+                    "identity_condition_win_range": [
+                        8.095,
+                        8.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0021608502715082913",
+                    "identity_condition_win_range": [
+                        8.195,
+                        8.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0006233221937043149",
+                    "identity_condition_win_range": [
+                        8.295,
+                        8.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.002867282091039848",
+                    "identity_condition_win_range": [
+                        8.395,
+                        8.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004155481291362099",
+                    "identity_condition_win_range": [
+                        8.495,
+                        8.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0016621925165448395",
+                    "identity_condition_win_range": [
+                        8.595,
+                        8.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004155481291362099",
+                    "identity_condition_win_range": [
+                        8.695,
+                        8.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0017453021423720816",
+                    "identity_condition_win_range": [
+                        8.795,
+                        8.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0003324385033089679",
+                    "identity_condition_win_range": [
+                        8.895,
+                        8.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0026179532135581223",
+                    "identity_condition_win_range": [
+                        8.995,
+                        9.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0003739933162225889",
+                    "identity_condition_win_range": [
+                        9.095,
+                        9.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0017037473294584605",
+                    "identity_condition_win_range": [
+                        9.195,
+                        9.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0003739933162225889",
+                    "identity_condition_win_range": [
+                        9.295,
+                        9.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0010388703228405248",
+                    "identity_condition_win_range": [
+                        9.395,
+                        9.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004986577549634519",
+                    "identity_condition_win_range": [
+                        9.495,
+                        9.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00253484358773088",
+                    "identity_condition_win_range": [
+                        9.595,
+                        9.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00016621925165448396",
+                    "identity_condition_win_range": [
+                        9.695,
+                        9.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0014959732648903556",
+                    "identity_condition_win_range": [
+                        9.795,
+                        9.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00029088369039534693",
+                    "identity_condition_win_range": [
+                        9.895,
+                        9.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.012341779435345434",
+                    "identity_condition_win_range": [
+                        9.995,
+                        10.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00029088369039534693",
+                    "identity_condition_win_range": [
+                        10.095,
+                        10.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0032828302201760584",
+                    "identity_condition_win_range": [
+                        10.195,
+                        10.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0011635347615813877",
+                    "identity_condition_win_range": [
+                        10.295,
+                        10.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0022855147102491544",
+                    "identity_condition_win_range": [
+                        10.395,
+                        10.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0003324385033089679",
+                    "identity_condition_win_range": [
+                        10.495,
+                        10.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0009973155099269038",
+                    "identity_condition_win_range": [
+                        10.595,
+                        10.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004986577549634519",
+                    "identity_condition_win_range": [
+                        10.695,
+                        10.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0018699665811129447",
+                    "identity_condition_win_range": [
+                        10.795,
+                        10.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00029088369039534693",
+                    "identity_condition_win_range": [
+                        10.895,
+                        10.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0012050895744950088",
+                    "identity_condition_win_range": [
+                        10.995,
+                        11.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004155481291362099",
+                    "identity_condition_win_range": [
+                        11.095,
+                        11.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0013297540132358716",
+                    "identity_condition_win_range": [
+                        11.195,
+                        11.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00024932887748172595",
+                    "identity_condition_win_range": [
+                        11.295,
+                        11.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0010804251357541456",
+                    "identity_condition_win_range": [
+                        11.395,
+                        11.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00024932887748172595",
+                    "identity_condition_win_range": [
+                        11.495,
+                        11.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0012466443874086298",
+                    "identity_condition_win_range": [
+                        11.595,
+                        11.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00024932887748172595",
+                    "identity_condition_win_range": [
+                        11.695,
+                        11.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0010804251357541456",
+                    "identity_condition_win_range": [
+                        11.795,
+                        11.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00024932887748172595",
+                    "identity_condition_win_range": [
+                        11.895,
+                        11.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0013297540132358716",
+                    "identity_condition_win_range": [
+                        11.995,
+                        12.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00012466443874086297",
+                    "identity_condition_win_range": [
+                        12.095,
+                        12.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0010388703228405248",
+                    "identity_condition_win_range": [
+                        12.195,
+                        12.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00024932887748172595",
+                    "identity_condition_win_range": [
+                        12.295,
+                        12.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0006648770066179358",
+                    "identity_condition_win_range": [
+                        12.395,
+                        12.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00020777406456810494",
+                    "identity_condition_win_range": [
+                        12.495,
+                        12.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0009557606970132829",
+                    "identity_condition_win_range": [
+                        12.595,
+                        12.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00012466443874086297",
+                    "identity_condition_win_range": [
+                        12.695,
+                        12.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0015790828907175977",
+                    "identity_condition_win_range": [
+                        12.795,
+                        12.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00012466443874086297",
+                    "identity_condition_win_range": [
+                        12.895,
+                        12.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0007479866324451778",
+                    "identity_condition_win_range": [
+                        12.995,
+                        13.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00016621925165448396",
+                    "identity_condition_win_range": [
+                        13.095,
+                        13.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0010804251357541456",
+                    "identity_condition_win_range": [
+                        13.195,
+                        13.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00012466443874086297",
+                    "identity_condition_win_range": [
+                        13.295,
+                        13.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0006648770066179358",
+                    "identity_condition_win_range": [
+                        13.395,
+                        13.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "8.310962582724198e-05",
+                    "identity_condition_win_range": [
+                        13.495,
+                        13.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0019115213940265657",
+                    "identity_condition_win_range": [
+                        13.595,
+                        13.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "8.310962582724198e-05",
+                    "identity_condition_win_range": [
+                        13.695,
+                        13.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0005817673807906939",
+                    "identity_condition_win_range": [
+                        13.795,
+                        13.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "8.310962582724198e-05",
+                    "identity_condition_win_range": [
+                        13.895,
+                        13.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.001121979948667767",
+                    "identity_condition_win_range": [
+                        13.995,
+                        14.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "8.310962582724198e-05",
+                    "identity_condition_win_range": [
+                        14.095,
+                        14.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0009142058840996617",
+                    "identity_condition_win_range": [
+                        14.195,
+                        14.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00024932887748172595",
+                    "identity_condition_win_range": [
+                        14.295,
+                        14.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0012466443874086298",
+                    "identity_condition_win_range": [
+                        14.395,
+                        14.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00016621925165448396",
+                    "identity_condition_win_range": [
+                        14.495,
+                        14.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0007479866324451778",
+                    "identity_condition_win_range": [
+                        14.595,
+                        14.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00016621925165448396",
+                    "identity_condition_win_range": [
+                        14.695,
+                        14.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0005817673807906939",
+                    "identity_condition_win_range": [
+                        14.795,
+                        14.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "4.155481291362099e-05",
+                    "identity_condition_win_range": [
+                        14.895,
+                        14.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0005817673807906939",
+                    "identity_condition_win_range": [
+                        14.995,
+                        15.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00016621925165448396",
+                    "identity_condition_win_range": [
+                        15.095,
+                        15.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0009142058840996617",
+                    "identity_condition_win_range": [
+                        15.195,
+                        15.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00016621925165448396",
+                    "identity_condition_win_range": [
+                        15.295,
+                        15.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004986577549634519",
+                    "identity_condition_win_range": [
+                        15.395,
+                        15.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "4.155481291362099e-05",
+                    "identity_condition_win_range": [
+                        15.495,
+                        15.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0005817673807906939",
+                    "identity_condition_win_range": [
+                        15.595,
+                        15.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "4.155481291362099e-05",
+                    "identity_condition_win_range": [
+                        15.695,
+                        15.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004986577549634519",
+                    "identity_condition_win_range": [
+                        15.795,
+                        15.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0009142058840996617",
+                    "identity_condition_win_range": [
+                        15.995,
+                        16.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "4.155481291362099e-05",
+                    "identity_condition_win_range": [
+                        16.095,
+                        16.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0003739933162225889",
+                    "identity_condition_win_range": [
+                        16.195,
+                        16.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "8.310962582724198e-05",
+                    "identity_condition_win_range": [
+                        16.295,
+                        16.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00045710294204983086",
+                    "identity_condition_win_range": [
+                        16.395,
+                        16.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00016621925165448396",
+                    "identity_condition_win_range": [
+                        16.495,
+                        16.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00024932887748172595",
+                    "identity_condition_win_range": [
+                        16.595,
+                        16.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00012466443874086297",
+                    "identity_condition_win_range": [
+                        16.695,
+                        16.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0005402125678770728",
+                    "identity_condition_win_range": [
+                        16.795,
+                        16.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "8.310962582724198e-05",
+                    "identity_condition_win_range": [
+                        16.895,
+                        16.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00012466443874086297",
+                    "identity_condition_win_range": [
+                        16.995,
+                        17.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00020777406456810494",
+                    "identity_condition_win_range": [
+                        17.095,
+                        17.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0003739933162225889",
+                    "identity_condition_win_range": [
+                        17.195,
+                        17.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "8.310962582724198e-05",
+                    "identity_condition_win_range": [
+                        17.295,
+                        17.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004155481291362099",
+                    "identity_condition_win_range": [
+                        17.395,
+                        17.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "4.155481291362099e-05",
+                    "identity_condition_win_range": [
+                        17.495,
+                        17.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0005402125678770728",
+                    "identity_condition_win_range": [
+                        17.595,
+                        17.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "8.310962582724198e-05",
+                    "identity_condition_win_range": [
+                        17.695,
+                        17.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0003324385033089679",
+                    "identity_condition_win_range": [
+                        17.795,
+                        17.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00020777406456810494",
+                    "identity_condition_win_range": [
+                        17.895,
+                        17.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0012881992003222508",
+                    "identity_condition_win_range": [
+                        17.995,
+                        18.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00012466443874086297",
+                    "identity_condition_win_range": [
+                        18.095,
+                        18.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004155481291362099",
+                    "identity_condition_win_range": [
+                        18.195,
+                        18.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "8.310962582724198e-05",
+                    "identity_condition_win_range": [
+                        18.295,
+                        18.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004986577549634519",
+                    "identity_condition_win_range": [
+                        18.395,
+                        18.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00024932887748172595",
+                    "identity_condition_win_range": [
+                        18.595,
+                        18.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "4.155481291362099e-05",
+                    "identity_condition_win_range": [
+                        18.695,
+                        18.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00024932887748172595",
+                    "identity_condition_win_range": [
+                        18.795,
+                        18.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "4.155481291362099e-05",
+                    "identity_condition_win_range": [
+                        18.895,
+                        18.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00029088369039534693",
+                    "identity_condition_win_range": [
+                        18.995,
+                        19.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "8.310962582724198e-05",
+                    "identity_condition_win_range": [
+                        19.095,
+                        19.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004155481291362099",
+                    "identity_condition_win_range": [
+                        19.195,
+                        19.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "4.155481291362099e-05",
+                    "identity_condition_win_range": [
+                        19.395,
+                        19.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "8.310962582724198e-05",
+                    "identity_condition_win_range": [
+                        19.495,
+                        19.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0003739933162225889",
+                    "identity_condition_win_range": [
+                        19.595,
+                        19.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "4.155481291362099e-05",
+                    "identity_condition_win_range": [
+                        19.695,
+                        19.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004155481291362099",
+                    "identity_condition_win_range": [
+                        19.795,
+                        19.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0006233221937043149",
+                    "identity_condition_win_range": [
+                        19.995,
+                        20.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0003118628918069538",
+                    "identity_condition_win_range": [
+                        20.195,
+                        20.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        20.295,
+                        20.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004677943377104307",
+                    "identity_condition_win_range": [
+                        20.395,
+                        20.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        20.495,
+                        20.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002598857431724615",
+                    "identity_condition_win_range": [
+                        20.595,
+                        20.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00036384004044144613",
+                    "identity_condition_win_range": [
+                        20.795,
+                        20.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        20.895,
+                        20.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0005717486349794153",
+                    "identity_condition_win_range": [
+                        20.995,
+                        21.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002598857431724615",
+                    "identity_condition_win_range": [
+                        21.195,
+                        21.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        21.295,
+                        21.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002079085945379692",
+                    "identity_condition_win_range": [
+                        21.395,
+                        21.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        21.495,
+                        21.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002598857431724615",
+                    "identity_condition_win_range": [
+                        21.595,
+                        21.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        21.695,
+                        21.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0003118628918069538",
+                    "identity_condition_win_range": [
+                        21.795,
+                        21.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002079085945379692",
+                    "identity_condition_win_range": [
+                        21.895,
+                        21.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0003118628918069538",
+                    "identity_condition_win_range": [
+                        21.995,
+                        22.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        22.095,
+                        22.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004677943377104307",
+                    "identity_condition_win_range": [
+                        22.195,
+                        22.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        22.295,
+                        22.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00036384004044144613",
+                    "identity_condition_win_range": [
+                        22.395,
+                        22.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        22.495,
+                        22.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        22.595,
+                        22.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        22.695,
+                        22.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002598857431724615",
+                    "identity_condition_win_range": [
+                        22.795,
+                        22.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        22.895,
+                        22.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        22.995,
+                        23.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        23.095,
+                        23.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002079085945379692",
+                    "identity_condition_win_range": [
+                        23.195,
+                        23.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        23.295,
+                        23.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002598857431724615",
+                    "identity_condition_win_range": [
+                        23.395,
+                        23.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        23.495,
+                        23.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        23.595,
+                        23.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        23.695,
+                        23.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        23.795,
+                        23.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        23.895,
+                        23.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002079085945379692",
+                    "identity_condition_win_range": [
+                        23.995,
+                        24.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002598857431724615",
+                    "identity_condition_win_range": [
+                        24.195,
+                        24.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        24.295,
+                        24.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        24.395,
+                        24.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        24.495,
+                        24.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004677943377104307",
+                    "identity_condition_win_range": [
+                        24.595,
+                        24.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        24.695,
+                        24.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        24.795,
+                        24.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        24.895,
+                        24.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0005717486349794153",
+                    "identity_condition_win_range": [
+                        25.195,
+                        25.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        25.495,
+                        25.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00036384004044144613",
+                    "identity_condition_win_range": [
+                        25.595,
+                        25.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002598857431724615",
+                    "identity_condition_win_range": [
+                        25.795,
+                        25.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        25.895,
+                        25.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002079085945379692",
+                    "identity_condition_win_range": [
+                        25.995,
+                        26.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        26.095,
+                        26.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        26.195,
+                        26.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        26.295,
+                        26.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.000519771486344923",
+                    "identity_condition_win_range": [
+                        26.395,
+                        26.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        26.495,
+                        26.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002598857431724615",
+                    "identity_condition_win_range": [
+                        26.595,
+                        26.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        26.695,
+                        26.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0003118628918069538",
+                    "identity_condition_win_range": [
+                        26.795,
+                        26.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002598857431724615",
+                    "identity_condition_win_range": [
+                        26.995,
+                        27.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        27.095,
+                        27.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        27.195,
+                        27.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        27.295,
+                        27.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        27.395,
+                        27.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        27.495,
+                        27.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        27.595,
+                        27.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        27.695,
+                        27.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004158171890759384",
+                    "identity_condition_win_range": [
+                        27.795,
+                        27.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        27.895,
+                        27.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002598857431724615",
+                    "identity_condition_win_range": [
+                        27.995,
+                        28.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        28.095,
+                        28.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00036384004044144613",
+                    "identity_condition_win_range": [
+                        28.195,
+                        28.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        28.295,
+                        28.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        28.395,
+                        28.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        28.495,
+                        28.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        28.595,
+                        28.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002079085945379692",
+                    "identity_condition_win_range": [
+                        28.795,
+                        28.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        28.895,
+                        28.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        28.995,
+                        29.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        29.095,
+                        29.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        29.195,
+                        29.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        29.395,
+                        29.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        29.595,
+                        29.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        29.795,
+                        29.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        29.995,
+                        30.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        30.195,
+                        30.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        30.395,
+                        30.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        30.595,
+                        30.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        30.695,
+                        30.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        30.795,
+                        30.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        30.995,
+                        31.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        31.195,
+                        31.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        31.395,
+                        31.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        31.495,
+                        31.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        31.595,
+                        31.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        31.795,
+                        31.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        31.995,
+                        32.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        32.295,
+                        32.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        32.595,
+                        32.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        32.795,
+                        32.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        32.995,
+                        33.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0003118628918069538",
+                    "identity_condition_win_range": [
+                        33.195,
+                        33.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        33.395,
+                        33.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        33.495,
+                        33.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        33.595,
+                        33.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        33.795,
+                        33.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        33.995,
+                        34.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        34.195,
+                        34.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        34.395,
+                        34.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        34.595,
+                        34.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002079085945379692",
+                    "identity_condition_win_range": [
+                        34.795,
+                        34.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        34.895,
+                        34.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        34.995,
+                        35.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        35.395,
+                        35.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        35.595,
+                        35.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002598857431724615",
+                    "identity_condition_win_range": [
+                        35.995,
+                        36.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        36.095,
+                        36.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        36.195,
+                        36.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        36.395,
+                        36.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        36.795,
+                        36.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        37.095,
+                        37.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        37.395,
+                        37.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        37.595,
+                        37.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        37.795,
+                        37.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        37.895,
+                        37.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        37.995,
+                        38.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        38.695,
+                        38.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        38.795,
+                        38.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        38.895,
+                        38.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        38.995,
+                        39.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        39.195,
+                        39.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        39.395,
+                        39.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0002079085945379692",
+                    "identity_condition_win_range": [
+                        39.595,
+                        39.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        39.795,
+                        39.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        39.995,
+                        40.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        40.195,
+                        40.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        40.395,
+                        40.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        40.795,
+                        40.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        40.995,
+                        41.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        41.195,
+                        41.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        41.895,
+                        41.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        41.995,
+                        42.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        42.395,
+                        42.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        43.195,
+                        43.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        43.495,
+                        43.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        43.795,
+                        43.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        44.495,
+                        44.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        44.595,
+                        44.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        44.795,
+                        44.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        45.495,
+                        45.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        45.895,
+                        45.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        45.995,
+                        46.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        46.595,
+                        46.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        46.795,
+                        46.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        47.995,
+                        48.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        48.395,
+                        48.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        48.595,
+                        48.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        49.095,
+                        49.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        49.495,
+                        49.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        49.795,
+                        49.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0019751316481107077",
+                    "identity_condition_win_range": [
+                        49.995,
+                        50.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        50.095,
+                        50.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0004158171890759384",
+                    "identity_condition_win_range": [
+                        50.195,
+                        50.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        50.295,
+                        50.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        50.395,
+                        50.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        50.495,
+                        50.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        51.095,
+                        51.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        51.195,
+                        51.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        51.595,
+                        51.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        51.695,
+                        51.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        51.795,
+                        51.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        51.895,
+                        51.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        51.995,
+                        52.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        52.295,
+                        52.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        52.395,
+                        52.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        52.495,
+                        52.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001559314459034769",
+                    "identity_condition_win_range": [
+                        52.995,
+                        53.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        53.095,
+                        53.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        53.195,
+                        53.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        53.495,
+                        53.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        53.795,
+                        53.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        53.895,
+                        53.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        53.995,
+                        54.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        54.395,
+                        54.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        54.595,
+                        54.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        55.195,
+                        55.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        55.395,
+                        55.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        55.995,
+                        56.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        56.395,
+                        56.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        57.395,
+                        57.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        57.795,
+                        57.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        58.395,
+                        58.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        58.595,
+                        58.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        58.795,
+                        58.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        58.995,
+                        59.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        59.395,
+                        59.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        59.595,
+                        59.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        59.995,
+                        60.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        60.395,
+                        60.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        61.795,
+                        61.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        61.995,
+                        62.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        64.395,
+                        64.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        64.795,
+                        64.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        65.395,
+                        65.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        65.795,
+                        65.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        65.995,
+                        66.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        66.395,
+                        66.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        67.095,
+                        67.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        67.195,
+                        67.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        68.295,
+                        68.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        70.395,
+                        70.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        70.895,
+                        70.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        71.595,
+                        71.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        71.995,
+                        72.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        72.395,
+                        72.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        73.995,
+                        74.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        74.795,
+                        74.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        76.795,
+                        76.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        76.895,
+                        76.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        79.395,
+                        79.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        79.795,
+                        79.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        79.995,
+                        80.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.0001039542972689846",
+                    "identity_condition_win_range": [
+                        80.995,
+                        81.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        82.395,
+                        82.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        82.595,
+                        82.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        84.695,
+                        84.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        84.995,
+                        85.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        85.195,
+                        85.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        86.195,
+                        86.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        90.195,
+                        90.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        90.595,
+                        90.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        92.195,
+                        92.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        94.595,
+                        94.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "5.19771486344923e-05",
+                    "identity_condition_win_range": [
+                        99.195,
+                        99.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        104.395,
+                        104.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        105.495,
+                        105.505
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        107.195,
+                        107.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        111.695,
+                        111.705
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        122.395,
+                        122.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        125.795,
+                        125.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        132.595,
+                        132.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        136.795,
+                        136.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        141.795,
+                        141.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        151.895,
+                        151.905
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        155.395,
+                        155.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        157.295,
+                        157.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        161.995,
+                        162.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        169.995,
+                        170.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        171.295,
+                        171.305
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        179.995,
+                        180.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        189.195,
+                        189.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        198.195,
+                        198.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        200.395,
+                        200.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        223.795,
+                        223.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        242.995,
+                        243.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.000758606484320415",
+                    "identity_condition_win_range": [
+                        249.995,
+                        250.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00021674470980583287",
+                    "identity_condition_win_range": [
+                        250.195,
+                        250.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        250.795,
+                        250.805
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        251.195,
+                        251.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        251.995,
+                        252.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        253.395,
+                        253.405
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00021674470980583287",
+                    "identity_condition_win_range": [
+                        253.995,
+                        254.005
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        271.195,
+                        271.205
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        283.095,
+                        283.105
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        312.595,
+                        312.605
+                    ],
+                    "prob": 1.0
+                },
+                {
+                    "fence": "basegame",
+                    "scale_factor": "0.00010837235490291643",
+                    "identity_condition_win_range": [
+                        429.395,
+                        429.405
+                    ],
+                    "prob": 1.0
+                }
+            ]
+        },
+        {
+            "bet_mode": "chance",
+            "dresses": []
+        },
+        {
+            "bet_mode": "fillup",
+            "dresses": []
+        },
+        {
+            "bet_mode": "premium",
+            "dresses": []
+        },
+        {
+            "bet_mode": "nitro",
+            "dresses": []
+        },
+        {
+            "bet_mode": "midnight",
+            "dresses": []
+        }
+    ],
+    "bias": [
+        {
+            "bet_mode": "base",
+            "bias": [
+                {
+                    "criteria": "",
+                    "range": [
+                        0.0,
+                        0.0
+                    ],
+                    "prob": 0.0
+                }
+            ]
+        },
+        {
+            "bet_mode": "chance",
+            "bias": [
+                {
+                    "criteria": "",
+                    "range": [
+                        0.0,
+                        0.0
+                    ],
+                    "prob": 0.0
+                }
+            ]
+        },
+        {
+            "bet_mode": "fillup",
+            "bias": [
+                {
+                    "criteria": "",
+                    "range": [
+                        0.0,
+                        0.0
+                    ],
+                    "prob": 0.0
+                }
+            ]
+        },
+        {
+            "bet_mode": "premium",
+            "bias": [
+                {
+                    "criteria": "",
+                    "range": [
+                        0.0,
+                        0.0
+                    ],
+                    "prob": 0.0
+                }
+            ]
+        },
+        {
+            "bet_mode": "nitro",
+            "bias": [
+                {
+                    "criteria": "",
+                    "range": [
+                        0.0,
+                        0.0
+                    ],
+                    "prob": 0.0
+                }
+            ]
+        },
+        {
+            "bet_mode": "midnight",
+            "bias": [
+                {
+                    "criteria": "",
+                    "range": [
+                        0.0,
+                        0.0
+                    ],
+                    "prob": 0.0
+                }
+            ]
+        }
+    ]
+}

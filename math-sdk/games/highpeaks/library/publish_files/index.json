@@ -1,0 +1,40 @@
+{
+    "modes": [
+        {
+            "name": "base",
+            "cost": 1.0,
+            "events": "books_base.jsonl.zst",
+            "weights": "lookUpTable_base_0.csv"
+        },
+        {
+            "name": "chance",
+            "cost": 3.0,
+            "events": "books_chance.jsonl.zst",
+            "weights": "lookUpTable_chance_0.csv"
+        },
+        {
+            "name": "fillup",
+            "cost": 100.0,
+            "events": "books_fillup.jsonl.zst",
+            "weights": "lookUpTable_fillup_0.csv"
+        },
+        {
+            "name": "premium",
+            "cost": 300.0,
+            "events": "books_premium.jsonl.zst",
+            "weights": "lookUpTable_premium_0.csv"
+        },
+        {
+            "name": "nitro",
+            "cost": 500.0,
+            "events": "books_nitro.jsonl.zst",
+            "weights": "lookUpTable_nitro_0.csv"
+        },
+        {
+            "name": "midnight",
+            "cost": 500.0,
+            "events": "books_midnight.jsonl.zst",
+            "weights": "lookUpTable_midnight_0.csv"
+        }
+    ]
+}
