@@ -39,3 +39,7 @@ dist/
 # High Peaks
 art/highpeaks/work/
 .claude/settings.local.json
+# music: keep the chosen sources (art/music-src/<cue>.mp3) and the take the intro is pitched from; the rest are rejects
+art/music-src/takes/*
+!art/music-src/takes/intro_b1.mp3
+art/music-src/*.wav

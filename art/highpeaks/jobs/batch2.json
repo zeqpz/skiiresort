@@ -1,0 +1,40 @@
+[
+ {
+  "name": "frame_wide",
+  "aspect_ratio": "3:2",
+  "background": "transparent",
+  "prompt": "A slot-game board frame on a fully transparent background: a wide rectangular border made of chunky cartoon log wood (warm brown logs with darker grain lines, round log ends at the four corners), a thick pile of white snow draped along the top edge with a few icicles hanging down, a small green cannabis leaf and a pinecone tucked in the top corners. The border is fairly thin (the side bands about 4% of the width, the top band a little taller with the snow) and the WHOLE inside of the rectangle is empty and fully transparent - nothing drawn inside the frame. The frame fills the picture edge to edge.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "frame_sq",
+  "aspect_ratio": "4:3",
+  "background": "transparent",
+  "prompt": "A slot-game board frame on a fully transparent background: a slightly wide rectangular border made of chunky cartoon log wood (warm brown logs with darker grain lines, round log ends at the four corners), a thick pile of white snow draped along the top edge with a few icicles hanging down, a small green cannabis leaf and a pinecone tucked in the top corners. The border is fairly thin (the side bands about 4% of the width, the top band a little taller with the snow) and the WHOLE inside of the rectangle is empty and fully transparent - nothing drawn inside the frame. The frame fills the picture edge to edge.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "jp_board",
+  "aspect_ratio": "2:3",
+  "background": "transparent",
+  "prompt": "A tall vertical slot-game jackpot panel border on a fully transparent background: a tall rectangular frame of chunky carved cartoon log wood with round log ends at the corners, a thick cap of white snow on the top with icicles, a small snowy mountain-peak crest with a green cannabis leaf at the top centre, little pinecones at the bottom corners. The frame bands are thin (about 6% of the width) and the WHOLE inside is empty and fully transparent. Nothing else.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "bonus_btn",
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "refs": [
+   "art/highpeaks/raw/sym_H1_bong.png"
+  ],
+  "prompt": "A single round slot-game BUY BONUS button icon on a fully transparent background: a cartoon wooden treasure chest with a snowy lid, bursting open with glowing green cannabis buds, gold coins and sparkles, and a curved red ribbon banner across the front reading BONUS in bold white cartoon letters with a black outline. Centred, fills about 90% of the square, nothing else. Match the drawing style of the reference image.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "board_bg",
+  "aspect_ratio": "16:9",
+  "prompt": "A flat seamless background texture, no objects, no text: dark midnight-blue cartoon wooden planks running horizontally with thin darker grain lines and a faint scatter of small pale-blue snowflakes, very low contrast, calm, even all over (it sits behind slot symbols).\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "smoke_puff",
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "prompt": "A single puffy round cartoon smoke cloud, soft lime-green with lighter highlights and a thin dark outline, on a fully transparent background, centred, nothing else.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ }
+]

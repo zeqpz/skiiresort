@@ -8,7 +8,7 @@ The prompts are in cues.py. Takes land in %TEMP%/music_gen/<cue>/<stamp>_<n>.mp3
 sends back: MP3, 44.1 kHz stereo, 192 kbps - each with a .json beside it (model, prompt, cost). Copy
 the keeper to art/music-src/<cue>.mp3 and run tools/music/build.py to cut it into the game's loop.
 
-The key is read from ~/.falcos/openrouter-key.txt (never printed, never committed),
+The key is read from ~/.highpeaks/openrouter-key.txt (never printed, never committed),
 as tools/icon_redraw does.
 """
 import base64, json, os, sys, tempfile, threading, time, urllib.error, urllib.request
@@ -16,7 +16,7 @@ import base64, json, os, sys, tempfile, threading, time, urllib.error, urllib.re
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cues import CUES
 
-KEY_FILE = os.path.join(os.path.expanduser("~"), ".falcos", "openrouter-key.txt")
+KEY_FILE = os.path.join(os.path.expanduser("~"), ".highpeaks", "openrouter-key.txt")
 URL = "https://openrouter.ai/api/v1/chat/completions"
 MODELS = {"pro": "google/lyria-3-pro-preview", "clip": "google/lyria-3-clip-preview"}
 OUT = os.path.join(tempfile.gettempdir(), "music_gen")
@@ -30,7 +30,7 @@ def generate(prompt, model):
     key = open(KEY_FILE, encoding="utf-8").read().strip()
     req = urllib.request.Request(URL, data=json.dumps(body).encode("utf-8"), headers={
         "Authorization": "Bearer " + key, "Content-Type": "application/json",
-        "User-Agent": "falcos-music/1.0", "X-Title": "Falcos music"})
+        "User-Agent": "highpeaks-music/1.0", "X-Title": "High Peaks music"})
     audio, text, usage = [], [], None
     try:
         with urllib.request.urlopen(req, timeout=900) as r:

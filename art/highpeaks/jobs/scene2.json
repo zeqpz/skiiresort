@@ -1,0 +1,38 @@
+[
+ {
+  "name": "plate_base2",
+  "aspect_ratio": "16:9",
+  "size": "3840x2160",
+  "prompt": "Slot-game background scene, full-bleed wide landscape, richly detailed but clean and readable: a cartoon ski resort village at the foot of huge snowy mountains on a bright sunny day. CENTRE: a big cosy two-storey wooden ski lodge with a snowy roof, a big chunky wooden roof sign that reads HIGH PEAKS with two small green cannabis leaves on it, warm glowing windows with little silhouettes of mugs and plants inside, a stone chimney on the left of the roof (no smoke - the top of the chimney is clear), icicles on the eaves, a front porch with two cannabis plants in snowy planters, a lantern, a snowman wearing sunglasses and a beanie by the door. LEFT: snowy pine trees, a wooden trail sign post with green circle, blue square and black diamond plates, a small frozen pond, a couple of tiny cabins with smoke-free chimneys further back. RIGHT: a long wide groomed ski run curving down the mountain from the top right to the lodge, completely empty of people, and beside it a chairlift: tall grey towers and a cable line running diagonally up the slope - the cable is EMPTY, NO CHAIRS on it. A colourful ski rack with skis and snowboards near the lodge on the right. BACK: tall white peaks with blue shading against a clear bright blue sky, a few far-off tiny cabins and pine forests on the slopes. Keep the sky free of clouds and keep the upper sky simple. Plenty of calm snow in the lower third. The lodge stays centred.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "spr_chair",
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "prompt": "A single small cartoon sprite on a fully transparent background, nothing else, centred: an empty red double chairlift chair hanging from its grip arm (the grip at the top centre), seen from the side.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "spr_chair2",
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "prompt": "A single small cartoon sprite on a fully transparent background, nothing else, centred: a red double chairlift chair hanging from its grip arm (grip at the top centre), seen from the side, carrying two goofy cartoon skiers in puffy jackets and beanies, one holding a joint with a puff of smoke.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "spr_skier",
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "prompt": "A single small cartoon sprite on a fully transparent background, nothing else, centred: a goofy cartoon skier in a bright orange puffy jacket, beanie and goggles, skiing downhill to the LEFT, side view, a little spray of snow behind.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "spr_boarder",
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "prompt": "A single small cartoon sprite on a fully transparent background, nothing else, centred: a goofy cartoon snowboarder in a purple jacket and green beanie with a cannabis-leaf patch, riding downhill to the LEFT, side view, a little spray of snow behind.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "spr_cloud",
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "prompt": "A single small cartoon sprite on a fully transparent background, nothing else, centred: one fat fluffy white cartoon cloud with a light blue shaded underside and a thin dark outline.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ }
+]

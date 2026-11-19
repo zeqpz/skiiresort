@@ -78,7 +78,7 @@
     --sym-fit: .92;    /* a symbol fills this share of its tile (SYM_FIT in the script, boardgl.js) */
     /* frame_sq.webp's glass opening, as fractions of the picture (frame_sq.json, measured by
        compress_assets.py - keep these in step with it): left, top, width, height */
-    --fo-l: .03402; --fo-t: .13833; --fo-w: .93196; --fo-h: .82313;
+    --fo-l: .07000; --fo-t: .23155; --fo-w: .85562; --fo-h: .67255;
   }
   /* A wider board on a landscape screen (owner, 2026-11-10: "make it wider"): there the board is as tall as it
      can be, so it grows sideways - square cells in frame_wide.webp, whose glass is cut for that grid (1.475:1,
@@ -87,7 +87,7 @@
      the symbols smaller: it keeps the 106 px cells and frame_sq. */
   @media (orientation: landscape) and (min-aspect-ratio: 4/3) {
     /* 150 px cells (owner, 2026-11-17: "make it wider"; was 134): frame_wide re-cut by tools/falcos/widen_frame.py */
-    :root { --cell-w: 150px; --fo-l: .03096; --fo-t: .15494; --fo-w: .93808; --fo-h: .80189; }
+    :root { --cell-w: 150px; --fo-l: .07583; --fo-t: .20567; --fo-w: .84530; --fo-h: .67022; }
   }
   @media (max-width: 900px) and (max-height: 1000px), (max-height: 500px) {
     :root { --wall-img: url("assets/bonus_wall_m.webp"); --zombie-img: url("assets/scene/plate_zombie_m.webp");
@@ -3091,22 +3091,92 @@
   html.railside .ftotal { height: 84px; padding-left: 12px; }
 
   /* ---------- High Peaks jackpots ---------- */
-  .jpbar { display: flex; flex-direction: row; justify-content: center; gap: 14px; margin: 0 auto 14px; position: relative; z-index: 6; }
-  html.railside .jpbar { position: absolute; flex-direction: column; margin: 0; gap: 16px;
-    right: calc(100% + 26px); top: 50%; transform: translateY(-58%) scale(clamp(.8, calc(var(--side, 400) / 300), 1.35)); transform-origin: right center; }
-  .jp { position: relative; width: 210px; height: 92px; display: grid; place-items: center; border-radius: 26px;
-    background: rgba(8, 22, 44, .55); box-shadow: 0 0 0 3px rgba(255,255,255,.08) inset, 0 6px 14px rgba(0,0,0,.35);
+  /* (owner, 2026-11-18, with a reference: "make the grand major minor mini on a board like this on the left side with a
+     art border that fits the theme") - landscape: a tall log-framed board left of the reels (jackpot/board.webp, its
+     opening measured at l .123 t .177 r .137 b .072), one coloured row per jackpot, its plaque over a big prize figure.
+     Portrait: the four rows side by side above the board. */
+  .jpbar { display: flex; flex-direction: row; justify-content: center; gap: 10px; margin: 0 auto 16px; position: relative; z-index: 6; }
+  html.railside .jpbar { position: absolute; flex-direction: column; justify-content: stretch; margin: 0; gap: 0;
+    right: calc(100% + 30px); top: 50%; width: 330px; aspect-ratio: 600 / 900;
+    padding: calc(330px * 900 / 600 * .177) calc(330px * .137) calc(330px * 900 / 600 * .072) calc(330px * .123);
+    transform: translateY(-50%) scale(clamp(.75, calc(var(--side, 400) / 380), 1.3)); transform-origin: right center; }
+  html.railside .jpbar::before { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: url("assets/jackpot/board.webp") center / 100% 100% no-repeat; filter: drop-shadow(0 10px 16px rgba(0,0,0,.45)); }
+  html.railside .jpbar::after { content: ""; position: absolute; z-index: 0; pointer-events: none; border-radius: 10px;
+    left: calc(330px * .1); right: calc(330px * .11); top: calc(330px * 900 / 600 * .16); bottom: calc(330px * 900 / 600 * .055);
+    background: #120c08; }
+  .jp { position: relative; z-index: 1; width: 200px; height: 96px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border-radius: 16px; background: var(--jpbg); box-shadow: inset 0 0 0 3px rgba(255,255,255,.12), inset 0 -10px 18px rgba(0,0,0,.35), 0 6px 14px rgba(0,0,0,.35);
     transition: transform .12s ease, filter .12s ease, box-shadow .12s ease; }
-  .jp img { position: absolute; left: 8px; right: 8px; top: 4px; height: 56px; width: calc(100% - 16px); object-fit: contain; pointer-events: none; }
-  .jp .jpv { position: absolute; bottom: 6px; left: 0; right: 0; text-align: center; font: 800 22px/1 var(--font-num, "Fredoka", sans-serif);
-    color: #fff; text-shadow: 0 2px 0 #000, 0 0 6px rgba(0,0,0,.8); letter-spacing: .02em; }
-  .jp.grand .jpv { color: #FFE58A; }
-  .jpbar.spinning .jp { filter: saturate(.55) brightness(.75); }
-  .jp.lit { filter: none !important; transform: scale(1.12); box-shadow: 0 0 0 4px #fff inset, 0 0 26px 6px var(--jpc, #8CFF5A); }
-  .jp.mini { --jpc: #7CFF4F; } .jp.minor { --jpc: #4FC3FF; } .jp.major { --jpc: #C46BFF; } .jp.grand { --jpc: #FFD23F; }
-  .jp.won { filter: none !important; animation: jpwon .38s ease-in-out infinite alternate; }
-  @keyframes jpwon { from { transform: scale(1.1); box-shadow: 0 0 0 4px #fff inset, 0 0 18px 4px var(--jpc); }
-                     to { transform: scale(1.22); box-shadow: 0 0 0 5px #fff inset, 0 0 42px 14px var(--jpc); } }
+  html.railside .jp { width: auto; height: auto; flex: 1; border-radius: 0; margin: 0;
+    border-top: 4px solid #3a2414; box-shadow: inset 0 0 0 2px rgba(255,255,255,.1), inset 0 -12px 22px rgba(0,0,0,.4); }
+  html.railside .jp:first-child { border-top: 0; }
+  .jp img { height: 46%; width: 86%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 2px 0 rgba(0,0,0,.6)); }
+  .jp .jpv { margin-top: 2px; font: 800 26px/1 "Fredoka", sans-serif; color: #fff; letter-spacing: .02em;
+    text-shadow: 0 3px 0 #000, 0 0 2px #000, 0 0 10px rgba(0,0,0,.7); -webkit-text-stroke: 1.5px #000; paint-order: stroke fill; }
+  html.railside .jp .jpv { font-size: 34px; }
+  .jp.grand { --jpc: #FFD23F; --jpbg: linear-gradient(180deg, #8a1a10, #4d0a06); } .jp.grand .jpv { color: #FFE58A; }
+  .jp.major { --jpc: #C46BFF; --jpbg: linear-gradient(180deg, #5a1a8a, #2c0a4d); }
+  .jp.minor { --jpc: #4FC3FF; --jpbg: linear-gradient(180deg, #164d9a, #0a2552); }
+  .jp.mini  { --jpc: #7CFF4F; --jpbg: linear-gradient(180deg, #1d7a1d, #0b3d0e); }
+  .jpbar.spinning .jp { filter: saturate(.5) brightness(.65); }
+  .jp.lit { filter: none !important; z-index: 3; transform: scale(1.08); box-shadow: inset 0 0 0 4px #fff, 0 0 30px 8px var(--jpc); }
+  .jp.won { filter: none !important; z-index: 3; animation: jpwon .38s ease-in-out infinite alternate; }
+  @keyframes jpwon { from { transform: scale(1.06); box-shadow: inset 0 0 0 4px #fff, 0 0 18px 4px var(--jpc); }
+                     to { transform: scale(1.14); box-shadow: inset 0 0 0 5px #fff, 0 0 46px 16px var(--jpc); } }
+  /* an idle shimmer down the board now and then, so it never sits dead */
+  .jp::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; opacity: .0;
+    background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.35) 50%, transparent 65%) -150% 0 / 250% 100% no-repeat;
+    animation: jpshine 7s ease-in-out infinite; }
+  .jp.major::after { animation-delay: .35s; } .jp.minor::after { animation-delay: .7s; } .jp.mini::after { animation-delay: 1.05s; }
+  @keyframes jpshine { 0%, 80% { opacity: 0; background-position: -150% 0; } 82% { opacity: 1; } 96% { opacity: 1; background-position: 150% 0; } 100% { opacity: 0; } }
+  /* ---------- High Peaks HUD (owner, 2026-11-18: "make the hud a half transparency simple black and white hud thats
+     slightly transparent"): the same silhouette and pieces, now see-through black with white outlines and white glyphs,
+     a soft shadow instead of the cartoon's hard one; what is on reads as white */
+  :root {
+    --hud-fill: rgba(0, 0, 0, .48);
+    --hud-line: rgba(255, 255, 255, .88);
+    --hud-hi: #fff;
+    --hud-on: #fff;
+    --hud-ink: #fff;
+    --hud-soft: rgba(255, 255, 255, .72);
+    --spin-hex: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 148 128'><path d='M39 4h70l35 60-35 60H39L4 64z' fill='rgba(0,0,0,0.55)' stroke='%23ffffff' stroke-width='5' stroke-linejoin='round'/></svg>");
+    --spin-hex-on: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 148 128'><path d='M39 4h70l35 60-35 60H39L4 64z' fill='rgba(255,255,255,0.28)' stroke='%23ffffff' stroke-width='6' stroke-linejoin='round'/></svg>");
+  }
+  .hudshape, .tabshape { filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .35)); }
+  .hudshape path, .tabshape path { stroke-width: 3; backdrop-filter: blur(6px); }
+  .hudframe :is(.hudbtn, .sidebtn):hover:not(:disabled) .tabshape path,
+  .hudframe .hudbtn.open .tabshape path { fill: rgba(255, 255, 255, .18); stroke: #fff; }
+  .hudframe .sidebtn.rapid.on .tabshape path, .hudframe .sidebtn.rapid.on:hover:not(:disabled) .tabshape path { fill: rgba(255, 255, 255, .85); stroke: #fff; }
+  .hudframe .sidebtn.rapid.on, .hudframe .sidebtn.rapid.on:disabled { color: #000; }
+  .hudframe .sidebtn.on::before, .hudframe .sidebtn.on:disabled::before, .hudframe .sidebtn.rapid.on::before { filter: drop-shadow(0 0 6px rgba(255, 255, 255, .8)); }
+  #balance.up { color: #fff; text-shadow: 0 0 10px rgba(255, 255, 255, .7); }
+  .hudframe .sidebtn #autoN { color: #000; background: #fff; }
+  .vfill { background: #fff !important; }
+  /* the pop-ups the bar opens and the info panel keep their own dark paint, so their text stays easy to read */
+  .hudpop, html .infopanel { background: rgba(8, 8, 10, .9) !important; border-color: rgba(255, 255, 255, .6) !important; }
+
+  /* ---------- High Peaks Buy Bonus: the treasure chest of buds (art/highpeaks/raw/bonus_btn.png) ---------- */
+  .bonusbtn { width: calc(150px * var(--hs, 1)) !important; height: calc(150px * var(--hs, 1)) !important; overflow: visible !important;
+    border: 0 !important; border-radius: 50% !important; box-shadow: none !important;
+    background: url("assets/bonus_btn.webp") center / contain no-repeat !important;
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .5)); animation: chestBob 3.4s ease-in-out infinite; }
+  .bonusbtn::before { display: none; }
+  .bonusbtn::after { content: ""; position: absolute; inset: 8%; left: 8%; top: 8%; width: auto; border-radius: 50%; transform: none; z-index: 2;
+    background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, .9) 0 2%, transparent 3%), radial-gradient(circle at 72% 32%, rgba(255, 255, 210, .9) 0 1.6%, transparent 2.6%),
+                radial-gradient(circle at 60% 18%, rgba(255, 255, 255, .85) 0 1.3%, transparent 2.3%);
+    animation: chestTwinkle 2.2s ease-in-out infinite; }
+  .bonusbtn .bb1, .bonusbtn .bb2 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .bonusbtn:hover:not(:disabled) { scale: 1.08; filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .5)) brightness(1.08); }
+  .hud .bonusbtn { bottom: 4px; }
+  @keyframes chestBob { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-7px) rotate(3deg); } }
+  @keyframes chestTwinkle { 0%, 100% { opacity: .2; } 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .bonusbtn, .bonusbtn::after { animation: none !important; } }
+
+  /* ---------- High Peaks board: dark night-blue planks behind the reels (art/highpeaks/raw/board_bg.png) ---------- */
+  .boardplate { background: linear-gradient(rgba(4, 8, 24, .35), rgba(4, 8, 24, .55)), url("assets/board_bg.webp") center / cover, #0a0c18 !important; }
+  .frameglow { --flash: #9BE7FF; }
+
   /* the "?" coin: drops in over a cell and waits there for the end of the spin */
   .jpq { position: absolute; z-index: 40; pointer-events: none; display: grid; place-items: center; }
   .jpq img { width: 92%; height: 92%; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,.55));
@@ -3286,6 +3356,7 @@
 <script src="rgs.js"></script>
 <script src="rules.js"></script>
 <script src="scenefx.js"></script>
+<script src="skyfx.js"></script>
 <script src="boardgl.js"></script>
 <script>
 "use strict";
@@ -5523,11 +5594,11 @@ function applyVolumes() {
 // game where the old loop sat, the menu under it and the bonus and its screens a little over it,
 // all well under the effects. bpm and bars give the cue's beat, so the free spins can start on one.
 const MUSIC = {
-  base:  { ogg: "assets/music_base.ogg", aac: "assets/music_base.aac", frames: 3052196, aacStart: 5824, aacFrames: 3058688, bpm: 120.779, bars: 32, level: .282 },
-  menu:  { ogg: "assets/music_menu.ogg", aac: "assets/music_menu.aac", frames: 1581614, aacStart: 5824, aacFrames: 1588224, bpm: 116.54, bars: 16, level: .224 },
-  intro: { ogg: "assets/music_intro.ogg", aac: "assets/music_intro.aac", frames: 768000, head: 266754, headLen: 295554, aacStart: 5824, aacFrames: 1070080, bpm: 120.004, bars: 8, level: .316 },
-  bonus: { ogg: "assets/music_bonus.ogg", aac: "assets/music_bonus.aac", frames: 2761515, aacStart: 5824, aacFrames: 2767872, bpm: 133.473, bars: 32, level: .355 },
-  total: { ogg: "assets/music_total.ogg", aac: "assets/music_total.aac", frames: 813608, head: 410059, headLen: 467659, aacStart: 5824, aacFrames: 1287168, bpm: 113.272, bars: 8, level: .398 },
+  base:  { ogg: "assets/music_base.ogg", aac: "assets/music_base.aac", frames: 3510854, aacStart: 5824, aacFrames: 3517440, bpm: 105.003, bars: 32, level: 0.282 },
+  menu:  { ogg: "assets/music_menu.ogg", aac: "assets/music_menu.aac", frames: 2003495, aacStart: 5824, aacFrames: 2010112, bpm: 91.993, bars: 16, level: 0.224 },
+  intro: { ogg: "assets/music_intro.ogg", aac: "assets/music_intro.aac", frames: 913310, head: 318331, headLen: 347131, aacStart: 5824, aacFrames: 1266688, bpm: 100.909, bars: 8, level: 0.316 },
+  bonus: { ogg: "assets/music_bonus.ogg", aac: "assets/music_bonus.aac", frames: 2880000, aacStart: 5824, aacFrames: 2886656, bpm: 128.0, bars: 32, level: 0.355 },
+  total: { ogg: "assets/music_total.ogg", aac: "assets/music_total.aac", frames: 768034, head: 410933, headLen: 468533, aacStart: 5824, aacFrames: 1243136, bpm: 119.95, bars: 8, level: 0.398 },
 };
 const MUSIC_RATE = 48000;
 const OPUS_OK = (() => { try { return !!new Audio().canPlayType('audio/ogg; codecs="opus"'); } catch (e) { return false; } })();
@@ -6384,6 +6455,7 @@ const Scene = (() => {
     await new Promise(r => setTimeout(r, REDUCED_MOTION ? 0 : 450));
     const a = el();
     now = name;
+    if (window.SkyFX) SkyFX.scene(name);   // the lift, skiers and smoke rest on a bonus plate; snow and clouds go on
     if (p) {
       a.style.setProperty("--alt", `url("${p.url}")`);
       a.style.setProperty("--altpatch", `url("${p.patch}")`);   // its building lettering hidden while playing
@@ -7942,6 +8014,7 @@ function fitToScreen() {
 // The scene's overlays follow the plate on every re-fit (scenefx.js also watches #bgwall itself).
 function placeScenery() {
   if (window.SceneFX && SceneFX.layout) SceneFX.layout();
+  if (window.SkyFX) SkyFX.layout();
 }
 addEventListener("resize", fitToScreen);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitToScreen).catch(() => {});
@@ -8265,6 +8338,7 @@ function runIntro() {
 runIntro();
 // the scene's life on the plate: the canopy neon, the blinks, the smoke and the window's glints
 if (window.SceneFX) SceneFX.start($("bgwall"));
+if (window.SkyFX) SkyFX.start($("bgwall"));   // High Peaks: the lift, skiers, smoke, clouds and snow
 // the bonus's counter plate wanders gently, more gently, on a path of its own (its jumps are on scale)
 hoverWin(document.querySelector("#fsCard .fsplate"), { x: .35, y: .45, r: .4, s: 0, unit: "vh", pace: 2.6 }, 0,
   v => ({ transform: `translate(${v.x.toFixed(3)}vh, ${v.y.toFixed(3)}vh) rotate(${v.r.toFixed(3)}deg)` }));

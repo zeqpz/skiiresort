@@ -4,8 +4,12 @@ A cartoon ski-resort slot for Stake Engine, built on the Falcos engine and math:
 tumbles, cell multipliers, RTP 96.50% in every mode and a max win of 50,000x. New in High Peaks: **MINI / MINOR /
 MAJOR / GRAND jackpots** (10x / 50x / 250x / 2,500x the bet), won when a **?** drops onto the board.
 
-Kept from the base game: the HUD, the black-and-white Smukiez intro, the three-card loading screen, and the
-Bonus Buy menu layout. Everything else (scene, symbols, banners, logos, loading cards and gauges) was drawn new.
+Kept from the base game: the HUD's layout (restyled see-through black and white), the black-and-white Smukiez
+intro, the three-card loading screen, and the Bonus Buy menu layout. Everything else was made new: the scene and
+its animation (`frontend/skyfx.js`: chairs riding the lift, skiers and snowboarders on the run, chimney smoke,
+drifting clouds, falling snow, flickering windows), the log board frame and plank backing, the framed jackpot
+board, the treasure-chest Buy Bonus button, symbols, banners, logos, loading cards, gauges and all five music cues
+(Lyria via OpenRouter, `tools/music`: reggae-tinged chill house, in keys that match the sound effects).
 Design: [DESIGN.md](DESIGN.md). Event contract: [math-sdk/games/highpeaks/EVENTS.md](math-sdk/games/highpeaks/EVENTS.md).
 
 ## Names (Falcos -> High Peaks)
