@@ -1,0 +1,97 @@
+{
+ "fps": 12.0,
+ "w": 300,
+ "h": 372,
+ "clips": {
+  "idle": {
+   "frames": 48,
+   "cols": 13,
+   "per_sheet": 143,
+   "sheets": [
+    "idle_0.webp"
+   ],
+   "loop": true
+  },
+  "look": {
+   "frames": 42,
+   "cols": 13,
+   "per_sheet": 143,
+   "sheets": [
+    "look_0.webp"
+   ],
+   "loop": false
+  },
+  "roll": {
+   "frames": 96,
+   "cols": 13,
+   "per_sheet": 143,
+   "sheets": [
+    "roll_0.webp"
+   ],
+   "loop": false
+  },
+  "smoke": {
+   "frames": 114,
+   "cols": 13,
+   "per_sheet": 143,
+   "sheets": [
+    "smoke_0.webp"
+   ],
+   "loop": false
+  },
+  "bong": {
+   "frames": 132,
+   "cols": 13,
+   "per_sheet": 143,
+   "sheets": [
+    "bong_0.webp"
+   ],
+   "loop": false
+  },
+  "win": {
+   "frames": 22,
+   "cols": 13,
+   "per_sheet": 143,
+   "sheets": [
+    "win_0.webp"
+   ],
+   "loop": false
+  },
+  "mult": {
+   "frames": 24,
+   "cols": 13,
+   "per_sheet": 143,
+   "sheets": [
+    "mult_0.webp"
+   ],
+   "loop": false
+  },
+  "bonus": {
+   "frames": 54,
+   "cols": 13,
+   "per_sheet": 143,
+   "sheets": [
+    "bonus_0.webp"
+   ],
+   "loop": false
+  },
+  "bonusidle": {
+   "frames": 24,
+   "cols": 13,
+   "per_sheet": 143,
+   "sheets": [
+    "bonusidle_0.webp"
+   ],
+   "loop": true
+  },
+  "tease": {
+   "frames": 22,
+   "cols": 13,
+   "per_sheet": 143,
+   "sheets": [
+    "tease_0.webp"
+   ],
+   "loop": false
+  }
+ }
+}

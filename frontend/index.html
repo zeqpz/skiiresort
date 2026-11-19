@@ -3174,8 +3174,23 @@
   @media (prefers-reduced-motion: reduce) { .bonusbtn, .bonusbtn::after { animation: none !important; } }
 
   /* ---------- High Peaks board: dark night-blue planks behind the reels (art/highpeaks/raw/board_bg.png) ---------- */
-  .boardplate { background: linear-gradient(rgba(4, 8, 24, .35), rgba(4, 8, 24, .55)), url("assets/board_bg.webp") center / cover, #0a0c18 !important; }
+  .boardplate { background: linear-gradient(rgba(4, 8, 24, .35), rgba(4, 8, 24, .55)), url("assets/board_bg.webp") center / cover, #0a0c18 !important;
+    /* (owner, 2026-11-18: "make sure the boarder outline and the background matches the size and doesnt leave any gaps")
+       the planks reach half way under the logs on every side, so no scenery shows between the frame and the board */
+    left: calc(var(--bpx) * .5) !important; right: calc(var(--bpx) * .5) !important;
+    top: calc(var(--bpt) * .62) !important; bottom: calc(var(--bpb) * .5) !important; border-radius: 8px !important; }
   .frameglow { --flash: #9BE7FF; }
+
+  /* ---------- High Peaks: the duck by the board (duckfx.js) ---------- */
+  /* upright screens: the jackpot row moves left and the duck stands on the snowy top log at the right, off the reels */
+  .duck { position: absolute; z-index: 7; pointer-events: none; aspect-ratio: 300 / 372;
+    right: 1%; bottom: calc(100% - 150px); height: 250px; filter: drop-shadow(0 8px 10px rgba(0, 0, 0, .35)); }
+  html:not(.railside) .jpbar { justify-content: flex-start; padding-left: 12px; }
+  html.railside .duck { right: auto; left: calc(100% - 34px); bottom: 30px; height: 64%; }
+  .duck canvas { width: 100%; height: 100%; display: block; }
+  /* beside the board the bonus counter sits at the top of the glass now: the duck stands at the bottom */
+  html.railside .rail { top: calc(12px + var(--rfrh) * var(--fo-t)) !important; transform: scale(min(1, calc(var(--side, 400) / 370))) !important; transform-origin: 0 0 !important; }
+  html.railside .rail:has(#fsCard.on:not(.fill)) { transform: scale(min(1.5, calc(var(--side, 400) / 190))) !important; }
 
   /* the "?" coin: drops in over a cell and waits there for the end of the spin */
   .jpq { position: absolute; z-index: 40; pointer-events: none; display: grid; place-items: center; }
@@ -3204,6 +3219,7 @@
       <div class="jp mini" data-lvl="mini"><img src="assets/jackpot/mini.webp" alt="Mini" draggable="false"><b class="jpv"></b></div>
     </div>
     <div class="board" id="board"><div class="boardplate" aria-hidden="true"></div><div class="glassfx" aria-hidden="true"></div><div class="frameglow" aria-hidden="true"></div><picture style="display: contents"><source media="(orientation: landscape) and (min-aspect-ratio: 4/3)" srcset="assets/frame_wide.webp"><img id="paintframe" src="assets/frame_sq.webp" alt="" draggable="false"></picture></div>
+    <div class="duck" id="duck" aria-hidden="true"></div>
     <div class="ticker" id="ticker"></div>
     <div class="banner" id="banner"><div class="big" id="bannerBig"></div><div class="sub2" id="bannerSub"></div><img id="bannerMural" class="muralimg" alt=""></div>
     <div class="tally" id="tally">0.00</div>
@@ -3357,6 +3373,7 @@
 <script src="rules.js"></script>
 <script src="scenefx.js"></script>
 <script src="skyfx.js"></script>
+<script src="duckfx.js"></script>
 <script src="boardgl.js"></script>
 <script>
 "use strict";
@@ -6561,6 +6578,7 @@ const handlers = {
   // A feature symbol fires (EVENTS.md order: pumps together, then tickets, then zippos, one at a time)
   async featureFire(ev) {
     clearFxWins();
+    if (window.Duck) Duck.react("mult");   // whoa
     if (ev.kind === "pump") {
       // every pump of this step goes together: take the ones that follow straight on
       const group = [ev];
@@ -6756,6 +6774,7 @@ const handlers = {
     els.forEach(el => el.classList.remove("lit"));
     bar.classList.remove("spinning");
     won.classList.add("won");
+    if (window.Duck) Duck.react("bonus");
     sfx("jpLand");
     sfx("jpWin" + ev.level[0].toUpperCase() + ev.level.slice(1));
     boardFlash("fs");
@@ -6827,6 +6846,7 @@ const handlers = {
     await bonusIntro(state.fsTotal || 10, kind === "midnight", kind, () => {
       // under the intro's black: the bonus's board and scene
       state.bonus = kind;
+      if (window.Duck) Duck.bonus(true);   // bobs to the bonus music
       syncTempo();
       state.grid = emptyGrid(); state.max = new Set();
       clearFx(); paintGrid();
@@ -7121,6 +7141,7 @@ const handlers = {
 function bonusOver() {
   fillEnd();
   state.bonus = null;
+  if (window.Duck) Duck.bonus(false);
   syncTempo();
   state.grid = emptyGrid(); state.max = new Set();
   paintGrid();
@@ -7928,7 +7949,9 @@ function refreshBet() {
 // The base game's two animated figures are gone, and the Falcos scene has no people of its own
 // any more (tools/falcos/clear_scene.py). The game's reaction hooks stay as no-ops,
 // so the event code can keep cueing them (a later pass can give the scene reactions of its own).
-let charReact = () => {}, charEnter = () => {}, charExit = () => {};
+// High Peaks: the duck (duckfx.js) answers them: a win -> a hop, a big win -> a dance, a tease -> a shrug
+const CHAR_REACT = { win: "win", big_win: "bonus", lose: "tease" };
+let charReact = kind => { if (window.Duck && CHAR_REACT[kind]) Duck.react(CHAR_REACT[kind]); }, charEnter = () => {}, charExit = () => {};
 const charsLoaded = Promise.resolve([]);
 
 /* ---------- fit to screen ---------- */
@@ -8339,6 +8362,7 @@ runIntro();
 // the scene's life on the plate: the canopy neon, the blinks, the smoke and the window's glints
 if (window.SceneFX) SceneFX.start($("bgwall"));
 if (window.SkyFX) SkyFX.start($("bgwall"));   // High Peaks: the lift, skiers, smoke, clouds and snow
+if (window.Duck) Duck.start($("duck"));        // High Peaks: the duck by the board (duckfx.js)
 // the bonus's counter plate wanders gently, more gently, on a path of its own (its jumps are on scale)
 hoverWin(document.querySelector("#fsCard .fsplate"), { x: .35, y: .45, r: .4, s: 0, unit: "vh", pace: 2.6 }, 0,
   v => ({ transform: `translate(${v.x.toFixed(3)}vh, ${v.y.toFixed(3)}vh) rotate(${v.r.toFixed(3)}deg)` }));

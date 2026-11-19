@@ -115,15 +115,25 @@
   }
 
   // ---------------------------------------------------------------- drawing
-  function sprite(im, x, y, h, { flip = false, alpha = 1, anchorY = .5 } = {}) {
+  function sprite(im, x, y, h, { flip = false, alpha = 1, anchorY = .5, src = null } = {}) {
     if (!ok(im)) return;
-    const w = h * im.naturalWidth / im.naturalHeight;
+    const [sx, sy, sw, sh] = src || [0, 0, im.naturalWidth, im.naturalHeight];
+    const w = h * sw / sh;
     g.save();
     g.globalAlpha = alpha;
     g.translate(x, y);
     if (flip) g.scale(-1, 1);
-    g.drawImage(im, -w / 2, -h * anchorY, w, h);
+    g.drawImage(im, sx, sy, sw, sh, -w / 2, -h * anchorY, w, h);
     g.restore();
+  }
+  // the skiing ducks: Blender-animated loops (tools/highpeaks/pack_duck.py), one strip of frames each
+  const strips = {};
+  function strip(name) {
+    if (!strips[name]) {
+      const st = strips[name] = { im: pic(name), meta: null };
+      fetch(B + name + ".json").then(r => r.ok ? r.json() : null).then(m => { st.meta = m; }).catch(() => {});
+    }
+    return strips[name];
   }
 
   function draw(t, dt) {
@@ -163,7 +173,7 @@
 
       // riders on the run
       if (t > nextRide) {
-        riders.push({ t0: t, ms: rand(...RIDE_MS), who: Math.random() < .5 ? "skier" : "boarder", wob: rand(0, 6.28) });
+        riders.push({ t0: t, ms: rand(...RIDE_MS), who: Math.random() < .5 ? "ski" : "board", wob: rand(0, 6.28) });
         nextRide = t + rand(...RIDE_GAP);
       }
       for (let i = riders.length - 1; i >= 0; i--) {
@@ -171,7 +181,13 @@
         if (u >= 1) { riders.splice(i, 1); continue; }
         const [x, y, k] = runAt(u), [x2] = runAt(Math.min(1, u + .01));
         const carve = Math.sin(u * 18 + r.wob) * 30 * k;   // a little side to side as they carve
-        sprite(pic(r.who), x + carve, y, RIDER_H * k, { flip: x2 > x, anchorY: .85, alpha: Math.min(1, u * 8) });
+        const st = strip("duck_" + r.who), m = st.meta;
+        if (m && ok(st.im)) {   // the animated duck, on its own clock
+          const fi = Math.floor((t - r.t0) / 1000 * m.fps) % m.frames;
+          sprite(st.im, x + carve, y, RIDER_H * k * 1.1, { flip: x2 > x, anchorY: .9, alpha: Math.min(1, u * 8), src: [fi * m.w, 0, m.w, m.h] });
+        } else {
+          sprite(pic(r.who === "ski" ? "skier" : "boarder"), x + carve, y, RIDER_H * k, { flip: x2 > x, anchorY: .85, alpha: Math.min(1, u * 8) });
+        }
       }
 
       // chimney smoke
@@ -222,6 +238,7 @@
     host.appendChild(root);
     g = cv.getContext("2d");
     ["cloud", "chair", "chair2", "skier", "boarder", "puff"].forEach(pic);
+    strip("duck_ski"); strip("duck_board");
     seed();
     layout();
     if (typeof ResizeObserver === "function") new ResizeObserver(layout).observe(host);

@@ -43,3 +43,4 @@ art/highpeaks/work/
 art/music-src/takes/*
 !art/music-src/takes/intro_b1.mp3
 art/music-src/*.wav
+art/highpeaks/renders/

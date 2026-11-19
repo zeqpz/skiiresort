@@ -10,6 +10,19 @@ its animation (`frontend/skyfx.js`: chairs riding the lift, skiers and snowboard
 drifting clouds, falling snow, flickering windows), the log board frame and plank backing, the framed jackpot
 board, the treasure-chest Buy Bonus button, symbols, banners, logos, loading cards, gauges and all five music cues
 (Lyria via OpenRouter, `tools/music`: reggae-tinged chill house, in keys that match the sound effects).
+**The duck** (the main character, by the board) and the skiing ducks on the slope are modelled, rigged (a real
+armature with IK arms) and animated in Blender: `tools/highpeaks/blender/duck_build.py` (model, rig, toon materials,
+props), `duck_anim.py` (the clips), `duck_render.py` (headless render; also saves `art/highpeaks/blender/duck.blend`),
+then `tools/highpeaks/pack_duck.py` packs the frames into `frontend/assets/duck/`. Clips: idle, look, roll (papers
+and a bud out, rolls, licks, puts it away), smoke (joint and lighter out, lights it, hits it, exhales, puts them
+away), bong (bong from behind, two dud sparks then a light, a bubbling pull, a cloud and a cough, puts it away);
+reactions win, mult, bonus, bonusidle (bonus rounds) and tease; ski and board loops for the slope.
+
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup -P tools/highpeaks/blender/duck_render.py
+.venv/bin/python tools/highpeaks/pack_duck.py
+```
+
 Design: [DESIGN.md](DESIGN.md). Event contract: [math-sdk/games/highpeaks/EVENTS.md](math-sdk/games/highpeaks/EVENTS.md).
 
 ## Names (Falcos -> High Peaks)
