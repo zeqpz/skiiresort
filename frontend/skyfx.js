@@ -1,18 +1,21 @@
 // High Peaks: the scene's life (owner, 2026-11-18: "we don't want it static"), drawn on one canvas laid exactly over the
-// lodge plate (#bgwall's background, bonus_wall.webp = art/highpeaks/raw/plate_base2.png):
+// background plate (#bgwall's background, bonus_wall.webp = art/highpeaks/raw/peak_plate.png - the mountain top,
+// peak pass 2026-11-19):
 //
-//   * chairs riding the chairlift's cable up the slope (empty ones and ones carrying two goofy skiers)
-//   * skiers and snowboarders coming down the groomed run now and then, growing as they come closer
-//   * green smoke puffs rising from the lodge chimney
 //   * fat clouds drifting across the sky
+//   * green smoke puffs rising from the summit hut's chimney
+//   * the hut's windows glowing and flickering softly
+//   * gusts of spindrift: now and then the wind lifts a sheet of loose snow across the summit
 //   * snow falling over the whole scene (heavier in FRESH POWDER)
-//   * the lodge windows glowing and flickering softly
 //
-// Every place is in PLATE pixels (3840x2160), read off the plate (tools/highpeaks: plate_base2 gridded). The layer is
-// sized to the plate as the browser draws #bgwall's background (cover / position), the same way scenefx.js does, so it
-// never drifts from the picture. In a bonus the plate is swapped for its own scene (Scene.to): the lift, the skiers,
-// the smoke and the windows belong to the base plate and rest; the clouds and the snow carry on. One rAF loop at ~30
-// fps, paused while the tab is hidden; with reduced motion only a still frame is drawn.
+// No people (owner, 2026-11-19: "get rid of the people going down the slope as skiers"): the skiers and snowboarders
+// on the run and the lift's riders are gone - the lift's chairs are painted, standing at the top station.
+//
+// Every place is in PLATE pixels (3840x2160), read off the plate (peak_plate gridded). The layer is sized to the plate
+// as the browser draws #bgwall's background (cover / position), the same way scenefx.js does, so it never drifts from
+// the picture. In a bonus the plate is swapped for its own scene (Scene.to): the smoke and the windows belong to the
+// base plate and rest; the clouds, the spindrift and the snow carry on. One rAF loop at ~30 fps, paused while the tab
+// is hidden; with reduced motion only a still frame is drawn.
 //
 //   SkyFX.start(host)     once, with #bgwall
 //   SkyFX.layout()        after a re-fit (placeScenery)
@@ -22,23 +25,17 @@
   const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const PW = 3840, PH = 2160;
   const B = "assets/scene/";
-  // the lift's cable, bottom right (off the plate) up to the top tower; chairs ride it upward
-  const LIFT = [[3900, 760], [3620, 668], [3460, 553], [3296, 412], [3440, 334], [3532, 284]];
-  const LIFT_SCALE = y => .36 + (Math.min(760, Math.max(284, y)) - 284) / (760 - 284) * .7;   // far chairs are smaller
-  const CHAIR_H = 190, CHAIRS = 7, LIFT_SPEED = 46;                                               // plate px / s
-  // the ski run, its top (far, small) to past the plate's right edge (near, big): [x, y, scale]
-  const RUN = [[3185, 360, .2], [3125, 520, .3], [3092, 720, .42], [3128, 920, .56], [3255, 1115, .72],
-               [3420, 1300, .88], [3615, 1478, 1.04], [3920, 1680, 1.2]];
-  const RIDER_H = 230, RIDE_MS = [8500, 11500], RIDE_GAP = [2500, 7000];
-  const CHIMNEY = [1092, 430], PUFF = 150, PUFF_EVERY = 900, PUFF_LIFE = 5200;
-  const WINDOWS = [[1320, 1008, 300, 200], [1884, 1008, 420, 200], [2436, 1008, 300, 200], [1332, 1464, 330, 200], [2436, 1464, 330, 200]];
-  const SKY = [40, 300];   // the band the clouds drift in
+  const CHIMNEY = [652, 742], PUFF = 150, PUFF_EVERY = 900, PUFF_LIFE = 5200;
+  const WINDOWS = [[755, 1170, 190, 130], [515, 1158, 90, 100]];
+  const SKY = [40, 380];        // the band the clouds drift in
+  const GROUND = [1480, 2120];  // the summit's snow floor, where the spindrift blows
+  const GUST_GAP = [3500, 9000], GUST_MS = 2600;
 
   let host = null, root = null, cv = null, g = null, rect = null, scale = 1;
   let raf = 0, last = 0, now0 = 0, mode = "normal", live = true;
   const pics = {};
-  const chairs = [], riders = [], puffs = [], clouds = [], flakes = [];
-  let nextRide = 0, nextPuff = 0;
+  const puffs = [], clouds = [], flakes = [], drift = [];
+  let nextPuff = 0, nextGust = 2500;
   const rand = (a, b) => a + Math.random() * (b - a);
 
   function pic(name) {
@@ -75,36 +72,8 @@
     if (RM) draw(performance.now(), 0);
   }
 
-  // ---------------------------------------------------------------- paths
-  function pathOf(pts) {
-    const seg = [];
-    let L = 0;
-    for (let i = 1; i < pts.length; i++) {
-      const d = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
-      seg.push([L, d]); L += d;
-    }
-    return { pts, seg, L };
-  }
-  function along(p, s) {   // the point (and any third value) s plate px along the path
-    s = Math.max(0, Math.min(p.L, s));
-    let i = p.seg.findIndex(([a, d]) => s <= a + d);
-    if (i < 0) i = p.seg.length - 1;
-    const [a, d] = p.seg[i], t = d ? (s - a) / d : 0, A = p.pts[i], Bp = p.pts[i + 1];
-    return A.map((v, k) => v + (Bp[k] - v) * t);
-  }
-  // a smooth curve through the run's points (Catmull-Rom), for the riders
-  function runAt(t) {
-    const n = RUN.length - 1, f = Math.max(0, Math.min(.9999, t)) * n, i = Math.floor(f), u = f - i;
-    const P = k => RUN[Math.max(0, Math.min(n, k))];
-    const p0 = P(i - 1), p1 = P(i), p2 = P(i + 1), p3 = P(i + 2);
-    return [0, 1, 2].map(k => .5 * (2 * p1[k] + (-p0[k] + p2[k]) * u + (2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k]) * u * u
-                                     + (-p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]) * u * u * u));
-  }
-  const liftPath = pathOf(LIFT);
-
   // ---------------------------------------------------------------- setup
   function seed() {
-    for (let i = 0; i < CHAIRS; i++) chairs.push({ s: liftPath.L * i / CHAIRS, full: i % 2 === 1 });
     for (let i = 0; i < 3; i++) clouds.push({ x: rand(-400, PW), y: rand(SKY[0], SKY[1]), v: rand(10, 22), k: rand(.7, 1.25) });
     for (let i = 0; i < 160; i++) flakes.push(newFlake(true));
   }
@@ -154,27 +123,6 @@
       });
       g.restore();
 
-      // the chairlift: chairs hang under the cable, grip at the top
-      for (const c of chairs) {
-        c.s = (c.s + LIFT_SPEED * dt) % liftPath.L;
-        const [x, y] = along(liftPath, c.s);
-        const fadeTop = Math.min(1, (liftPath.L - c.s) / 60);
-        sprite(pic(c.full ? "chair2" : "chair"), x, y, CHAIR_H * LIFT_SCALE(y), { anchorY: .04, alpha: fadeTop });
-      }
-
-      // riders on the run
-      if (t > nextRide) {
-        riders.push({ t0: t, ms: rand(...RIDE_MS), who: Math.random() < .5 ? "ski" : "board", wob: rand(0, 6.28) });
-        nextRide = t + rand(...RIDE_GAP);
-      }
-      for (let i = riders.length - 1; i >= 0; i--) {
-        const r = riders[i], u = (t - r.t0) / r.ms;
-        if (u >= 1) { riders.splice(i, 1); continue; }
-        const [x, y, k] = runAt(u), [x2] = runAt(Math.min(1, u + .01));
-        const carve = Math.sin(u * 18 + r.wob) * 30 * k;   // a little side to side as they carve
-        sprite(pic(r.who === "ski" ? "skier" : "boarder"), x + carve, y, RIDER_H * k, { flip: x2 > x, anchorY: .85, alpha: Math.min(1, u * 8) });
-      }
-
       // chimney smoke
       if (t > nextPuff) { puffs.push({ t0: t, dx: rand(-20, 20), spin: rand(-.3, .3) }); nextPuff = t + PUFF_EVERY * rand(.7, 1.3); }
       for (let i = puffs.length - 1; i >= 0; i--) {
@@ -185,6 +133,25 @@
         sprite(pic("puff"), x, y, PUFF * (.35 + u * 1.1), { alpha: .85 * a, anchorY: .6 });
       }
     }
+
+    // spindrift: a gust lifts a sheet of loose snow off the summit and blows it across, low and fast
+    if (!RM && t > nextGust) {
+      const y0 = rand(GROUND[0], GROUND[1] - 160), dir = Math.random() < .5 ? -1 : 1, n = 70;
+      for (let i = 0; i < n; i++) drift.push({ t0: t + rand(0, 700), ms: GUST_MS * rand(.7, 1.15), y: y0 + rand(-90, 90),
+        x0: dir > 0 ? rand(-500, 900) : rand(PW - 900, PW + 500), v: dir * rand(900, 1500), r: rand(2.5, 6.5),
+        lift: rand(30, 150), ph: rand(0, 6.28) });
+      nextGust = t + rand(...GUST_GAP);
+    }
+    g.fillStyle = "#fff";
+    for (let i = drift.length - 1; i >= 0; i--) {
+      const p = drift[i], u = (t - p.t0) / p.ms;
+      if (u >= 1) { drift.splice(i, 1); continue; }
+      if (u < 0) continue;
+      const x = p.x0 + p.v * u * p.ms / 1000, y = p.y - Math.sin(u * Math.PI) * p.lift + Math.sin(u * 9 + p.ph) * 14;
+      g.globalAlpha = .75 * Math.sin(Math.PI * u);
+      g.beginPath(); g.arc(x, y, p.r, 0, 6.2832); g.fill();
+    }
+    g.globalAlpha = 1;
 
     // snow, over everything of ours
     const heavy = mode === "zombie" ? 1 : mode === "nitro" ? .8 : .55;
@@ -222,7 +189,7 @@
     root.appendChild(cv);
     host.appendChild(root);
     g = cv.getContext("2d");
-    ["cloud", "chair", "chair2", "skier", "boarder", "puff"].forEach(pic);
+    ["cloud", "puff"].forEach(pic);
     seed();
     layout();
     if (typeof ResizeObserver === "function") new ResizeObserver(layout).observe(host);

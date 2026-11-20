@@ -1,0 +1,29 @@
+[
+ {
+  "name": "peak_plate_powder",
+  "prompt": "Redraw the reference scene exactly - the same mountain summit, hut, trail sign, pines, flag, cairn, peaks and valley, all in the same places, the same framing and camera (do not zoom in), the same empty snow patch on the right, the same cartoon style - but change the mood: FRESH POWDER: a soft pink-and-lavender sky, heavy fluffy snow falling, extra-deep fresh powder piled high on every roof, rock, tree and sign, sparkling snow crystals in the air. No people, no characters, no text. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "refs": [
+   "art/highpeaks/raw/peak_plate.png"
+  ],
+  "size": "3840x2160"
+ },
+ {
+  "name": "peak_plate_night",
+  "prompt": "Redraw the reference scene exactly - the same mountain summit, hut, trail sign, pines, flag, cairn, peaks and valley, all in the same places, the same framing and camera (do not zoom in), the same empty snow patch on the right, the same cartoon style - but change the mood: BLACK DIAMOND night: a deep navy starry sky with a big bright moon and swirling green-and-purple northern lights over the peaks, the hut's window glowing warm, a lantern pooling light on the snow, the black diamond plate on the trail sign glowing. No people, no characters, no text. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "refs": [
+   "art/highpeaks/raw/peak_plate.png"
+  ],
+  "size": "3840x2160"
+ },
+ {
+  "name": "peak_plate_avalanche",
+  "prompt": "Redraw the reference scene exactly - the same mountain summit, hut, trail sign, pines, flag, cairn, peaks and valley, all in the same places, the same framing and camera (do not zoom in), the same empty snow patch on the right, the same cartoon style - but change the mood: AVALANCHE: a dramatic orange-and-purple sunset sky, a huge cartoon avalanche of snow thundering down the neighbouring big peak in the background with cartoon lightning bolts; the summit we stand on is safe and calm. No people, no characters, no text. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "refs": [
+   "art/highpeaks/raw/peak_plate.png"
+  ],
+  "size": "3840x2160"
+ }
+]

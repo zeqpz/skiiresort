@@ -9,9 +9,10 @@ appended to art/highpeaks/cost_log.jsonl. Raw output lands in art/highpeaks/raw/
 import base64, io, json, os, sys, time, urllib.request, urllib.error
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-KEY_FILE = os.path.expanduser('~/.highpeaks/openrouter-key.txt')
-if not os.path.exists(KEY_FILE):   # the Windows PC's place for it
-    KEY_FILE = os.path.join(os.path.expanduser('~'), 'Documents', 'gamdevkey.txt')
+# the owner's game-art key (owner, 2026-11-19: "use gamedevkey in documents"); the Mac's file is the fallback
+KEY_FILE = os.path.join(os.path.expanduser('~'), 'Documents', 'gamdevkey.txt')
+if not os.path.exists(KEY_FILE):
+    KEY_FILE = os.path.expanduser('~/.highpeaks/openrouter-key.txt')
 BASE = 'https://openrouter.ai/api/v1'
 RAW = os.path.join(ROOT, 'art', 'highpeaks', 'raw')
 LOG = os.path.join(ROOT, 'art', 'highpeaks', 'cost_log.jsonl')
@@ -62,16 +63,19 @@ def generate(job):
     if job.get('refs'):
         body['input_references'] = [{'type': 'image_url', 'image_url': {'url': data_url(p)}} for p in job['refs']]
     t0 = time.time(); err = None
-    for attempt in range(3):
+    for attempt in range(6):
         try:
             r = call('/images', body)
             break
         except Exception as e:
             err = str(e)
-            if attempt == 2 or not any(s in err for s in ('HTTP 502', 'HTTP 503', 'HTTP 429', 'timed out', 'Broken pipe', 'Connection reset', 'SSL', 'EOF occurred')):
+            # 402 in_flight_budget_exhausted: other requests (another job, another session) hold the credit budget
+            # for now - wait for them to settle and go again
+            busy = 'in_flight_budget_exhausted' in err
+            if attempt == 5 or not (busy or any(s in err for s in ('HTTP 502', 'HTTP 503', 'HTTP 429', 'timed out', 'Broken pipe', 'Connection reset', 'SSL', 'EOF occurred'))):
                 rec = dict(name=job['name'], error=err[:500], secs=round(time.time() - t0, 1))
                 _log(rec); return rec
-            time.sleep(10)
+            time.sleep(30 if busy else 10)
     out = out_path(job['name'])
     open(out, 'wb').write(base64.b64decode(r['data'][0]['b64_json']))
     from PIL import Image

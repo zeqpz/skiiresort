@@ -1,0 +1,11 @@
+[
+ {
+  "name": "peak_plate",
+  "prompt": "Slot-game background scene, full-bleed wide landscape, drawn in exactly the reference picture's flat cartoon style. We are standing ON THE VERY TOP OF A HUGE SNOWY MOUNTAIN. The foreground is the summit's broad, flat snowy top, spread across the whole bottom third of the picture: deep clean snow with soft blue-shaded drifts, a few grey rocks poking through, the rocky snowy ridge falling away steeply at the far left and far right edges. Behind and FAR BELOW us: a sea of other snowy mountain peaks in layers fading into the distance, fluffy white clouds floating between the peaks BELOW the summit, a tiny ski village far down in a valley. Above: a bright blue sky with a few fat white cartoon clouds high up. LEFT part of the summit: a wooden trail sign post with green circle, blue square and black diamond plates (no writing), a small wooden chairlift top-station hut with a thick snow roof and the end of a red chairlift cable, two snowy pine trees. RIGHT part of the summit: a wide OPEN, EMPTY patch of flat snow (a character will stand there later - keep it clear), and behind it at the far right a summit flag pole with a small green flag with a cannabis leaf on it, and a little cairn of stones. CENTRE: keep the middle simple - sky, distant peaks and the snowy summit floor - the slot board will cover it. No people, no animals, no characters, no text, no letters, no numbers, no logos, no signs with writing anywhere. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "refs": [
+   "art/highpeaks/raw/plate_base2.png"
+  ],
+  "size": "3840x2160"
+ }
+]

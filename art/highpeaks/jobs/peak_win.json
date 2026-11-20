@@ -1,0 +1,56 @@
+[
+ {
+  "name": "peak_big_win",
+  "prompt": "Slot-game win title lettering on a fully transparent background, nothing else: the words \"BIG WIN\" on one line in huge chunky rounded bold cartoon letters in exactly the attached HIGH PEAKS logo's lettering style - letters made of bright icy sky-blue ice with a lighter blue highlight, a thick white snow cap dripping over the top of every letter with tiny icicles, a thick even black outline, a flat deep navy blue drop extrusion under the letters, a few small white sparkles. The lettering fills the picture's width with a small margin. No background, no plate, no banner, no other words. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "refs": [
+   "frontend/assets/logo.webp"
+  ],
+  "background": "transparent"
+ },
+ {
+  "name": "peak_mega_win",
+  "prompt": "Slot-game win title lettering on a fully transparent background, nothing else: the words \"MEGA WIN\" on one line in huge chunky rounded bold cartoon letters in exactly the attached HIGH PEAKS logo's lettering style - letters made of bright lime-green ice with a lighter green highlight, a thick white snow cap dripping over the top of every letter with tiny icicles, a thick even black outline, a flat deep forest green drop extrusion under the letters, a few small white sparkles and two tiny green cannabis leaves tucked at the ends. The lettering fills the picture's width with a small margin. No background, no plate, no banner, no other words. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "refs": [
+   "frontend/assets/logo.webp"
+  ],
+  "background": "transparent"
+ },
+ {
+  "name": "peak_epic_win",
+  "prompt": "Slot-game win title lettering on a fully transparent background, nothing else: the words \"EPIC WIN\" on one line in huge chunky rounded bold cartoon letters in exactly the attached HIGH PEAKS logo's lettering style - letters made of glowing violet-and-magenta aurora ice with a pale lilac highlight, a thick white snow cap dripping over the top of every letter with tiny icicles, a thick even black outline, a flat deep purple drop extrusion under the letters, small stars and northern-light streaks around it. The lettering fills the picture's width with a small margin. No background, no plate, no banner, no other words. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "refs": [
+   "frontend/assets/logo.webp"
+  ],
+  "background": "transparent"
+ },
+ {
+  "name": "peak_total_win",
+  "prompt": "Slot-game win title lettering on a fully transparent background, nothing else: the words \"TOTAL WIN\" on one line in huge chunky rounded bold cartoon letters in exactly the attached HIGH PEAKS logo's lettering style - letters made of shiny warm gold with a pale yellow highlight, a thick white snow cap dripping over the top of every letter with tiny icicles, a thick even black outline, a flat deep orange-brown drop extrusion under the letters, a few small white sparkles. The lettering fills the picture's width with a small margin. No background, no plate, no banner, no other words. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "refs": [
+   "frontend/assets/logo.webp"
+  ],
+  "background": "transparent"
+ },
+ {
+  "name": "peak_tier_bg",
+  "prompt": "A bright burst splash for behind a slot-game win title, on a fully transparent background, nothing else: a wide explosion of white powder snow bursting outwards from the centre in chunky cartoon puffs, with an icy sky-blue starburst of rays behind it, a jagged snowy mountain-peak silhouette band across its middle, snowflakes and small gold sparkles flying out at the edges. Wide oval overall shape, about 1.8 times as wide as tall, flat cartoon colours (white, icy blue, a touch of gold), thick black outline round the outer shape. The centre is calm and plain white-blue snow so lettering laid over it reads clearly. No text, no letters, no numbers. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "background": "transparent"
+ },
+ {
+  "name": "peak_total_bg",
+  "prompt": "A wide empty sign for a slot game's win amount, on a fully transparent background, nothing else: a long rounded wooden plank sign, about three times as wide as tall, with a thick white snow cap along its top edge with small icicles and a little snow on its ends, and a big dark navy-blue painted panel filling its face (plain and EMPTY - numbers are laid on it later), a thick even black outline. Flat cartoon colours. No text, no letters, no numbers. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "background": "transparent"
+ },
+ {
+  "name": "peak_banner_box",
+  "prompt": "A wide empty sign for a slot game's win amount, on a fully transparent background, nothing else: a long rounded wooden plank sign, about five times as wide as tall, with a thick white snow cap along its top edge with small icicles and a little snow on its ends, and a big dark navy-blue painted panel filling its face (plain and EMPTY - numbers are laid on it later), a thick even black outline. Flat cartoon colours. No text, no letters, no numbers. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "background": "transparent"
+ }
+]

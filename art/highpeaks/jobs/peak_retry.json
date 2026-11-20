@@ -1,0 +1,47 @@
+[
+ {
+  "name": "peak_plate",
+  "prompt": "Slot-game background scene, full-bleed wide landscape, drawn in exactly the reference picture's flat cartoon style. We are standing ON THE VERY TOP OF A HUGE SNOWY MOUNTAIN. The foreground is the summit's broad, flat snowy top, spread across the whole bottom third of the picture: deep clean snow with soft blue-shaded drifts, a few grey rocks poking through, the rocky snowy ridge falling away steeply at the far left and far right edges. Behind and FAR BELOW us: a sea of other snowy mountain peaks in layers fading into the distance, fluffy white clouds floating between the peaks BELOW the summit, a tiny ski village far down in a valley. Above: a bright blue sky with a few fat white cartoon clouds high up. LEFT part of the summit: a wooden trail sign post with green circle, blue square and black diamond plates (no writing), a small wooden chairlift top-station hut with a thick snow roof and the end of a red chairlift cable, two snowy pine trees. RIGHT part of the summit: a wide OPEN, EMPTY patch of flat snow (a character will stand there later - keep it clear), and behind it at the far right a summit flag pole with a small green flag with a cannabis leaf on it, and a little cairn of stones. CENTRE: keep the middle simple - sky, distant peaks and the snowy summit floor - the slot board will cover it. No people, no animals, no characters, no text, no letters, no numbers, no logos, no signs with writing anywhere. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "refs": [
+   "art/highpeaks/raw/plate_base2.png"
+  ],
+  "size": "3840x2160"
+ },
+ {
+  "name": "peak_frame_wide",
+  "prompt": "Redraw the reference picture - a slot-game board frame made of chunky cartoon logs on a fully transparent background - keeping EXACTLY the same frame outline in the same place and at the same size: the same rectangle and proportions, the same thin side logs, the same round log ends at the four corners, the same snow along the top log, and the same completely EMPTY, fully transparent inside (nothing at all drawn inside the frame). Make it higher quality and a little more detailed: bark texture lines and knots in the wood, growth rings on the log ends, the snow on the top log deeper with soft blue shading and a few sparkles, a few more icicles, a small green cannabis leaf and a pinecone with pine sprigs in the top corners. NEW: centred on the top log, in the empty space above it, a big wide wooden SIGN BOARD made of horizontal planks with a thick snow cap on its top edge and a little snow on its ends, standing on the top log on two short wooden posts. The sign board's face is plain light wood and completely BLANK - no text, no letters, no logo, no picture on it (a logo goes on it later). The sign is about 45% of the frame's width, about three times as wide as it is tall, and it never reaches down into the inside of the frame. Everything outside the frame and the sign is fully transparent. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "1:1",
+  "refs": [
+   "art/highpeaks/work/peak/frame_wide_ref.png"
+  ],
+  "background": "transparent"
+ },
+ {
+  "name": "peak_frame_sq",
+  "prompt": "Redraw the reference picture - a slot-game board frame made of chunky cartoon logs on a fully transparent background - keeping EXACTLY the same frame outline in the same place and at the same size: the same rectangle and proportions, the same thin side logs, the same round log ends at the four corners, the same snow along the top log, and the same completely EMPTY, fully transparent inside (nothing at all drawn inside the frame). Make it higher quality and a little more detailed: bark texture lines and knots in the wood, growth rings on the log ends, the snow on the top log deeper with soft blue shading and a few sparkles, a few more icicles, a small green cannabis leaf and a pinecone with pine sprigs in the top corners. NEW: centred on the top log, in the empty space above it, a big wide wooden SIGN BOARD made of horizontal planks with a thick snow cap on its top edge and a little snow on its ends, standing on the top log on two short wooden posts. The sign board's face is plain light wood and completely BLANK - no text, no letters, no logo, no picture on it (a logo goes on it later). The sign is about 55% of the frame's width, about three times as wide as it is tall, and it never reaches down into the inside of the frame. Everything outside the frame and the sign is fully transparent. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "3:4",
+  "refs": [
+   "art/highpeaks/work/peak/frame_sq_ref.png"
+  ],
+  "background": "transparent"
+ },
+ {
+  "name": "peak_big_win",
+  "prompt": "Slot-game win title lettering on a fully transparent background, nothing else: the words \"BIG WIN\" on one line in huge chunky rounded bold cartoon letters in exactly the attached HIGH PEAKS logo's lettering style - letters made of bright icy sky-blue ice with a lighter blue highlight, a thick white snow cap dripping over the top of every letter with tiny icicles, a thick even black outline, a flat deep navy blue drop extrusion under the letters, a few small white sparkles. The lettering fills the picture's width with a small margin. No background, no plate, no banner, no other words. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "refs": [
+   "frontend/assets/logo.webp"
+  ],
+  "background": "transparent"
+ },
+ {
+  "name": "peak_mega_win",
+  "prompt": "Slot-game win title lettering on a fully transparent background, nothing else: the words \"MEGA WIN\" on one line in huge chunky rounded bold cartoon letters in exactly the attached HIGH PEAKS logo's lettering style - letters made of bright lime-green ice with a lighter green highlight, a thick white snow cap dripping over the top of every letter with tiny icicles, a thick even black outline, a flat deep forest green drop extrusion under the letters, a few small white sparkles and two tiny green cannabis leaves tucked at the ends. The lettering fills the picture's width with a small margin. No background, no plate, no banner, no other words. Higher quality and a little more detailed than before: crisp clean ink lines, more small texture lines in the snow, rock and wood, more depth layers - but still flat cartoon colours, readable at a glance.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "16:9",
+  "refs": [
+   "frontend/assets/logo.webp"
+  ],
+  "background": "transparent"
+ }
+]

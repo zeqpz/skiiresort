@@ -44,3 +44,8 @@ art/music-src/takes/*
 !art/music-src/takes/intro_b1.mp3
 art/music-src/*.wav
 art/highpeaks/renders/
+
+# High Peaks yeti: QA screenshots and Blender's clip renders are rebuilt by tools/highpeaks/yeti (qa_fixes.js,
+# qa_yeti.js, yeti_rig.py render) - hundreds of MB, kept local
+art/highpeaks/yeti/qa/
+art/highpeaks/yeti/rig_build/renders/

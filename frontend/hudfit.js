@@ -25,7 +25,9 @@
     if (!force && key.get(el) === k) return;
     key.set(el, k);
     el.style.fontSize = "";                                   // back to the stylesheet's size, then measure
-    const avail = slotWidth(el) * (el.id === "roundWin" ? .9 : .98);   // the WIN keeps room for its pop
+    // the WIN keeps room for its 1.1 pop, the balance and the bet for their 1.05 one (High Peaks, 2026-11-19: a long
+    // balance's pop ran out of its column and was cut off)
+    const avail = slotWidth(el) * (el.id === "roundWin" ? .9 : .94);
     const w = el.scrollWidth;
     if (avail > 8 && w > avail) {
       const base = parseFloat(getComputedStyle(el).fontSize);

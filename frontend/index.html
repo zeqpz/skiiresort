@@ -35,7 +35,7 @@
        anything else in that run falls through to the next face glyph by glyph. */
     --num: "Timegoing", "Jraot Hollow", "IBM Plex Mono", monospace;
     --label: "BROMO", "Jraot Hollow", "IBM Plex Mono", monospace;
-    --wall-scale: contain;   /* background wall size — `cover` fills and crops, `contain` fits it all in */
+    --wall-scale: cover;     /* background wall size: `cover` fills and crops (no black bars on a screen wider than 16:9) */
     /* The scene's lean. The wall art is drawn dead-on (its brick courses are parallel to
        0.2 degrees - no vanishing point to match), so the whole scene is turned a little as
        one instead: the wall and its tag, the board and the characters all take this yaw, so
@@ -78,7 +78,9 @@
     --sym-fit: .92;    /* a symbol fills this share of its tile (SYM_FIT in the script, boardgl.js) */
     /* frame_sq.webp's glass opening, as fractions of the picture (frame_sq.json, measured by
        compress_assets.py - keep these in step with it): left, top, width, height */
-    --fo-l: .07000; --fo-t: .23155; --fo-w: .85562; --fo-h: .67255;
+    --fo-l: .07750; --fo-t: .27871; --fo-w: .84188; --fo-h: .62799;
+    /* the logo's sign board on the frame's top log (peak pass, tools/highpeaks/peak_install.py: frame_*.json "sign") */
+    --sg-l: .24250; --sg-t: .07177; --sg-w: .51375; --sg-h: .14773;
   }
   /* A wider board on a landscape screen (owner, 2026-11-10: "make it wider"): there the board is as tall as it
      can be, so it grows sideways - square cells in frame_wide.webp, whose glass is cut for that grid (1.475:1,
@@ -87,7 +89,7 @@
      the symbols smaller: it keeps the 106 px cells and frame_sq. */
   @media (orientation: landscape) and (min-aspect-ratio: 4/3) {
     /* 150 px cells (owner, 2026-11-17: "make it wider"; was 134): frame_wide re-cut by tools/falcos/widen_frame.py */
-    :root { --cell-w: 150px; --fo-l: .07583; --fo-t: .20567; --fo-w: .84530; --fo-h: .67022; }
+    :root { --cell-w: 150px; --fo-l: .08241; --fo-t: .25905; --fo-w: .83114; --fo-h: .62117; --sg-l: .28918; --sg-t: .05961; --sg-w: .41304; --sg-h: .10919; }
   }
   @media (max-width: 900px) and (max-height: 1000px), (max-height: 500px) {
     :root { --wall-img: url("assets/bonus_wall_m.webp"); --zombie-img: url("assets/scene/plate_zombie_m.webp");
@@ -101,43 +103,19 @@
     src: url("assets/fredoka.woff2") format("woff2");
     font-weight: 300 700; font-display: swap;
   }
-  @font-face {
-    font-family: "Jraot Hollow";
-    src: url("assets/jraot-hollow.woff2") format("woff2");
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "Timegoing";
-    src: url("assets/timegoing.woff2") format("woff2");
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "BROMO";
-    src: url("assets/bromo.woff2") format("woff2");
-    font-display: swap;
-  }
-  /* the lettered buttons: PLAY in the bonus buy panel, START in the auto play picker */
-  @font-face {
-    font-family: "LLambozy";
-    src: url("assets/llambozy.woff2") format("woff2");
-    font-display: swap;
-  }
-  /* the bonus screen's own three: YOU WON, the trigger line, and FREE SPINS (the fat cut) */
-  @font-face {
-    font-family: "Apocalypse Grunge";
-    src: url("assets/apocalypse_grunge.woff2") format("woff2");
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "aaaiight";
-    src: url("assets/aaaiight.woff2") format("woff2");
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "aaaiight fat";
-    src: url("assets/aaaiight-fat.woff2") format("woff2");
-    font-display: swap;
-  }
+  /* No graffiti (owner, 2026-11-19: "redo the click to continue font and everything that uses the graffiti font use a
+     more fitting font"): the base game's street faces - Jraot Hollow (the sprayed display face: CLICK TO CONTINUE, the
+     titles), Timegoing and BROMO (figures, labels), LLambozy (PLAY / START), Apocalypse Grunge and aaaiight (the bonus
+     screen) - are all Fredoka now, the rounded cartoon face of the logo, the HUD and the intro cards. The names stay so
+     every rule and canvas font that asks for them gets it; each is pinned to one weight of the variable Fredoka (a
+     variable face set to one weight draws at that weight whatever is asked). Their old files are gone from assets/. */
+  @font-face { font-family: "Jraot Hollow";      src: url("assets/fredoka.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+  @font-face { font-family: "Timegoing";         src: url("assets/fredoka.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+  @font-face { font-family: "BROMO";             src: url("assets/fredoka.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+  @font-face { font-family: "LLambozy";          src: url("assets/fredoka.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+  @font-face { font-family: "Apocalypse Grunge"; src: url("assets/fredoka.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+  @font-face { font-family: "aaaiight";          src: url("assets/fredoka.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+  @font-face { font-family: "aaaiight fat";      src: url("assets/fredoka.woff2") format("woff2"); font-weight: 700; font-display: swap; }
   /* the trigger line: the fill cut and its outline cut, laid one over the other */
   * { box-sizing: border-box; }
   /* The game frame never scrolls: fitToScreen() scales #app to the window instead.
@@ -2643,7 +2621,7 @@
      sides instead. Wider than 16:9 keeps the whole picture in view, pavement at the foot. */
   @media (max-aspect-ratio: 16/9) { :root { --wall-scale: cover; } }
   @media (max-width: 1100px) and (orientation: portrait) {
-    :root { --wall-x: 6%; }   /* the canopy's FALCOS neon and the pump, over the board */
+    :root { --wall-x: 6%; }   /* an upright phone sees the summit hut and the trail sign beside the board */
     .main { justify-content: flex-end; }
     .bottom { padding-bottom: calc(12vh / max(var(--fit, 1), .2)); }   /* bounded: a tiny scale must never blow it up */
     /* The Bonus button stands in the band between the bar and the foot of the screen, a little
@@ -3163,6 +3141,35 @@
     #bonusWrap .bshopbar { gap: 12px; padding-top: 8px; }
     #bonusWrap .bsbet .val { min-width: 84px; }
   }
+  /* The buy panel in black and white (owner, 2026-11-19: "make the blue and orange a more simple 0.5 transparent hud
+     thats black and white for the buy bonus hud"): one black sheet at half opacity with a white keyline, the cards a
+     faint white wash on it with a thin white edge (solid white when hovered or picked), white type, PLAY a white pill
+     with black lettering, ACTIVATE / the bet arrows / the close X white outlines that fill white when pressed. No
+     colour but the card art. Last in the sheet, so it beats the phone rules above as well. */
+  #bonusWrap .bshop { background: rgba(0, 0, 0, .5); border: 2px solid rgba(255, 255, 255, .85); box-shadow: none; color: #fff; }
+  #bonusWrap .bshoptitle { color: #fff; text-shadow: none; }
+  #bonusWrap .bc { --acc: #fff; background: rgba(255, 255, 255, .06); border: 1.5px solid rgba(255, 255, 255, .45); box-shadow: none; }
+  #bonusWrap .bc:hover { border-color: #fff; box-shadow: 0 0 0 1px #fff; transform: none; }
+  #bonusWrap .bc.armed, #bonusWrap .bc.on { border-color: #fff; box-shadow: 0 0 0 2px #fff, 0 0 18px rgba(255, 255, 255, .45); filter: none; }
+  #bonusWrap .bc.wide .bcbody { background: linear-gradient(90deg, rgba(0, 0, 0, .55) 58%, transparent); }
+  #bonusWrap .bclogo { filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .6)); }
+  #bonusWrap .bcdesc { color: rgba(255, 255, 255, .9); }
+  #bonusWrap .bcodds { color: #fff; }
+  #bonusWrap .bcprice b { color: #fff; text-shadow: none; }
+  #bonusWrap .bcprice small, #bonusWrap .bsstat .lbl { color: rgba(255, 255, 255, .62); }
+  #bonusWrap .bcbtn, #bonusWrap .bcbtn:not(:disabled) { background: #fff; color: #000; border: 2px solid #fff; box-shadow: none; text-shadow: none; }
+  #bonusWrap .bcbtn.amber, #bonusWrap .bcbtn.amber:not(:disabled) { background: transparent; color: #fff; border: 2px solid #fff; }
+  #bonusWrap .bcbtn:hover:not(:disabled) { background: rgba(255, 255, 255, .82); filter: none; }
+  #bonusWrap .bcbtn.amber:hover:not(:disabled) { background: #fff; color: #000; }
+  #bonusWrap .bcbtn:active:not(:disabled) { transform: scale(.97); box-shadow: none; }
+  #bonusWrap .bcbtn.confirm { animation: bcConfirmBW .7s ease-in-out infinite alternate; }
+  @keyframes bcConfirmBW { from { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } to { box-shadow: 0 0 0 4px rgba(255, 255, 255, .35), 0 0 22px rgba(255, 255, 255, .55); } }
+  #bonusWrap .bcbtn:disabled { background: transparent; color: rgba(255, 255, 255, .4); border-color: rgba(255, 255, 255, .25); filter: none; }
+  #bonusWrap .bshop #bonusBetDown, #bonusWrap .bshop #bonusBetUp, #bonusWrap .bshopx { background: transparent; border: 2px solid #fff; box-shadow: none; color: #fff; }
+  #bonusWrap .bshop #bonusBetDown:hover:not(:disabled), #bonusWrap .bshop #bonusBetUp:hover:not(:disabled), #bonusWrap .bshopx:hover { background: #fff; border-color: #fff; color: #000; }
+  #bonusWrap .bshopbar { border-top: 1px solid rgba(255, 255, 255, .35); }
+  #bonusWrap .bssep { background: rgba(255, 255, 255, .35); }
+  @media (max-width: 760px) { #bonusWrap .bc.wide .bcbody { background: linear-gradient(90deg, rgba(0, 0, 0, .6) 60%, transparent); } }
   /* a bigger board (owner, 2026-11-10: "make the square bigger"): on a wide screen the page is fitted by its
      height, so the empty bands above the topper and between the frame and the bar went - the board
      takes the room (about 11% bigger at 16:9); the side padding is thinner for a phone, fitted by width */
@@ -3306,6 +3313,84 @@
   .jpq.go img { animation: jpqgo calc(.5s * var(--tempo, 1)) ease-in forwards; }
   @keyframes jpqgo { to { transform: scale(1.6) rotate(20deg); opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { .jpq img, .jp.won { animation: none !important; } }
+
+  /* ---------- High Peaks peak pass (owner, 2026-11-19) ---------- */
+  /* The near miss (owner: "a glowing / highlight on the rows when we get 2 FS, and we have the slow down for the last
+     FS"): once two FS / XFS are down, every reel still to land lights up as a column of gold light - a bright edge,
+     a warm wash inside and a band of light rising through it - and stays lit through its slowed drop (dropReel). It
+     was a thin violet line before, and the flames that went with it (SprayFX) were never in this build. */
+  .reel.antic {
+    border-color: #FFF3C4; border-radius: 14px; isolation: isolate;
+    background: rgba(255, 214, 90, .12);
+    box-shadow: 0 0 0 2px #FFE27A, 0 0 16px rgba(255, 210, 70, .95), 0 0 44px rgba(255, 180, 40, .6),
+                inset 0 0 0 2px #FFF3C4, inset 0 0 28px rgba(255, 214, 90, .55);
+  }
+  .reel.antic::before {
+    box-shadow: 0 0 0 3px #FFF6D8, 0 0 26px rgba(255, 226, 120, 1), 0 0 64px rgba(255, 190, 50, .75),
+                inset 0 0 0 2px #fff, inset 0 0 36px rgba(255, 226, 120, .7);
+    animation: anticTube .6s ease-in-out infinite alternate;
+  }
+  .reel.antic::after {
+    content: ""; position: absolute; inset: 0; border-radius: 14px; pointer-events: none; z-index: 3; mix-blend-mode: screen;
+    background: linear-gradient(0deg, rgba(255, 244, 200, 0) 0%, rgba(255, 244, 200, 0) 35%, rgba(255, 244, 200, .42) 50%, rgba(255, 244, 200, 0) 65%, rgba(255, 244, 200, 0) 100%) 0 0 / 100% 260% no-repeat;
+    animation: anticRise 1.05s linear infinite;
+  }
+  @keyframes anticRise { from { background-position: 0 -30%; } to { background-position: 0 130%; } }
+  @keyframes anticBurst {
+    0% { border-color: #fff; box-shadow: 0 0 0 3px #fff, 0 0 30px rgba(255, 240, 190, 1), 0 0 80px rgba(255, 200, 60, .85), inset 0 0 0 3px #fff, inset 0 0 50px rgba(255, 240, 190, .95); }
+    100% { box-shadow: 0 0 0 2px #FFE27A, 0 0 16px rgba(255, 210, 70, .95), 0 0 44px rgba(255, 180, 40, .6), inset 0 0 0 2px #FFF3C4, inset 0 0 28px rgba(255, 214, 90, .55); }
+  }
+  @media (prefers-reduced-motion: reduce) { .reel.antic::after { animation: none; opacity: .5; } }
+
+  /* The bar's figures never leave their slots (owner, 2026-11-19: "make sure the balance number doesn't fall off or get
+     cut off, make sure the win amount doesnt overlap the balance amount"). Each column clips its figure (PO's fixed
+     columns), and the balance's old shake on every change - 10% bigger, tipped, pushed 3 px about its RIGHT edge - ran
+     a long balance out of its column, so its ends were cut off while it counted. Now the balance and the bet take a
+     small straight pop that grows away from the column's edge (the balance from its left, the bet from its right),
+     and hudfit.js keeps room for it, as it does for the WIN's. */
+  .hudbar .val.bump { animation: hudbump .5s cubic-bezier(.25, .8, .35, 1); }
+  #balance.bump { transform-origin: 0 50%; }
+  #betVal.bump { transform-origin: 100% 50%; }
+  @keyframes hudbump { 0% { transform: none; } 25% { transform: scale(1.05); filter: brightness(1.2); } 100% { transform: none; filter: none; } }
+
+  /* The yeti's box (placeYeti, yeti.js): right of the board in the room beside it (--side, from fitToScreen), his feet
+     on the frame's bottom log, as tall as about 60% of the frame - under the bonus counter, which stands at the top of
+     the glass on the same side and draws over him (it comes after him in the page). He is sized by the box's height
+     and centred in it; his canvas spills past it for smoke and raised arms. Only when that room is there. */
+  .yetibox { display: none; }
+  html.railside .yetibox:not([hidden]) {
+    --rfrw: calc((7 * (var(--cell-w) + 10px) + 6 * var(--cell-gap) + 12px) / var(--fo-w));
+    --rfrh: calc((5 * var(--cell-h) + 4 * var(--cell-gap) + 22px) / var(--fo-h));
+    --yh: min(calc(var(--rfrh) * .62), calc(var(--side, 400) * 1px / .78));
+    display: block; position: absolute; z-index: 0; pointer-events: none;
+    height: var(--yh); width: calc(var(--yh) * .78);
+    left: calc(50% + var(--rfrw) / 2 + 6px + (var(--side, 400) * 1px - var(--yh) * .78) / 2);
+    top: calc(12px + var(--rfrh) * .975 - var(--yh));
+  }
+
+  /* The HIGH PEAKS logo on the frame's sign board (owner: "keep the same outline for the board but redo it so it has an
+     area for the high peaks logo"): the frame (frame_*.webp) is the old log outline redrawn with a sign board nailed
+     to its top log; the logo is laid on the sign's face (--sg-*, from frame_*.json), a little taller than the face so
+     its peaks stand over the sign's snow, and it moves with the frame on every pop and shake (the frame's own --fx /
+     --fy / --fr / --fsx / --fsy, about the board's centre). */
+  #framelogo {
+    position: absolute; z-index: 4; pointer-events: none; user-select: none;
+    left: calc(var(--sg-l) * 100%); width: calc(var(--sg-w) * 100%);
+    top: calc((var(--sg-t) - var(--sg-h) * .14) * 100%); height: calc(var(--sg-h) * 1.28 * 100%);
+    object-fit: contain; filter: drop-shadow(0 3px 0 rgba(40, 20, 6, .45));
+    transform-origin: calc((.5 - var(--sg-l)) / var(--sg-w) * 100%) calc((.5 - var(--sg-t) + var(--sg-h) * .14) / (var(--sg-h) * 1.28) * 100%);
+    translate: var(--fx, 0px) var(--fy, 0px); rotate: var(--fr, 0deg); scale: var(--fsx, 1) var(--fsy, 1);
+  }
+  /* the board's plank backing reaches under the top log, not up behind the sign */
+  .boardplate { top: calc(var(--bpt) * .8) !important; }
+
+  /* CLICK TO CONTINUE (owner: "redo the click to continue font"): Fredoka bold, white with a navy keyline and a soft
+     icy glow - the logo's lettering - instead of the sprayed graffiti face */
+  .totalwin .twcont, .bonusintro .bcont {
+    font-family: "Fredoka", sans-serif; font-weight: 700; letter-spacing: .14em; color: #fff;
+    -webkit-text-stroke: 5px #0B1E4A; paint-order: stroke fill;
+    text-shadow: 0 3px 0 rgba(4, 12, 34, .75), 0 0 16px rgba(130, 205, 255, .75);
+  }
 </style>
 </head>
 <body>
@@ -3323,12 +3408,13 @@
       <div class="jp minor" data-lvl="minor"><img src="assets/jackpot/minor.webp" alt="Minor" draggable="false"><b class="jpv"></b></div>
       <div class="jp mini" data-lvl="mini"><img src="assets/jackpot/mini.webp" alt="Mini" draggable="false"><b class="jpv"></b></div>
     </div>
-    <div class="board" id="board"><div class="boardplate" aria-hidden="true"></div><div class="glassfx" aria-hidden="true"></div><div class="frameglow" aria-hidden="true"></div><picture style="display: contents"><source media="(orientation: landscape) and (min-aspect-ratio: 4/3)" srcset="assets/frame_wide.webp"><img id="paintframe" src="assets/frame_sq.webp" alt="" draggable="false"></picture></div>
+    <div class="board" id="board"><div class="boardplate" aria-hidden="true"></div><div class="glassfx" aria-hidden="true"></div><div class="frameglow" aria-hidden="true"></div><picture style="display: contents"><source media="(orientation: landscape) and (min-aspect-ratio: 4/3)" srcset="assets/frame_wide.webp"><img id="paintframe" src="assets/frame_sq.webp" alt="" draggable="false"></picture><img id="framelogo" src="assets/logo.webp" alt="High Peaks" draggable="false"></div>
     <div class="ticker" id="ticker"></div>
     <div class="banner" id="banner"><div class="big" id="bannerBig"></div><div class="sub2" id="bannerSub"></div><img id="bannerMural" class="muralimg" alt=""></div>
     <div class="tally" id="tally">0.00</div>
   </div>
 
+  <div class="yetibox" id="yetiBox" aria-hidden="true" hidden></div>
   <div class="rail">
     <div class="fsline" id="fsCard"><div class="fsplate"><div class="fscount"><span class="fslbl">Free spins</span><b id="fsNow">—</b></div><div class="fswinbox"><span class="fslbl">Bonus win</span><div class="fswin" id="fsWin" aria-label="Bonus win"></div></div></div><div class="fuelrow"><div class="fspins"><span class="fslbl">Spins left<b id="fuelSpins">3</b></span><div class="fgauge" id="fuelGauge" aria-label="Spins left"><i></i><i></i><i></i><img src="assets/fillup/gauge.webp" alt="" draggable="false"></div></div><div class="ftotal"><span class="fslbl">Stash total</span><div class="fswin fuelnum" id="fuelNum" aria-label="Stash total"></div></div></div></div>
   </div>
@@ -3479,6 +3565,8 @@
 <script src="skyfx.js"></script>
 <script src="boardgl.js"></script>
 <script src="hudfit.js"></script>
+<script src="charrig.js"></script>
+<script src="yeti.js"></script>
 <script>
 "use strict";
 
@@ -6576,7 +6664,7 @@ const Scene = (() => {
     await new Promise(r => setTimeout(r, REDUCED_MOTION ? 0 : 450));
     const a = el();
     now = name;
-    if (window.SkyFX) SkyFX.scene(name);   // the lift, skiers and smoke rest on a bonus plate; snow and clouds go on
+    if (window.SkyFX) SkyFX.scene(name);   // the hut smoke and windows rest on a bonus plate; clouds, spindrift and snow go on
     if (p) {
       a.style.setProperty("--alt", `url("${p.url}")`);
       a.style.setProperty("--altpatch", `url("${p.patch}")`);   // its building lettering hidden while playing
@@ -6925,7 +7013,7 @@ const handlers = {
     if (!cells.length) return;
     for (const c of cells) { c.classList.add("pulse"); rigPlay(c, "hit"); }
     Cam.trigger(cells, ev.symbol === "DS");
-    charReact("big_win");
+    charReact("bonus");   // the yeti's wild one
     if (window.SceneFX) SceneFX.surge();
     sfx("bonusTrigger");
     tick(`<b>${ev.symbol === "DS" ? "BLACK DIAMOND" : "FRESH POWDER"}</b> — ${ev.totalFs} free spins`);
@@ -7049,7 +7137,7 @@ const handlers = {
     const fuel = state.fuelLeft ?? 2, tense = fuel <= 0 ? 2 : fuel === 1 ? 1 : 0;
     if (tense) state.fuelWasLow = true;
     if (tense === 2) {
-      tick(`<b>LAST CHANCE</b> — land anything to refill the tank`);
+      tick(`<b>LAST CHANCE</b> — land anything to top up the stash`);
       banner("LAST CHANCE", "land anything to refill", 1100, "lastchance");
       sfx("glowPulse");
       await hold(1150);
@@ -8051,7 +8139,21 @@ function refreshBet() {
 // any more (tools/falcos/clear_scene.py). The game's reaction hooks stay as no-ops,
 // so the event code can keep cueing them (a later pass can give the scene reactions of its own).
 // (High Peaks, 2026-11-19: the Blender duck that answered them is gone - it was 3D in a flat cartoon game)
-let charReact = () => {}, charEnter = () => {}, charExit = () => {};
+// The yeti (owner, 2026-11-19: "a yeti beast cartoon character ... holding a joint wearing ski gear and having a snowboard
+// in the snow next to him ... reactions for him whenever we get a win / slow down for 1 more FS / etc"): a live cut-out
+// rig (charrig.js + yeti.js, made in Blender by tools/highpeaks/yeti/) standing in the snow right of the board on a
+// landscape window (html.railside, #yetiBox). He is mounted the first time there is room for him; an upright screen
+// has none and never loads him. charReact hands the round's moments to him: anticipation (two FS down: he leans in
+// and holds it until the round answers), win, big_win, bonus (the trigger), lose (the teased bonus never came).
+let yetiOn = null;
+function placeYeti() {
+  const box = $("yetiBox");
+  if (!box || !window.Yeti) return;
+  const room = document.documentElement.classList.contains("railside");
+  box.hidden = !room;
+  if (room && !yetiOn) yetiOn = Yeti.mount(box).catch(() => false);
+}
+let charReact = kind => { if (window.Yeti) Yeti.react(kind); }, charEnter = () => {}, charExit = () => {};
 const charsLoaded = Promise.resolve([]);
 
 /* ---------- fit to screen ---------- */
@@ -8136,6 +8238,7 @@ function fitToScreen() {
 function placeScenery() {
   if (window.SceneFX && SceneFX.layout) SceneFX.layout();
   if (window.SkyFX) SkyFX.layout();
+  placeYeti();
 }
 addEventListener("resize", fitToScreen);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitToScreen).catch(() => {});
@@ -8459,7 +8562,7 @@ function runIntro() {
 runIntro();
 // the scene's life on the plate: the canopy neon, the blinks, the smoke and the window's glints
 if (window.SceneFX) SceneFX.start($("bgwall"));
-if (window.SkyFX) SkyFX.start($("bgwall"));   // High Peaks: the lift, skiers, smoke, clouds and snow
+if (window.SkyFX) SkyFX.start($("bgwall"));   // High Peaks: clouds, hut smoke and windows, spindrift and snow (no people)
 // the bonus's counter plate wanders gently, more gently, on a path of its own (its jumps are on scale)
 hoverWin(document.querySelector("#fsCard .fsplate"), { x: .35, y: .45, r: .4, s: 0, unit: "vh", pace: 2.6 }, 0,
   v => ({ transform: `translate(${v.x.toFixed(3)}vh, ${v.y.toFixed(3)}vh) rotate(${v.r.toFixed(3)}deg)` }));
@@ -9115,7 +9218,7 @@ function bonusIntro(spins, extreme, kind = extreme ? "midnight" : "premium", und
       `<div class="inner"><div class="bstack">` +
         `<img class="blogo" src="${K.logo}" alt="${T(K.name)}" draggable="false">` +
         `<div class="byou">${T("You won")}</div>` +
-        (K.noSpins ? `<div class="bfs">${T("3 spins to fill the tank")}</div>` :
+        (K.noSpins ? `<div class="bfs">${T("3 spins to fill the stash")}</div>` :
         `<div class="bnum" aria-label="${spins}"><i class="brays" aria-hidden="true"></i><div class="bfig">${numeralRow(REDUCED_MOTION ? String(spins) : "0")}</div></div>` +
         `<div class="bfs">${T("Free spins")}</div>`) +
         `<div class="bhow">${bonusIntroHow(kind)}</div>` +

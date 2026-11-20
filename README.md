@@ -18,8 +18,27 @@ log board frame and plank backing, the framed jackpot board, the treasure-chest 
 logos, gauges and all five music cues (Lyria via OpenRouter, `tools/music`: reggae-tinged chill house, in keys that
 match the sound effects).
 
-No 3D characters (owner, 2026-11-19): a Blender-rendered duck stood by the board and skied the slope for a day; it
-did not fit the flat cartoon and `tools/highpeaks/remove_duck.py` took it out (git history keeps its pipeline).
+No 3D-looking characters (owner, 2026-11-19): a Blender-rendered duck stood by the board and skied the slope for a
+day; it did not fit the flat cartoon and `tools/highpeaks/remove_duck.py` took it out (git history keeps its pipeline).
+
+**The peak pass (owner, 2026-11-19/20):**
+- The scene is the TOP of a mountain (`bonus_wall.webp` and the three bonus plates: fresh powder, black diamond night,
+  avalanche), drawn by `art/highpeaks/jobs/peak_jobs.py` + `tools/highpeaks/orgen.py` and installed by
+  `tools/highpeaks/peak_install.py`. `frontend/skyfx.js` animates it: clouds, the hut's chimney smoke and windows,
+  gusts of spindrift, falling snow - no skiers or riders (owner: "get rid of the people going down the slope").
+- The board keeps its log outline, redrawn with a sign board on the top log; `assets/logo.webp` sits on it
+  (`#framelogo`, the sign's face in `frame_*.json` -> `--sg-*`).
+- Win art in the logo's style: snow-capped ice titles (BIG / MEGA / EPIC / TOTAL WIN), a snow-burst splash, wooden
+  amount plates, the numerals' drop shadow icy blue.
+- No graffiti type: every Falcos street face (CLICK TO CONTINUE among them) is Fredoka now.
+- The Bonus Buy panel is black at half opacity with white keylines and type.
+- FS / XFS glow at rest (`boardgl.js` scatIdle: turning rays, a halo in their colour, breathing, a passing flash);
+  once two are down, each reel still to land is a lit gold column while it drops slower.
+- The HUD's balance no longer gets cut off: its change pop stays inside its column (`hudfit.js` keeps room for it).
+- **The yeti**: an original cartoon yeti in ski gear with a joint, his snowboard in the snow beside him - a flat 2D
+  cut-out rig made and animated in Blender (`tools/highpeaks/yeti/`), played live by `frontend/charrig.js` +
+  `frontend/yeti.js` (test page `frontend/yeti_test.html`). He stands right of the board on a landscape screen and
+  reacts to the round (`charReact`: anticipation, win, big_win, bonus, lose).
 
 Lobby covers for engine.io's Media page: `media/cover_16x9.png` (3840x2160) and `media/cover_3x4.png` (3072x4096),
 no text on them (owner rule), painted by `tools/highpeaks/gen_covers.py gen` from the game's own art and upscaled

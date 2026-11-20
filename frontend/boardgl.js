@@ -182,6 +182,69 @@
     c.gw.visible = true;
   }
 
+  // FS and XFS stand out at rest (owner, 2026-11-19: "idle animations for the FS, XFS icons - we want them to glow and
+  // stand out"): behind each a slowly turning burst of light rays and a soft halo in its own colour (FS gold, XFS icy
+  // blue), both breathing; the coin itself breathes a touch bigger and smaller, and every few seconds a flash of light
+  // passes over it. All in this canvas on the cell's own place, so it rides every drop, tumble and pop; it rests while
+  // the reel is clipped (a drop in progress) and while the coin plays its win or burn. Reduced motion: a still halo.
+  const SCAT = { BS: { halo: [255, 206, 60], rays: 0xFFE9A0 }, DS: { halo: [70, 196, 255], rays: 0xCFF1FF } };
+  const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const haloTex = {};
+  let raysTex = null, scatLive = false, lastScat = 0;
+  function haloTexture(name) {
+    if (haloTex[name]) return haloTex[name];
+    const N = 256, cv = document.createElement("canvas"), [r, g, b] = SCAT[name].halo;
+    cv.width = cv.height = N;
+    const x = cv.getContext("2d"), rg = x.createRadialGradient(N / 2, N / 2, 0, N / 2, N / 2, N / 2);
+    rg.addColorStop(0, `rgba(${r}, ${g}, ${b}, 1)`);
+    rg.addColorStop(.38, `rgba(${r}, ${g}, ${b}, .55)`);
+    rg.addColorStop(.7, `rgba(${r}, ${g}, ${b}, .14)`);
+    rg.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+    x.fillStyle = rg; x.fillRect(0, 0, N, N);
+    return (haloTex[name] = PIXI.Texture.from(cv));
+  }
+  function raysTexture() {   // white wedges round the centre, fading out with distance (tinted per coin)
+    if (raysTex) return raysTex;
+    const N = 512, cv = document.createElement("canvas"), x = cv.getContext("2d"), n = 14;
+    cv.width = cv.height = N;
+    x.translate(N / 2, N / 2);
+    x.fillStyle = "#fff";
+    for (let i = 0; i < n; i++) {
+      const a = i / n * Math.PI * 2, w = Math.PI / n * (i % 2 ? .38 : .62);
+      x.beginPath(); x.moveTo(0, 0); x.arc(0, 0, N / 2, a - w, a + w); x.closePath(); x.fill();
+    }
+    x.setTransform(1, 0, 0, 1, 0, 0);
+    x.globalCompositeOperation = "destination-in";
+    const rg = x.createRadialGradient(N / 2, N / 2, N * .08, N / 2, N / 2, N / 2);
+    rg.addColorStop(0, "rgba(255,255,255,.9)"); rg.addColorStop(.45, "rgba(255,255,255,.45)"); rg.addColorStop(1, "rgba(255,255,255,0)");
+    x.fillStyle = rg; x.fillRect(0, 0, N, N);
+    return (raysTex = PIXI.Texture.from(cv));
+  }
+  // the coin's aura this frame; returns the breathing scale for the coin itself (1 when there is none)
+  function scatIdle(c, rig, b, now, rr) {
+    const kind = SCAT[rig._name], clip = rig._gclip;
+    const on = !!kind && (clip === "idle" || clip === "land") && !(rr && rr.clip) && c.op * c.ico > .05;
+    if (!on) { if (c.ry.visible) { c.ry.visible = c.hl.visible = c.fl.visible = false; } return 1; }
+    scatLive = true;
+    const ph = c.order * .37, t = now / 1000, big = Math.max(b.cw, b.ch), a = c.op * c.ico;
+    const breathe = RM ? 1 : 1 + .045 * Math.sin(t * 2.6 + ph);
+    if (c.hl.texture !== haloTexture(rig._name)) c.hl.texture = haloTexture(rig._name);
+    c.hl.x = c.ry.x = b.w / 2; c.hl.y = c.ry.y = b.h / 2;
+    c.hl.width = c.hl.height = big * (RM ? 1.3 : 1.3 + .1 * Math.sin(t * 2.6 + ph));
+    c.hl.alpha = a * (RM ? .6 : .55 + .25 * Math.sin(t * 2.6 + ph));
+    c.hl.visible = true;
+    c.ry.tint = kind.rays;
+    c.ry.width = c.ry.height = big * 1.75 * breathe;
+    c.ry.rotation = RM ? 0 : t * .55 + ph;
+    c.ry.alpha = a * (RM ? .25 : .32 + .14 * Math.sin(t * 1.7 + ph));
+    c.ry.visible = true;
+    // the passing flash: a quick bright breath every ~2.8 s, each coin on its own beat
+    const f = RM ? 1 : (t / 2.8 + c.order * .113) % 1;
+    c.fl.alpha = f < .14 ? Math.sin(Math.PI * f / .14) * .55 * a : 0;
+    c.fl.visible = c.fl.alpha > .01;
+    return breathe;
+  }
+
   function smearTexture(cell) {
     const bg = cell.smear && cell.smear.style.backgroundImage;
     const u = bg && /url\("?([^")]+)"?\)/.exec(bg);
@@ -242,11 +305,13 @@
         if (!c) {
           const cont = new PIXI.Container(), sm = new PIXI.Sprite(), spr = new PIXI.Sprite(), sh = new PIXI.Sprite();
           const gw = new PIXI.Sprite(glowTexture());
-          sm.visible = false; spr.visible = false; sh.visible = false; gw.visible = false;
+          const ry = new PIXI.Sprite(raysTexture()), hl = new PIXI.Sprite(), fl = new PIXI.Sprite();   // FS / XFS at rest (scatIdle)
+          sm.visible = false; spr.visible = false; sh.visible = false; gw.visible = false; ry.visible = false; hl.visible = false; fl.visible = false;
           sh.tint = 0x000000;   // the symbol's soft drop shadow: its own frame in black, a little down and right (same batch)
           gw.anchor.set(.5); gw.blendMode = "add";   // the win's radial glow behind the symbol (winGlow)
-          cont.addChild(sm, gw, sh, spr);
-          c = C[r][y] = { cell, cont, spr, sh, sm, gw, cls: null, m: null, op: 1, ico: 1, z: 0, act: 0, aCell: 0, aIco: 0, aSm: 0, reread: true, at: 0, order: r * 100 + y, smop: 0, smm: null, tex: null };
+          ry.anchor.set(.5); ry.blendMode = "add"; hl.anchor.set(.5); hl.blendMode = "add"; fl.blendMode = "add";
+          cont.addChild(sm, ry, hl, gw, sh, spr, fl);
+          c = C[r][y] = { cell, cont, spr, sh, sm, gw, ry, hl, fl, cls: null, m: null, op: 1, ico: 1, z: 0, act: 0, aCell: 0, aIco: 0, aSm: 0, reread: true, at: 0, order: r * 100 + y, smop: 0, smm: null, tex: null };
           cell._gl = c;
           root.addChild(cont);
         }
@@ -305,6 +370,9 @@
     const now = performance.now();
     const sweep = now - lastSweep > SWEEP_MS;
     if (sweep) lastSweep = now;
+    // a resting FS / XFS keeps moving: the board is redrawn ~30 times a second while one shows (nothing otherwise)
+    if (scatLive && !RM && now - lastScat > 32) { lastScat = now; dirty = true; }
+    scatLive = false;
     // the reels' clips while tiles are on the move
     for (const rr of R) {
       if (!rr) continue;
@@ -332,7 +400,7 @@
         const tex = g && g.atlas ? g.atlas.frames[rig._gf] : null;
         const show = !!tex && !hiddenReel && c.op * c.ico > .003;
         if (tex !== c.tex) { c.tex = tex; dirty = true; }
-        if (!show) { if (c.spr.visible || c.sm.visible) { c.spr.visible = false; c.sh.visible = false; c.sm.visible = false; c.gw.visible = false; dirty = true; } continue; }
+        if (!show) { if (c.spr.visible || c.sm.visible) { c.spr.visible = false; c.sh.visible = false; c.sm.visible = false; c.gw.visible = false; c.ry.visible = c.hl.visible = c.fl.visible = false; dirty = true; } continue; }
         // the cell in the board, as CSS has it now
         const b = c.box, mm = new PIXI.Matrix();
         if (c.m) mm.set(c.m.a, c.m.b, c.m.c, c.m.d, c.m.e + PAD + b.x, c.m.f + PAD + b.y);
@@ -340,11 +408,13 @@
         c.cont.setFromMatrix(mm);
         const parent = rr && rr.clip ? rr.cont : root;
         if (c.cont.parent !== parent) parent.addChild(c.cont);
-        c.cont.zIndex = c.z * 1000 + c.order;
+        // a resting FS / XFS sits under its neighbours, so its rays shine between them and never over them
+        const auraK = scatIdle(c, rig, c.box, now, rr);
+        c.cont.zIndex = c.z * 1000 + c.order - (c.ry.visible ? 900 : 0);
         if (rr && rr.clip) rr.cont.zIndex = Math.max(rr.cont.zIndex || 0, c.cont.zIndex);
         // the rig: the icon's footprint scaled into the cell's FIT box, centred; the clip's box inside it
         const m = rig._m, rw = m.icon[0] * 10, rh = m.icon[1] * 10, bx = m.clips[rig._gclip].box;
-        const sR = Math.min(b.cw * FIT / rw, b.ch * FIT / rh) * (window.symScaleOf ? window.symScaleOf(rig._name) : 1);
+        const sR = Math.min(b.cw * FIT / rw, b.ch * FIT / rh) * (window.symScaleOf ? window.symScaleOf(rig._name) : 1) * auraK;
         c.spr.texture = tex;
         const ctr = m.centre || NO_SHIFT;   // the picture's own centre on the cell's (tools/falcos/centre_symbols.py)
         c.spr.x = b.w / 2 + ((bx[0] + m.icon[0] / 2) * 10 - rw / 2 + ctr[0]) * sR;
@@ -357,6 +427,7 @@
         c.sh.width = c.spr.width; c.sh.height = c.spr.height;
         c.sh.alpha = .38 * c.spr.alpha;
         c.sh.visible = true;
+        if (c.fl.visible) { c.fl.texture = tex; c.fl.x = c.spr.x; c.fl.y = c.spr.y; c.fl.width = c.spr.width; c.fl.height = c.spr.height; }
         winGlow(c, rig, b);
         // the motion blur behind a falling tile (.smear: left 6%, 88% wide, its foot 6% up, 2.1 boxes tall)
         const st = c.smop > .005 ? smearTexture(cell) : null;

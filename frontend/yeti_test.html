@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yeti test</title>
+<style>
+  html, body { margin: 0; height: 100%; font-family: system-ui, sans-serif; }
+  body { background: linear-gradient(#5aa8f0 0%, #a9d8ff 62%, #f4f9ff 62%, #dbe9fb 100%); overflow: hidden; }
+  #host { position: absolute; left: 50%; bottom: 8%; width: 300px; height: 460px; translate: -50% 0;
+          outline: 1px dashed rgba(0,0,0,.25); }
+  body.big #host { width: 420px; height: 640px; }
+  body.small #host { width: 160px; height: 240px; }
+  body.qa #host { width: 760px; height: 1160px; bottom: 30px; outline: none; }
+  body.qa, html.qa { background: transparent; }
+  body.qa #ui, body.qa #st { display: none; }
+  #ui { position: absolute; left: 10px; top: 10px; display: flex; flex-wrap: wrap; gap: 6px; max-width: 96vw; z-index: 5; }
+  button { font: 600 14px system-ui; padding: 8px 12px; border-radius: 8px; border: 1px solid #234; background: #fff; cursor: pointer; }
+  #st { position: absolute; left: 10px; bottom: 10px; font: 12px ui-monospace, monospace; background: rgba(255,255,255,.8);
+        padding: 4px 8px; border-radius: 6px; z-index: 5; }
+</style>
+</head>
+<body>
+<div id="ui">
+  <button data-r="idle">idle</button>
+  <button data-r="win">win</button>
+  <button data-r="big_win">big_win</button>
+  <button data-r="bonus">bonus</button>
+  <button data-r="anticipation">anticipation (hold)</button>
+  <button data-r="lose">lose</button>
+  <button id="flip">flip</button>
+  <button id="size">size</button>
+</div>
+<div id="host"></div>
+<div id="st">loading...</div>
+<script src="assets/spine/pixi.min.js"></script>
+<script src="charrig.js"></script>
+<script src="yeti.js"></script>
+<script>
+  const host = document.getElementById("host"), st = document.getElementById("st");
+  let flip = /flip=1/.test(location.search);
+  const sizes = ["", "big", "small", "qa"];
+  if (/size=qa/.test(location.search)) document.documentElement.className = "qa";
+  let si = 0;
+  const q = new URLSearchParams(location.search);
+  if (q.get("size")) { si = Math.max(0, sizes.indexOf(q.get("size"))); document.body.className = sizes[si]; }
+  const mount = () => Yeti.mount(host, { flip }).then(ok => { window.__yetiReady = ok; });
+  mount();
+  document.querySelectorAll("[data-r]").forEach(b => b.onclick = () => Yeti.react(b.dataset.r));
+  document.getElementById("flip").onclick = () => { flip = !flip; mount(); };
+  document.getElementById("size").onclick = () => { si = (si + 1) % sizes.length; document.body.className = sizes[si]; };
+  setInterval(() => { const s = Yeti.state(); st.textContent = s ? JSON.stringify(s) : "no rig"; }, 200);
+</script>
+</body>
+</html>
