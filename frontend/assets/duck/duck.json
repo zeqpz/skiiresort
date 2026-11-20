@@ -1,10 +1,10 @@
 {
- "fps": 12.0,
+ "fps": 24.0,
  "w": 300,
- "h": 372,
+ "h": 354,
  "clips": {
   "idle": {
-   "frames": 48,
+   "frames": 96,
    "cols": 13,
    "per_sheet": 143,
    "sheets": [
@@ -13,7 +13,7 @@
    "loop": true
   },
   "look": {
-   "frames": 42,
+   "frames": 84,
    "cols": 13,
    "per_sheet": 143,
    "sheets": [
@@ -22,34 +22,37 @@
    "loop": false
   },
   "roll": {
-   "frames": 96,
+   "frames": 192,
    "cols": 13,
    "per_sheet": 143,
    "sheets": [
-    "roll_0.webp"
+    "roll_0.webp",
+    "roll_1.webp"
    ],
    "loop": false
   },
   "smoke": {
-   "frames": 114,
+   "frames": 228,
    "cols": 13,
    "per_sheet": 143,
    "sheets": [
-    "smoke_0.webp"
+    "smoke_0.webp",
+    "smoke_1.webp"
    ],
    "loop": false
   },
   "bong": {
-   "frames": 132,
+   "frames": 264,
    "cols": 13,
    "per_sheet": 143,
    "sheets": [
-    "bong_0.webp"
+    "bong_0.webp",
+    "bong_1.webp"
    ],
    "loop": false
   },
   "win": {
-   "frames": 22,
+   "frames": 44,
    "cols": 13,
    "per_sheet": 143,
    "sheets": [
@@ -58,7 +61,7 @@
    "loop": false
   },
   "mult": {
-   "frames": 24,
+   "frames": 48,
    "cols": 13,
    "per_sheet": 143,
    "sheets": [
@@ -67,7 +70,7 @@
    "loop": false
   },
   "bonus": {
-   "frames": 54,
+   "frames": 108,
    "cols": 13,
    "per_sheet": 143,
    "sheets": [
@@ -76,7 +79,7 @@
    "loop": false
   },
   "bonusidle": {
-   "frames": 24,
+   "frames": 48,
    "cols": 13,
    "per_sheet": 143,
    "sheets": [
@@ -85,7 +88,7 @@
    "loop": true
   },
   "tease": {
-   "frames": 22,
+   "frames": 44,
    "cols": 13,
    "per_sheet": 143,
    "sheets": [

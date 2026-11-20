@@ -37,7 +37,7 @@ def hexc(h, a=1.0):
     return (*lin, a)
 
 MATS = {}
-def toon(name, base, shade, emit=False):
+def toon(name, base, shade, emit=False, hi=None):
     key = "hp_" + name
     if key in bpy.data.materials:
         bpy.data.materials.remove(bpy.data.materials[key])
@@ -59,6 +59,8 @@ def toon(name, base, shade, emit=False):
         e = ramp.color_ramp.elements
         e[0].position, e[0].color = 0.0, hexc(shade)
         e[1].position, e[1].color = 0.32, hexc(base)
+        if hi:                                   # a third, lit tone: the drake's iridescent sheen
+            e3 = ramp.color_ramp.elements.new(0.66); e3.color = hexc(hi)
         nt.links.new(dif.outputs[0], s2r.inputs[0])
         nt.links.new(s2r.outputs["Color"], ramp.inputs["Fac"])
         nt.links.new(ramp.outputs["Color"], em.inputs["Color"])
@@ -75,19 +77,25 @@ _o = _nt.nodes.new("ShaderNodeOutputMaterial"); _e = _nt.nodes.new("ShaderNodeEm
 _e.inputs["Color"].default_value = hexc("#0A0A0F"); _nt.links.new(_e.outputs[0], _o.inputs[0])
 INK.use_backface_culling = True
 
-toon("yellow", "#FFD23F", "#E39A16")
-toon("bill", "#FF8A1F", "#D25A0A")
+# a drake mallard (owner, 2026-11-20: "make the duck a drake mallard"): a glossy green head, a yellow bill with a dark
+# nail, a white neck ring, orange feet, a white tail with the drake's black curl
+toon("head", "#20A35B", "#0C5A37", hi="#5BEBB0")
+toon("bill", "#F2D23A", "#C29E1A")
+toon("nail", "#3A3A2A", "#232318")
+toon("feet", "#FF8A1F", "#D25A0A")
+toon("ring", "#FFFFFF", "#C9D2DE")
+toon("curl", "#1A1D24", "#0B0C10")
 toon("jacket", "#7B3FE4", "#4E24A6")
 toon("trim", "#8CE33A", "#55A81E")
-toon("beanie", "#2FB24A", "#1C7A31")
+toon("beanie", "#E8323C", "#A81C24")
 toon("pom", "#FFFFFF", "#C9D6E6")
-toon("scarf", "#E8323C", "#A81C24")
+toon("scarf", "#FFB21A", "#D9820A")
 toon("pants", "#2B3E8F", "#1A2766")
 toon("glove", "#8CE33A", "#55A81E")
 toon("sclera", "#FFC9C9", "#E8A0A0")      # a little bloodshot
 toon("pupil", "#141018", "#141018")
 toon("lens", "#5BC8FF", "#2F86C9")
-toon("frame", "#FF7A1A", "#C4500A")
+toon("frame", "#F4F4F4", "#AEB8C6")
 toon("white", "#F4F4F4", "#C6CCD6")
 toon("bud", "#5CC23A", "#2F7D1D")
 toon("lighter", "#3BD6C6", "#1F8F84")
@@ -135,6 +143,7 @@ for s, x in (("L", 1), ("R", -1)):
     bone(f"shin.{s}", (x * .14, -.01, .22), (x * .14, 0, .07), f"thigh.{s}")
     bone(f"foot.{s}", (x * .14, 0, .07), (x * .14, -.20, .02), f"shin.{s}")
 bone("tail", (0, .28, .52), (0, .42, .64), "hips")
+bone("pom", (0, .05, 1.52), (0, .06, 1.62), "head")       # the pom-pom wobbles on its own (follow-through)
 # IK: a wrist target and an elbow pole per arm, both riding the chest (so the hands follow the body)
 for s, x in (("L", 1), ("R", -1)):
     bone(f"tgt.{s}", (x * .41, -.14, .44), (x * .41, -.14, .54), "chest")
@@ -237,14 +246,20 @@ part("belly", ellipsoid_bm((.36, .32, .27)), "jacket", at((0, 0, .58)), "hips")
 part("chestpart", ellipsoid_bm((.31, .28, .23)), "jacket", at((0, -.01, .84)), "chest")
 part("hem", torus_bm(.305, .028), "trim", at((0, 0, .47)), "hips", sub=0, outline=.006)
 part("zip", box_bm(.018, .02, .30), "trim", at((0, -.305, .66), rx=-8), "spine", outline=.006, sub=0)
-part("tail", ellipsoid_bm((.09, .14, .07)), "yellow", at((0, .33, .60), rx=-35), "tail")
+part("tail", ellipsoid_bm((.10, .15, .07)), "ring", at((0, .33, .60), rx=-35), "tail")
+# the drake curl: a black feather curling up and over off the top of the tail
+bm = torus_bm(.055, .016)
+bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.x < -.02 and v.co.y < 0], context="VERTS")
+part("tailcurl", bm, "curl", at((0, .45, .72), ry=90, rx=10), "tail", sub=0, outline=.006)
 # neck + scarf
-part("neckpart", ellipsoid_bm((.15, .14, .12)), "yellow", at((0, -.02, 1.02)), "neck")
+part("neckpart", ellipsoid_bm((.15, .14, .12)), "head", at((0, -.02, 1.02)), "neck")
+part("neckring", torus_bm(.198, .026), "ring", at((0, -.02, 1.075), rx=-4), "neck", sub=0, outline=.006)
 part("scarf", torus_bm(.165, .055), "scarf", at((0, -.01, 1.0), rx=-6), "chest", sub=0)
 part("scarf_tail", box_bm(.07, .035, .20), "scarf", at((.10, -.17, .88), rx=-12, rz=-14), "chest", outline=.008)
 # head
-part("headball", ellipsoid_bm((.25, .245, .24)), "yellow", at((0, -.02, 1.22)), "head")
+part("headball", ellipsoid_bm((.25, .245, .24)), "head", at((0, -.02, 1.22)), "head")
 part("bill_top", ellipsoid_bm((.135, .15, .05)), "bill", at((0, -.31, 1.13), rx=6), "head")
+part("bill_nail", ellipsoid_bm((.034, .024, .016)), "nail", at((0, -.445, 1.142), rx=6), "head", outline=.005)
 part("bill_low", ellipsoid_bm((.115, .13, .035)), "bill", at((0, -.29, 1.075), rx=4), "jaw")
 part("tongue", ellipsoid_bm((.06, .07, .02)), "tongue", at((0, -.30, 1.09)), "jaw", outline=0)
 for s, x in (("L", 1), ("R", -1)):
@@ -253,7 +268,7 @@ for s, x in (("L", 1), ("R", -1)):
     # the upper lid: a cap over the top of the eye, half shut (the lid bone turns it further down or up)
     bm = ellipsoid_bm((.089, .066, .099))
     bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.z < -.004], context="VERTS")
-    part(f"lid.{s}", bm, "yellow", at((x * .092, -.215, 1.215), rx=-22, rz=x * 8), f"lid.{s}", outline=.009)
+    part(f"lid.{s}", bm, "head", at((x * .092, -.215, 1.215), rx=-22, rz=x * 8), f"lid.{s}", outline=.009)
     # sleeves, gloves, thumbs
     part(f"sleeve_up.{s}", ellipsoid_bm((.078, .16, .078)), "jacket", along(f"upper_arm.{s}"), f"upper_arm.{s}")
     part(f"sleeve_lo.{s}", ellipsoid_bm((.07, .145, .07)), "jacket", along(f"forearm.{s}"), f"forearm.{s}")
@@ -262,15 +277,15 @@ for s, x in (("L", 1), ("R", -1)):
     part(f"thumb.{s}", ellipsoid_bm((.03, .045, .03)), "glove", along(f"hand.{s}", .3) @ T((-x * .06, 0, -.03)) @ Matrix.Rotation(math.radians(-x * 30), 4, "Z"), f"hand.{s}", outline=.008)
     # legs, feet
     part(f"pantleg.{s}", ellipsoid_bm((.10, .13, .10)), "pants", along(f"thigh.{s}"), f"thigh.{s}")
-    part(f"shinpart.{s}", ellipsoid_bm((.035, .09, .035)), "bill", along(f"shin.{s}"), f"shin.{s}", outline=.008)
+    part(f"shinpart.{s}", ellipsoid_bm((.035, .09, .035)), "feet", along(f"shin.{s}"), f"shin.{s}", outline=.008)
     foot = ellipsoid_bm((.11, .16, .035))
-    part(f"footpart.{s}", foot, "bill", along(f"foot.{s}", .5) @ T((0, 0, -.01)), f"foot.{s}", outline=.008)
+    part(f"footpart.{s}", foot, "feet", along(f"foot.{s}", .5) @ T((0, 0, -.01)), f"foot.{s}", outline=.008)
 # beanie: a cap over the top of the head, a folded band, a pom-pom; goggles pushed up on it
 bm = ellipsoid_bm((.262, .258, .25))
 bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.z < .02], context="VERTS")
 part("beanie", bm, "beanie", at((0, .0, 1.33), rx=-12), "head")
 part("beanie_band", torus_bm(.235, .042), "beanie", at((0, .0, 1.355), rx=-12), "head", sub=0)
-part("pompom", ellipsoid_bm((.075, .075, .07)), "pom", at((0, .06, 1.60)), "head")
+part("pompom", ellipsoid_bm((.075, .075, .07)), "pom", at((0, .06, 1.60)), "pom")
 part("goggle_strap", torus_bm(.25, .018), "frame", at((0, .0, 1.44), rx=-16), "head", sub=0, outline=.006)
 for s, x in (("L", 1), ("R", -1)):
     part(f"goggle.{s}", ellipsoid_bm((.075, .03, .055)), "lens", at((x * .075, -.225, 1.47), rx=-30), "head", outline=.008)

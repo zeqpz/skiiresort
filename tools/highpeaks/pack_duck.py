@@ -3,8 +3,8 @@
     .venv/bin/python tools/highpeaks/pack_duck.py
 
 * the main duck's clips -> frontend/assets/duck/<clip>_<n>.webp + duck.json. Every clip is cut to ONE box (the union
-  of every clip's drawn pixels, so the duck never jumps between clips), scaled to W px wide, and kept on twos (every
-  second frame: 12 fps, the classic cartoon cadence).
+  of every clip's drawn pixels, so the duck never jumps between clips), scaled to W px wide, on ones (every frame,
+  24 fps: since the 2026-11-20 polish pass, for the smoother motion).
 * the skiers (ski, board) -> frontend/assets/scene/duck_ski.webp / duck_board.webp + .json: a strip of 24 frames each
   (they loop as they come down the run), cut to their own box, H px tall.
 """
@@ -17,7 +17,8 @@ CLIPS = json.load(open(os.path.join(ROOT, 'art', 'highpeaks', 'blender', 'clips.
 OUT = os.path.join(ROOT, 'frontend', 'assets', 'duck')
 SCENE = os.path.join(ROOT, 'frontend', 'assets', 'scene')
 MAIN = [c for c in CLIPS if c not in ('ski', 'board')]
-W, STEP, MAXW, MAXH = 300, 2, 4096, 4096
+W, STEP, MAXW, MAXH = 300, 1, 4096, 4096
+Q = 70
 SKI_H = 150
 
 
@@ -59,7 +60,7 @@ def main():
                 im = Image.open(p).convert('RGBA').crop((x0, y0, x1, y1)).resize((w, h), Image.LANCZOS)
                 sheet.paste(im, ((i % cols) * w, (i // cols) * h))
             name = f'{c}_{si // per}.webp'
-            sheet.save(os.path.join(OUT, name), 'WEBP', quality=82, method=6)
+            sheet.save(os.path.join(OUT, name), 'WEBP', quality=Q, method=6)
             total += os.path.getsize(os.path.join(OUT, name))
             sheets.append(name)
         meta['clips'][c] = {'frames': len(fr), 'cols': cols, 'per_sheet': per, 'sheets': sheets, 'loop': CLIPS[c]['loop']}
