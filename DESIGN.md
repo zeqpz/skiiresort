@@ -2,9 +2,11 @@
 
 A cartoon ski resort on the mountains, with weed (owner: open, cartoony, a bong is fine). Flat adult-animation
 cartoon art: thick black outlines, flat colours, no realistic lighting. Built on Falcos: the board, the math and
-every mechanic below are Falcos's, renamed (README.md has the name table). Kept unchanged from the base game: the
-HUD, the black-and-white Smukiez intro, the three-card loading screen and the Bonus Buy menu (with new banner
-foregrounds and backgrounds).
+every mechanic below are Falcos's, renamed (README.md has the name table). Taken unchanged from Power Outage
+(zeqpz/poweroutage, owner 2026-11-19): the black-and-white Smukiez intro, the three intro boxes and the HUD. Kept
+from the base game: the Bonus Buy menu (with new banner foregrounds and backgrounds). Everything on screen is flat
+2D cartoon; the one character, a drake mallard by the board (and mallards on the slope), is rendered in Blender
+but toon-shaded with ink outlines to match (taken out 2026-11-19, back in at the owner's word 2026-11-20).
 
 ## Jackpots (new, owner 2026-11-18)
 

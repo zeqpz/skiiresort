@@ -4,24 +4,31 @@ A cartoon ski-resort slot for Stake Engine, built on the Falcos engine and math:
 tumbles, cell multipliers, RTP 96.50% in every mode and a max win of 50,000x. New in High Peaks: **MINI / MINOR /
 MAJOR / GRAND jackpots** (10x / 50x / 250x / 2,500x the bet), won when a **?** drops onto the board.
 
-Kept from the base game: the HUD's layout (restyled see-through black and white), the black-and-white Smukiez
-intro, the three-card loading screen, and the Bonus Buy menu layout. Everything else was made new: the scene and
-its animation (`frontend/skyfx.js`: chairs riding the lift, skiers and snowboarders on the run, chimney smoke,
-drifting clouds, falling snow, flickering windows), the log board frame and plank backing, the framed jackpot
-board, the treasure-chest Buy Bonus button, symbols, banners, logos, loading cards, gauges and all five music cues
-(Lyria via OpenRouter, `tools/music`: reggae-tinged chill house, in keys that match the sound effects).
-**The duck** (the main character, by the board) and the skiing ducks on the slope are modelled, rigged (a real
-armature with IK arms) and animated in Blender: `tools/highpeaks/blender/duck_build.py` (model, rig, toon materials,
-props), `duck_anim.py` (the clips), `duck_render.py` (headless render; also saves `art/highpeaks/blender/duck.blend`),
-then `tools/highpeaks/pack_duck.py` packs the frames into `frontend/assets/duck/`. Clips: idle, look, roll (papers
-and a bud out, rolls, licks, puts it away), smoke (joint and lighter out, lights it, hits it, exhales, puts them
-away), bong (bong from behind, two dud sparks then a light, a bubbling pull, a cloud and a cough, puts it away);
-reactions win, mult, bonus, bonusidle (bonus rounds) and tease; ski and board loops for the slope.
+**From [zeqpz/poweroutage](https://github.com/zeqpz/poweroutage), unchanged (owner, 2026-11-19):** the
+black-and-white Smukiez intro (it holds while the game loads, its thin white bar filling), the three intro boxes
+(the game's title over three cream feature cards - here the jackpot **?**, the FS scatter and the XFS scatter -
+dealt out from a stack, CLICK TO PLAY under them) and the HUD (its navy bar, fixed BALANCE | WIN | BET columns and
+`frontend/hudfit.js`, which shrinks a long figure to its slot and keeps the bonus emblem off the bar).
+`tools/highpeaks/port_po_ui.py <poweroutage/frontend>` made the port; it is exact-string edits, so it documents
+what came over. The Bonus Buy menu layout is still the base game's.
 
-```bash
-/Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup -P tools/highpeaks/blender/duck_render.py
-.venv/bin/python tools/highpeaks/pack_duck.py
-```
+Everything else was made new: the scene and its animation (`frontend/skyfx.js`: chairs riding the lift, flat
+cartoon skiers and snowboarders on the run, chimney smoke, drifting clouds, falling snow, flickering windows), the
+log board frame and plank backing, the framed jackpot board, the treasure-chest Buy Bonus emblem, symbols, banners,
+logos, gauges and all five music cues (Lyria via OpenRouter, `tools/music`: reggae-tinged chill house, in keys that
+match the sound effects).
+
+The duck (owner, 2026-11-20: back in, as a drake mallard): the main character by the board, plus mallards skiing and
+boarding the run. Modelled, rigged and animated in Blender, toon-shaded with ink outlines to sit in the flat art
+(`tools/highpeaks/blender`: duck_build.py, duck_anim.py, duck_render.py), packed by `tools/highpeaks/pack_duck.py`
+into 24 fps sheets that `frontend/duckfx.js` plays. Rebuild:
+`/Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup -P tools/highpeaks/blender/duck_render.py`
+then `.venv/bin/python tools/highpeaks/pack_duck.py`. (It was taken out on 2026-11-19 by `tools/highpeaks/remove_duck.py`
+and put back the next day.)
+
+Lobby covers for engine.io's Media page: `media/cover_16x9.png` (3840x2160) and `media/cover_3x4.png` (3072x4096),
+no text on them (owner rule), painted by `tools/highpeaks/gen_covers.py gen` from the game's own art and upscaled
+by `gen_covers.py build` (Real-ESRGAN x4 anime when it is installed).
 
 Design: [DESIGN.md](DESIGN.md). Event contract: [math-sdk/games/highpeaks/EVENTS.md](math-sdk/games/highpeaks/EVENTS.md).
 
