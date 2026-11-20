@@ -10,6 +10,8 @@ import base64, io, json, os, sys, time, urllib.request, urllib.error
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 KEY_FILE = os.path.expanduser('~/.highpeaks/openrouter-key.txt')
+if not os.path.exists(KEY_FILE):   # the Windows PC's place for it
+    KEY_FILE = os.path.join(os.path.expanduser('~'), 'Documents', 'gamdevkey.txt')
 BASE = 'https://openrouter.ai/api/v1'
 RAW = os.path.join(ROOT, 'art', 'highpeaks', 'raw')
 LOG = os.path.join(ROOT, 'art', 'highpeaks', 'cost_log.jsonl')

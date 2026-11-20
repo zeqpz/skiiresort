@@ -60,3 +60,5 @@
 {"name": "plate_nitro2", "file": "art/highpeaks/raw/plate_nitro2.png", "size": [3840, 2160], "mode": "RGB", "cost": 0.113259, "model": "openai/gpt-image-2.6-sunburst", "secs": 58.4, "t": "2026-11-18 19:26:12"}
 {"name": "plate_midnight2", "file": "art/highpeaks/raw/plate_midnight2.png", "size": [3840, 2160], "mode": "RGB", "cost": 0.113279, "model": "openai/gpt-image-2.6-sunburst", "secs": 63.7, "t": "2026-11-18 19:26:17"}
 {"name": "plate_premium2", "file": "art/highpeaks/raw/plate_premium2.png", "size": [3840, 2160], "mode": "RGB", "cost": 0.113189, "model": "openai/gpt-image-2.6-sunburst", "secs": 64.4, "t": "2026-11-18 19:26:18"}
+{"name": "cover_16x9", "file": "art\\highpeaks\\raw\\cover_16x9.png", "size": [1536, 864], "mode": "RGB", "cost": 0.07095, "model": "openai/gpt-image-2.6-sunburst", "secs": 36.7, "t": "2026-11-19 13:54:07"}
+{"name": "cover_3x4", "file": "art\\highpeaks\\raw\\cover_3x4.png", "size": [1152, 1536], "mode": "RGB", "cost": 0.0875, "model": "openai/gpt-image-2.6-sunburst", "secs": 45.3, "t": "2026-11-19 13:54:16"}

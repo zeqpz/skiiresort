@@ -37,8 +37,8 @@ import urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FRONT = os.path.join(ROOT, "frontend")
-PUBLISH = os.path.join(ROOT, "math-sdk", "games", "falcos", "library", "publish_files")
-TEAM, GAME = os.environ.get("FALCOS_TEAM", ""), os.environ.get("FALCOS_GAME", "")
+PUBLISH = os.path.join(ROOT, "math-sdk", "games", "highpeaks", "library", "publish_files")
+TEAM, GAME = os.environ.get("FALCOS_TEAM", "smukiez"), os.environ.get("FALCOS_GAME", "")   # High Peaks: team smukiez
 SKIP_DIRS, SKIP_FILES = {"__pycache__"}, set()   # (the local dev server lives in rgs/, outside frontend/)
 
 # target -> (local base dir, remote prefix). `front` files live in frontend/,
