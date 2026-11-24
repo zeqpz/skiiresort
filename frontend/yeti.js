@@ -25,11 +25,20 @@
     if (rig) Y.destroy();
     if (!hostEl || !window.CharRig) return false;
     mounting = CharRig.make({ host: hostEl, base: opts.base || "assets/yeti/rig/", flip: !!opts.flip,
-                              headroom: opts.headroom || 1.06, maxFps: opts.maxFps || 60 });
+                              headroom: opts.headroom || 1.06, maxFps: opts.maxFps || 60, hide: opts.hide || [], ground: opts.ground || null });
     try { rig = await mounting; } catch (e) { rig = null; }
     mounting = null;
     rank = 0; until = 0;
+    if (rig && lit) { rig.tint(lit.body, lit.ground, 0, lit.shade); rig.weather(lit.flakes === undefined ? 9 : lit.flakes); }
     return !!rig;
+  };
+  // the scene's light on him, on the snow he stands in and on his shadow, and how hard it is snowing in front of him
+  // ({ body, ground, shade: "#rrggbb", flakes }; layers.js Layers.mood)
+  let lit = null;
+  Y.mood = (m, ms) => {
+    if (!m) return;
+    lit = m;
+    if (rig) { rig.tint(m.body, m.ground, ms === undefined ? 900 : ms, m.shade); rig.weather(m.flakes === undefined ? 9 : m.flakes); }
   };
   Y.react = name => {
     if (!rig) return false;
@@ -53,6 +62,7 @@
   };
   Y.destroy = () => { if (rig) rig.destroy(); rig = null; rank = 0; until = 0; };
   Y.state = () => (rig ? rig.state() : null);
+  Y.stale = () => !!(rig && rig.stale && rig.stale());      // his atlas is too coarse for the size he is shown at now
   Y.pose = (clip, f) => { if (rig) rig.pose(clip, f); };   // QA: the clock stops on a frame of a clip...
   Y.resume = () => { if (rig) rig.resume(); };               // ...until react() / idle() / resume()
   Y.only = names => { if (rig) rig.only(names); };          // QA: draw only these pieces

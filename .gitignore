@@ -49,3 +49,7 @@ art/highpeaks/renders/
 # qa_yeti.js, yeti_rig.py render) - hundreds of MB, kept local
 art/highpeaks/yeti/qa/
 art/highpeaks/yeti/rig_build/renders/
+# the yeti's QA frames and the Rigify working file: rebuilt by tools/highpeaks/yeti/yeti_rigify.py (the exported rig/ is tracked)
+art/highpeaks/yeti/rig_build/runtime/
+art/highpeaks/yeti/rig_build/qa_arms/
+art/highpeaks/yeti/rig_build/yeti_rigify.blend

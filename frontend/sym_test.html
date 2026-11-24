@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Symbol test</title>
+<style>
+  /* High Peaks: every symbol's clips side by side, straight off the packed sheets (assets/sym) - for looking at the
+     animation (tools/highpeaks/blender/symrig.py) without playing for a win. Not part of the game. */
+  html, body { margin: 0; background: #16213f; color: #fff; font: 14px/1.3 system-ui, sans-serif; }
+  .bar { position: sticky; top: 0; z-index: 2; display: flex; flex-wrap: wrap; gap: 6px; padding: 8px; background: rgba(8, 14, 34, .92); }
+  button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid #5a6ea8; background: #22305c; color: #fff; cursor: pointer; }
+  button.on { background: #ffd23c; color: #1a1a1a; border-color: #ffd23c; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; padding: 10px; }
+  .tile { background: linear-gradient(#232f5a, #1a2448); border-radius: 12px; padding: 4px; text-align: center; }
+  canvas { width: 100%; aspect-ratio: 1; display: block; }
+  .tile b { font-weight: 600; font-size: 12px; opacity: .8; }
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<div class="grid" id="grid"></div>
+<script>
+(async () => {
+  const man = await (await fetch("assets/sym/manifest.json")).json();
+  const dens = Math.max(...man.densities), D = "d" + Math.round(dens * 10), U = 10 * dens;   // sheet px per icon unit
+  const VIEW = 13;                                                                          // icon units across a tile
+  const CLIPS = ["land", "idle", "hit", "burn"];
+  let mode = "cycle", speed = 1;
+  const bar = document.getElementById("bar"), grid = document.getElementById("grid");
+  const btn = (label, group, on, fn) => {
+    const b = document.createElement("button");
+    b.textContent = label; b.dataset.g = group;
+    if (on) b.classList.add("on");
+    b.onclick = () => { bar.querySelectorAll(`[data-g="${group}"]`).forEach(x => x.classList.remove("on")); b.classList.add("on"); fn(); t0 = performance.now(); };
+    bar.appendChild(b);
+  };
+  ["cycle", ...CLIPS].forEach(c => btn(c, "clip", c === mode, () => { mode = c; }));
+  [[1, "1x"], [.5, "1/2"], [.2, "1/5"]].forEach(([s, l]) => btn(l, "speed", s === 1, () => { speed = s; }));
+  const tiles = [];
+  for (const [id, m] of Object.entries(man.symbols)) {
+    const tile = document.createElement("div"); tile.className = "tile";
+    const cv = document.createElement("canvas"); cv.width = cv.height = Math.round(VIEW * U);
+    const lab = document.createElement("b"); lab.textContent = id;
+    tile.append(cv, lab); grid.appendChild(tile);
+    const sheets = {};
+    for (const c of CLIPS) { const im = new Image(); im.src = `assets/sym/${D}/${id}_${c}.webp`; sheets[c] = im; }
+    tiles.push({ id, m, g: cv.getContext("2d"), cv, sheets });
+  }
+  const GAP = 500;                                               // ms at rest between clips
+  let t0 = performance.now();
+  const draw = (T, clip, f) => {
+    const { m, g, cv, sheets } = T, c = m.clips[clip], sh = m.sheets[D][clip], im = sheets[clip];
+    g.clearRect(0, 0, cv.width, cv.height);
+    if (!im.complete || !im.naturalWidth) return;
+    const k = cv.width / (VIEW * 10), ctr = m.centre || [0, 0], b = c.box;
+    // the clip's box about the tile's centre (the icon is 100 rig units, the box in icon units x 10)
+    const x = cv.width / 2 + (b[0] * 10 + ctr[0]) * k, y = cv.height / 2 + (b[1] * 10 + ctr[1]) * k;
+    g.drawImage(im, (f % sh.cols) * sh.w, Math.floor(f / sh.cols) * sh.h, sh.w, sh.h, x, y, b[2] * 10 * k, b[3] * 10 * k);
+  };
+  const frame = now => {
+    requestAnimationFrame(frame);
+    const t = (now - t0) * speed;
+    for (const T of tiles) {
+      const len = c => T.m.clips[c].frames / T.m.clips[c].fps * 1000;
+      const order = mode === "cycle" ? CLIPS : [mode];
+      const total = order.reduce((a, c) => a + len(c) + GAP, 0);
+      let u = t % total, shown = false;
+      for (const c of order) {
+        if (u < len(c)) { draw(T, c, Math.min(T.m.clips[c].frames - 1, Math.floor(u / 1000 * T.m.clips[c].fps))); shown = true; break; }
+        u -= len(c);
+        if (u < GAP) {                                           // between clips: the rest pose (nothing after the exit)
+          if (c === "burn") T.g.clearRect(0, 0, T.cv.width, T.cv.height);
+          else draw(T, "land", T.m.clips.land.frames - 1);
+          shown = true; break;
+        }
+        u -= GAP;
+      }
+      if (!shown) draw(T, "land", T.m.clips.land.frames - 1);
+    }
+  };
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

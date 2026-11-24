@@ -1,0 +1,63 @@
+[
+ {
+  "name": "ice_bong",
+  "aspect_ratio": "3:4",
+  "background": "transparent",
+  "quality": "high",
+  "prompt": "A single game icon on a fully transparent background, nothing else: a water bong CARVED FROM CLEAR GLACIER ICE, seen exactly from the FRONT, perfectly upright and left-right symmetrical, facing straight at the viewer. Stocky, compact proportions so it fills the picture: a wide round flask base holding icy turquoise water with a few bubbles, a short thick straight neck with an ice-catcher pinch and two ice cubes resting on it, a fat rounded rim at the top with a small cap of snow and a few short icicles. Its bowl sits low on the FRONT of the flask, pointing toward the viewer on a short stub of a stem: a round ice bowl packed with green herb with a small glowing orange ember on top and one thin wisp of smoke. More REALISTIC than a flat cartoon: translucent, glassy ice you can see into - soft refraction and inner glow, frosted patches, fine cracks, bright specular highlights on the curves, cool blue shading that turns paler toward the edges, the water line visible through the ice - a polished semi-realistic slot-game icon. A clean dark navy outline around the whole silhouette so it sits beside cartoon symbols. No hands, no characters, no table, no shadow on the ground, no text. Everything else fully transparent."
+ },
+ {
+  "name": "menu_chance",
+  "aspect_ratio": "16:9",
+  "refs": [
+   "art/highpeaks/yeti/master/yeti_master.png",
+   "art/highpeaks/raw/peak_plate.png"
+  ],
+  "prompt": "Wide artwork for a slot-game menu card called HIGHER CHANCE. The character is EXACTLY the yeti of the first reference picture, drawn in the same flat cartoon style, line weight and colours: a big friendly grey-blue yeti with shaggy white fur and a white beard, a blue nose, sleepy happy eyes and a wide grin, an orange knit beanie with a white pom-pom, purple ski goggles pushed up on the beanie, a lime-green puffer jacket open over his white furry belly, purple cargo snow pants, chunky orange snowboard boots, and his yellow snowboard with purple flames. He is the only character: no people, no other animals. Scene: the yeti sits alone on a red chairlift chair riding up toward the snowy mountain top of the second reference picture, leaning forward with wide excited eyes and crossed fingers, his snowboard strapped to one foot dangling below; around him in the air float three big shiny round game tokens - gold tokens with a green cannabis leaf over a snowy peak - sparkling, with little upward arrows of light; bright blue sky, the sea of snowy peaks far below. The yeti and the tokens are in the RIGHT two thirds of the picture; the left third is calm sky and far peaks (text is laid over it later). Full-bleed, no border. No text, no letters, no numbers, no logos, no signs with writing anywhere in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "menu_fillup",
+  "aspect_ratio": "2:3",
+  "refs": [
+   "art/highpeaks/yeti/master/yeti_master.png",
+   "art/highpeaks/raw/peak_plate.png"
+  ],
+  "prompt": "Artwork for a slot-game menu card called STASH. The character is EXACTLY the yeti of the first reference picture, drawn in the same flat cartoon style, line weight and colours: a big friendly grey-blue yeti with shaggy white fur and a white beard, a blue nose, sleepy happy eyes and a wide grin, an orange knit beanie with a white pom-pom, purple ski goggles pushed up on the beanie, a lime-green puffer jacket open over his white furry belly, purple cargo snow pants, chunky orange snowboard boots, and his yellow snowboard with purple flames. He is the only character: no people, no other animals. Scene: on the snowy mountain top beside the wooden lift hut, the yeti hugs a GIANT glass stash jar as tall as he is, its gold lid popped open, overflowing with chunky cartoon buds in three colours - bright green, gold-orange and red - while more buds rain down around him and pile up in the snow; he grins up at them, delighted, one arm raised to catch one. Daytime, bright blue sky. The picture is the artwork of a tall game-menu card: the character and the action fill the upper three quarters; the bottom quarter is simple calm snow (a title and a button are laid over it later). Full-bleed, no border, no frame. No text, no letters, no numbers, no logos, no signs with writing anywhere in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "menu_premium",
+  "aspect_ratio": "2:3",
+  "refs": [
+   "art/highpeaks/yeti/master/yeti_master.png",
+   "art/highpeaks/raw/peak_plate.png"
+  ],
+  "prompt": "Artwork for a slot-game menu card called FRESH POWDER. The character is EXACTLY the yeti of the first reference picture, drawn in the same flat cartoon style, line weight and colours: a big friendly grey-blue yeti with shaggy white fur and a white beard, a blue nose, sleepy happy eyes and a wide grin, an orange knit beanie with a white pom-pom, purple ski goggles pushed up on the beanie, a lime-green puffer jacket open over his white furry belly, purple cargo snow pants, chunky orange snowboard boots, and his yellow snowboard with purple flames. He is the only character: no people, no other animals. Scene: the yeti rides his yellow flame snowboard down through deep fresh powder straight toward the viewer, crouched low with one hand dragging in the snow, a huge fan of powder snow exploding up behind him, goggles DOWN over his eyes, laughing; fat snowflakes fall thickly everywhere; a soft pink-and-lavender sky, snow-loaded pines and the lift hut small in the background, everything buried in extra-deep powder. The picture is the artwork of a tall game-menu card: the character and the action fill the upper three quarters; the bottom quarter is simple calm snow (a title and a button are laid over it later). Full-bleed, no border, no frame. No text, no letters, no numbers, no logos, no signs with writing anywhere in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "menu_midnight",
+  "aspect_ratio": "2:3",
+  "refs": [
+   "art/highpeaks/yeti/master/yeti_master.png",
+   "art/highpeaks/raw/peak_plate.png"
+  ],
+  "prompt": "Artwork for a slot-game menu card called BLACK DIAMOND. The character is EXACTLY the yeti of the first reference picture, drawn in the same flat cartoon style, line weight and colours: a big friendly grey-blue yeti with shaggy white fur and a white beard, a blue nose, sleepy happy eyes and a wide grin, an orange knit beanie with a white pom-pom, purple ski goggles pushed up on the beanie, a lime-green puffer jacket open over his white furry belly, purple cargo snow pants, chunky orange snowboard boots, and his yellow snowboard with purple flames. He is the only character: no people, no other animals. Scene: NIGHT on the mountain. The yeti launches off a steep cliff drop on his yellow flame snowboard, mid-air, grabbing the board with one hand, the other fist punched up, fearless grin; behind him a deep navy sky full of stars, a big bright full moon and swirling green-and-purple northern lights over jagged snowy peaks; beside the drop a wooden trail post with a plain BLACK DIAMOND shape plate glowing at its edges. Cool blue moonlit snow, a warm rim of light on the yeti. The picture is the artwork of a tall game-menu card: the character and the action fill the upper three quarters; the bottom quarter is simple calm snow (a title and a button are laid over it later). Full-bleed, no border, no frame. No text, no letters, no numbers, no logos, no signs with writing anywhere in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "menu_nitro",
+  "aspect_ratio": "2:3",
+  "refs": [
+   "art/highpeaks/yeti/master/yeti_master.png",
+   "art/highpeaks/raw/peak_plate.png"
+  ],
+  "prompt": "Artwork for a slot-game menu card called AVALANCHE SPIN. The character is EXACTLY the yeti of the first reference picture, drawn in the same flat cartoon style, line weight and colours: a big friendly grey-blue yeti with shaggy white fur and a white beard, a blue nose, sleepy happy eyes and a wide grin, an orange knit beanie with a white pom-pom, purple ski goggles pushed up on the beanie, a lime-green puffer jacket open over his white furry belly, purple cargo snow pants, chunky orange snowboard boots, and his yellow snowboard with purple flames. He is the only character: no people, no other animals. Scene: the yeti races down the slope on his yellow flame snowboard, leaning hard into a carve, looking back over his shoulder with a huge thrilled grin as an ENORMOUS cartoon avalanche - a towering rolling wall of white snow with chunky boulders of ice - thunders down the mountain right behind him; a dramatic orange-and-purple sunset sky with two cartoon lightning bolts, speed lines, snow spraying from his board. The picture is the artwork of a tall game-menu card: the character and the action fill the upper three quarters; the bottom quarter is simple calm snow (a title and a button are laid over it later). Full-bleed, no border, no frame. No text, no letters, no numbers, no logos, no signs with writing anywhere in the picture.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ },
+ {
+  "name": "bonus_btn",
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "refs": [
+   "art/highpeaks/yeti/master/yeti_master.png"
+  ],
+  "prompt": "A round BUY BONUS button emblem for a slot game on a fully transparent background, nothing else. A thick circular badge with a chunky rim of blue glacier ice, a cap of snow on its top and a few icicles hanging from it; inside the ring a deep green background with sparkles. Bursting out of the middle: an open wooden treasure chest overflowing with green cannabis buds and gold coins, and popping up out of it, arms thrown wide, the head and shoulders of the yeti from the reference picture (grey-blue face, white fur, orange beanie with white pom-pom, purple goggles on the beanie, lime-green puffer jacket), laughing. Across the bottom of the badge, overlapping the ring, a bold curved red ribbon banner with the single word \"BONUS\" in big chunky white capital letters with a thick black outline - spelled exactly B-O-N-U-S, no other words. Thick black outline round everything, the reference picture's flat cartoon style. Everything outside the badge fully transparent.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish."
+ }
+]

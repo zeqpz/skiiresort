@@ -90,3 +90,25 @@
 {"name": "peak_plate_powder", "file": "art\\highpeaks\\raw\\peak_plate_powder.png", "size": [3840, 2160], "mode": "RGB", "cost": 0.113454, "model": "openai/gpt-image-2.6-sunburst", "secs": 49.5, "t": "2026-11-19 19:08:32"}
 {"name": "peak_plate_night", "file": "art\\highpeaks\\raw\\peak_plate_night.png", "size": [3840, 2160], "mode": "RGB", "cost": 0.113504, "model": "openai/gpt-image-2.6-sunburst", "secs": 46.9, "t": "2026-11-19 19:09:22"}
 {"name": "peak_plate_avalanche", "file": "art\\highpeaks\\raw\\peak_plate_avalanche.png", "size": [3840, 2160], "mode": "RGB", "cost": 0.113464, "model": "openai/gpt-image-2.6-sunburst", "secs": 47.6, "t": "2026-11-19 19:10:13"}
+{"name": "layer_mid", "error": "IncompleteRead(167 bytes read)", "secs": 22.6}
+{"name": "fg_bough", "error": "IncompleteRead(167 bytes read)", "secs": 23.2}
+{"name": "layer_back", "error": "HTTP 401: {\"error\":{\"message\":\"API key expired.\",\"code\":401,\"metadata\":{\"headers\":{\"WWW-Authenticate\":\"Bearer error=\\\"invalid_token\\\", error_description=\\\"API key expired\\\"\"}}}}", "secs": 24.4}
+{"name": "fg_drift", "error": "HTTP 401: {\"error\":{\"message\":\"API key expired.\",\"code\":401,\"metadata\":{\"headers\":{\"WWW-Authenticate\":\"Bearer error=\\\"invalid_token\\\", error_description=\\\"API key expired\\\"\"}}}}", "secs": 25.0}
+{"name": "spr_pine", "error": "IncompleteRead(167 bytes read)", "secs": 16.5}
+{"name": "spr_flag", "error": "IncompleteRead(167 bytes read)", "secs": 17.7}
+{"name": "yeti_drift", "error": "HTTP 401: {\"error\":{\"message\":\"API key expired.\",\"code\":401,\"metadata\":{\"headers\":{\"WWW-Authenticate\":\"Bearer error=\\\"invalid_token\\\", error_description=\\\"API key expired\\\"\"}}}}", "secs": 16.8}
+{"name": "ice_bong", "file": "art\\highpeaks\\raw\\ice_bong.png", "size": [1152, 1536], "mode": "RGBA", "cost": 0.05021, "model": "openai/gpt-image-2.6-sunburst", "secs": 37.5, "t": "2026-11-23 21:23:41"}
+{"name": "layer_mid", "file": "art\\highpeaks\\raw\\layer_mid.png", "size": [3840, 2160], "mode": "RGB", "cost": 0.114814, "model": "openai/gpt-image-2.6-sunburst", "secs": 73.5, "t": "2026-11-23 21:24:20"}
+{"name": "layer_back", "file": "art\\highpeaks\\raw\\layer_back.png", "size": [3840, 2160], "mode": "RGB", "cost": 0.114009, "model": "openai/gpt-image-2.6-sunburst", "secs": 77.7, "t": "2026-11-23 21:24:24"}
+{"name": "fg_drift", "file": "art\\highpeaks\\raw\\fg_drift.png", "size": [1024, 1024], "mode": "RGBA", "cost": 0.066444, "model": "openai/gpt-image-2.6-sunburst", "secs": 78.3, "t": "2026-11-23 21:24:25"}
+{"name": "fg_bough", "file": "art\\highpeaks\\raw\\fg_bough.png", "size": [1024, 1024], "mode": "RGBA", "cost": 0.066204, "model": "openai/gpt-image-2.6-sunburst", "secs": 83.7, "t": "2026-11-23 21:24:30"}
+{"name": "menu_chance", "file": "art\\highpeaks\\raw\\menu_chance.v2.png", "size": [1536, 864], "mode": "RGB", "cost": 0.058702, "model": "openai/gpt-image-2.6-sunburst", "secs": 93.8, "t": "2026-11-23 21:24:42"}
+{"name": "menu_fillup", "file": "art\\highpeaks\\raw\\menu_fillup.v2.png", "size": [1024, 1536], "mode": "RGB", "cost": 0.067557, "model": "openai/gpt-image-2.6-sunburst", "secs": 95.8, "t": "2026-11-23 21:24:44"}
+{"name": "menu_premium", "file": "art\\highpeaks\\raw\\menu_premium.v2.png", "size": [1024, 1536], "mode": "RGB", "cost": 0.067562, "model": "openai/gpt-image-2.6-sunburst", "secs": 98.6, "t": "2026-11-23 21:24:47"}
+{"name": "menu_midnight", "file": "art\\highpeaks\\raw\\menu_midnight.v2.png", "size": [1024, 1536], "mode": "RGB", "cost": 0.067652, "model": "openai/gpt-image-2.6-sunburst", "secs": 62.4, "t": "2026-11-23 21:24:48"}
+{"name": "spr_pine", "file": "art\\highpeaks\\raw\\spr_pine.png", "size": [1024, 1536], "mode": "RGBA", "cost": 0.054524, "model": "openai/gpt-image-2.6-sunburst", "secs": 37.7, "t": "2026-11-23 21:25:00"}
+{"name": "yeti_drift", "file": "art\\highpeaks\\raw\\yeti_drift.png", "size": [1536, 864], "mode": "RGBA", "cost": 0.046004, "model": "openai/gpt-image-2.6-sunburst", "secs": 39.0, "t": "2026-11-23 21:25:07"}
+{"name": "spr_flag", "file": "art\\highpeaks\\raw\\spr_flag.png", "size": [1024, 1024], "mode": "RGBA", "cost": 0.066204, "model": "openai/gpt-image-2.6-sunburst", "secs": 46.2, "t": "2026-11-23 21:25:13"}
+{"name": "bonus_btn", "file": "art\\highpeaks\\raw\\bonus_btn.v2.png", "size": [1024, 1024], "mode": "RGBA", "cost": 0.066508, "model": "openai/gpt-image-2.6-sunburst", "secs": 51.7, "t": "2026-11-23 21:25:38"}
+{"name": "menu_nitro", "file": "art\\highpeaks\\raw\\menu_nitro.v2.png", "size": [1024, 1536], "mode": "RGB", "cost": 0.067557, "model": "openai/gpt-image-2.6-sunburst", "secs": 66.3, "t": "2026-11-23 21:25:53"}
+{"name": "sym_H1_skis", "file": "art\\highpeaks\\raw\\sym_H1_skis.png", "size": [1024, 1024], "mode": "RGBA", "cost": 0.070544, "model": "openai/gpt-image-2.6-sunburst", "secs": 41.1, "t": "2026-11-23 21:35:11"}

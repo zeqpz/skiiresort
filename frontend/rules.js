@@ -25,9 +25,9 @@ const RULES = (() => {
     L5: [0.2, 0.2, 0.3, 0.4, 0.5, 0.9, 1.4, 2.2, 4.5, 9, 18],
   };
   const NAMES = {
-    H1: "Bong", H2: "Stash Jar", H3: "Snowboard", H4: "Ski Goggles",
+    H1: "Skis", H2: "Stash Jar", H3: "Snowboard", H4: "Ski Goggles",
     L1: "Hot Cocoa", L2: "Joint", L3: "Brownie", L4: "Beanie", L5: "Pizza Slice",
-    ZP: "Lighter", ST: "Lift Pass", GT: "Gold Lift Pass", GP: "Snow Cannon",
+    ZP: "Lighter", ST: "Lift Pass", GT: "Gold Lift Pass", GP: "Ice Bong",
     FDG: "Bud (green)", FDA: "Bud (gold)", FDR: "Bud (red)",
     BS: "PEAK Token", DS: "Black Diamond Token",
   };
@@ -153,11 +153,11 @@ const RULES = (() => {
 
 <section>
   <h4>${t("Feature symbols")}</h4>
-  <p class="fine">${t("Cluster wins always come first: whenever the board holds a cluster, it is paid and the board refills before any feature fires. Only when no cluster is left does the next feature fire: all Snow Cannons together, otherwise one Lift Pass or Gold Lift Pass, otherwise one Lighter (reel by reel, top to bottom). The board refills after each, and is checked for clusters again before the next feature. Feature symbols do not form clusters.")}</p>
+  <p class="fine">${t("Cluster wins always come first: whenever the board holds a cluster, it is paid and the board refills before any feature fires. Only when no cluster is left does the next feature fire: all Ice Bongs together, otherwise one Lift Pass or Gold Lift Pass, otherwise one Lighter (reel by reel, top to bottom). The board refills after each, and is checked for clusters again before the next feature. Feature symbols do not form clusters.")}</p>
   ${special("ZP", "Lighter", "Lights up its 3x3 area: its own cell and the 8 around it double their multipliers, and the paying symbols there burn - they clear, feeding their doubled multipliers into any cluster they were part of. Tokens keep their place but their cells still double. It does not appear in STASH.", social, t)}
   ${special("ST", "Lift Pass", "Scratches off one paying symbol that is on the board: every cell holding it doubles and burns, and so does the pass's own cell. In STASH it collects every Bud in its 8 neighbours, adding their values to its own, plus any collector there that activated on an earlier spin; with nothing to collect it is removed, otherwise it stays with its total.", social, t)}
   ${special("GT", "Gold Lift Pass", "Every paying symbol on the board doubles and burns, and so does the pass's own cell. In STASH it collects every Bud on the whole board, then doubles everything it collected.", social, t)}
-  ${special("GP", "Snow Cannon", `The biggest single event - at most one per column. It rolls a snow grade: DUSTING ${list(PUMP.DUSTING)}, POWDER ${list(PUMP.POWDER)}, BLIZZARD ${list(PUMP.BLIZZARD)}, or WHITEOUT. DUSTING to BLIZZARD: every cell in its column gets the pump's multiplier and the paying symbols in the column burn. WHITEOUT: every cell in the column becomes a MAX cell, and any cluster touching a MAX cell pays the max win. Pumps in different columns fire together. In STASH it rolls ${x(2)} to ${x(64)} and multiplies every Bud in its column and any collector there that has already collected; then it leaves.`, social, t)}
+  ${special("GP", "Ice Bong", `The biggest single event - at most one per column. It rolls a multiplier: ${list(PUMP.DUSTING)}, ${list(PUMP.POWDER)}, ${list(PUMP.BLIZZARD)}, or MAX. With a multiplier, every cell in its column gets it and the paying symbols in the column burn. MAX: every cell in the column becomes a MAX cell, and any cluster touching a MAX cell pays the max win. Pumps in different columns fire together. In STASH it rolls ${x(2)} to ${x(64)} and multiplies every Bud in its column and any collector there that has already collected; then it leaves.`, social, t)}
   ${special("FDA", "Buds", `STASH only. Sticky: green ${list(DROPS.green)}, gold ${list(DROPS.amber)}, red ${list(DROPS.red)}. A drop that grows changes colour: green under x5, gold from x5, red from x50.`, social, t)}
 </section>
 
@@ -171,7 +171,7 @@ const RULES = (() => {
   <h4>${t("Bonuses")}</h4>
   <p><b>STASH</b> — ${t("Exactly 3 PEAK Tokens and no Black Diamond Token, or bought. A Bud collection game with a spin gauge that counts your spins left; no cell multipliers. It starts with 3 spins. Every spin uses one, and any spin that lands something new (a drop or a feature) sets it back to 3 if it was lower. A PEAK Token can land in an empty cell: it adds 5 spins on top, then leaves. The bonus ends when no spins are left. At the end you win the total of every drop left plus every collector's total, times the bet, capped at the max win.")}</p>
   <p><b>FRESH POWDER</b> — ${t("4 or more PEAK Tokens, or bought. 10 free spins of the base game with sticky cell multipliers: a cell that reached x8 keeps x8 into the next spin and keeps growing.")}</p>
-  <p><b>BLACK DIAMOND</b> — ${t("3 Black Diamond Tokens, or 3 or more tokens of both kinds together (such as 2 PEAK Tokens and 1 Black Diamond Token), or bought. 10 free spins with sticky cell multipliers, every cell starting at x4, and Snow Cannons landing far more often. The biggest bonus in the game.")}</p>
+  <p><b>BLACK DIAMOND</b> — ${t("3 Black Diamond Tokens, or 3 or more tokens of both kinds together (such as 2 PEAK Tokens and 1 Black Diamond Token), or bought. 10 free spins with sticky cell multipliers, every cell starting at x4, and Ice Bongs landing far more often. The biggest bonus in the game.")}</p>
   <p>${t("Re-triggers: in FRESH POWDER and BLACK DIAMOND, a free spin that ends with 3 or more PEAK Tokens on the board adds 5 free spins (up to 60 free spins in all). In STASH, every PEAK Token that lands adds 5 spins to the spin gauge. No bonus can start inside another.")}</p>
   <p class="fine">${t("Bonuses are played at the bet of the triggering spin. Every round is decided in full the moment it is placed: if the connection drops, reload the game and the round is settled and paid.")}</p>
 </section>

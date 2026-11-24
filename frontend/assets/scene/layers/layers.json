@@ -1,0 +1,175 @@
+{
+ "provisional": false,
+ "back": {
+  "src": "back.webp",
+  "drift": [
+   0,
+   0
+  ]
+ },
+ "mid": {
+  "src": "mid.webp"
+ },
+ "pines": [
+  {
+   "src": "spr_pine.webp",
+   "x": 150,
+   "y": 1420,
+   "h": 1190,
+   "sway": 0.9,
+   "aspect": 0.5316
+  },
+  {
+   "src": "spr_pine.webp",
+   "x": 372,
+   "y": 1330,
+   "h": 900,
+   "sway": 1.2,
+   "aspect": 0.5316
+  }
+ ],
+ "flag": {
+  "src": "spr_flag.webp",
+  "x": 3480,
+  "y": 598,
+  "w": 300,
+  "h": 219
+ },
+ "lift": {
+  "src": "chair.webp",
+  "chairs": 5,
+  "secs": 52,
+  "gap": 34,
+  "out": [
+   [
+    1238,
+    1088,
+    158
+   ],
+   [
+    1356,
+    1136,
+    132
+   ],
+   [
+    1596,
+    1298,
+    92
+   ],
+   [
+    1806,
+    1430,
+    64
+   ]
+  ],
+  "aspect": 0.7885
+ },
+ "front": [
+  {
+   "src": "fg_drift.webp",
+   "corner": "bl",
+   "h": 0.3,
+   "inset": [
+    -0.012,
+    -0.03
+   ],
+   "aspect": 1.5203
+  },
+  {
+   "src": "fg_drift.webp",
+   "corner": "br",
+   "h": 0.3,
+   "inset": [
+    -0.012,
+    -0.03
+   ],
+   "flip": true,
+   "aspect": 1.5203
+  },
+  {
+   "src": "fg_bough.webp",
+   "corner": "tl",
+   "h": 0.36,
+   "inset": [
+    -0.02,
+    -0.04
+   ],
+   "aspect": 1.0274
+  }
+ ],
+ "windows": [
+  [
+   741,
+   1173,
+   190,
+   130
+  ],
+  [
+   518,
+   1161,
+   90,
+   100
+  ]
+ ],
+ "clouds": {
+  "high": [
+   40,
+   420
+  ],
+  "low": [
+   640,
+   1160
+  ]
+ },
+ "sparkle": {
+  "box": [
+   900,
+   1520,
+   3700,
+   2100
+  ],
+  "n": 10
+ },
+ "size": [
+  3840,
+  2160
+ ],
+ "moods": {
+  "normal": {
+   "ground": "#c1c7cd",
+   "body": "#cacfd4",
+   "shade": "#cce2f9",
+   "snow": "#f2f9fe",
+   "flakes": 9
+  },
+  "zombie": {
+   "ground": "#c6c7cd",
+   "body": "#cecfd4",
+   "shade": "#cce2f9",
+   "snow": "#f9fafe",
+   "flakes": 22
+  },
+  "midnight": {
+   "ground": "#9bb1cd",
+   "body": "#a9bcd4",
+   "shade": "#cce2f9",
+   "snow": "#c3defd",
+   "flakes": 8
+  },
+  "nitro": {
+   "ground": "#c1c5cd",
+   "body": "#cacdd4",
+   "shade": "#cce2f9",
+   "snow": "#f2f7fd",
+   "flakes": 13
+  }
+ },
+ "dim_at_yeti": 0.21,
+ "yeti_drift": {
+  "src": "assets/yeti/drift.webp",
+  "size": [
+   1500,
+   380
+  ]
+ }
+}

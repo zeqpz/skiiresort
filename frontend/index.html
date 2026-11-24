@@ -160,14 +160,12 @@
   }
   #bgwall::after {
     content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(rgba(7, 11, 24, .2), rgba(7, 11, 24, .42));
+    /* (2026-11-23: lighter than the night station's .2 - .42: the layered summit is a bright day, and the snow the
+       yeti stands in is matched to the snow floor under this dim - tools/highpeaks/layers_install.py DIM_AT_YETI) */
+    background: linear-gradient(rgba(7, 11, 24, .1), rgba(7, 11, 24, .24));
   }
-  #bgwall.bounce { animation: bgbounce .7s cubic-bezier(.22,.9,.32,1.25); }
-  @keyframes bgbounce {   /* on translate/scale: transform carries the scene's lean */
-    0% { translate: 0 0; scale: 1; }
-    38% { translate: 0 calc(9px * var(--bounce)); scale: calc(1 + .022 * var(--bounce)); }
-    100% { translate: 0 0; scale: 1; }
-  }
+  /* (2026-11-23: the spin's background hop - #bgwall.bounce / bgbounce - is gone, owner: "make the background stop
+     bouncing when you press spin") */
   button { font-family: inherit; cursor: pointer; }
   button:disabled { opacity: .45; cursor: default; }
   :focus-visible { outline: 2px solid var(--fs-green); outline-offset: 2px; }
@@ -1610,7 +1608,10 @@
      at rest, the whole streak (--blur of it) at the fastest - and is gone the moment it lands. */
   /* the board's symbols are drawn in one canvas (boardgl.js), between the multiplier values and the reels;
      the cells keep moving as ever but show no picture of their own, the motion blur included */
-  #board > canvas.boardgl { position: absolute; pointer-events: none; z-index: 0; }
+  /* its last 64 px (of the 72 it reaches under the board) never show: nothing of the board belongs under the frame's
+     bottom log, and a tile on its way out through the floor (fallOut) is drawn there for as long as its reel is not
+     clipped (owner, 2026-11-23, from a phone: "remove the glitches from under the board with the symbols") */
+  #board > canvas.boardgl { position: absolute; pointer-events: none; z-index: 0; clip-path: inset(0 0 64px 0); }
   #board.gl .cell > .smear { visibility: hidden; }
   .cell > .smear {
     position: absolute; left: 6%; width: 88%; bottom: 6%; height: calc(88% * 2.1);
@@ -1750,8 +1751,11 @@
     translate: -50% -50%;
     display: flex; align-items: center; gap: .18em;
     font-family: "Fredoka", var(--num); font-weight: 700; font-size: 44px; line-height: 1; letter-spacing: .02em;
-    color: #FFB547; -webkit-text-stroke: 3px rgba(12, 8, 18, .85); paint-order: stroke fill;
-    text-shadow: 0 0 6px currentColor, 0 0 18px currentColor, 0 3px 0 rgba(0, 0, 0, .5);
+    /* (2026-11-23, owner: "make the win font ... ice chunks") cut from ice like the win numerals (tools/highpeaks/
+       ice_numerals.py): an ice-blue face (placeWinChip runs it from frost white to glacier blue as it climbs), a navy
+       outline, the numerals' flat deep-blue drop, a cold glow */
+    color: #DDF4FF; -webkit-text-stroke: 3px #0B1E4A; paint-order: stroke fill;
+    text-shadow: 0 3px 0 #1E63C8, 0 5px 0 #0B1E4A, 0 0 14px rgba(120, 210, 255, .85);
     will-change: transform, opacity;
     animation: winAmtIn calc(.42s * var(--tempo, 1)) both;
   }
@@ -1803,19 +1807,26 @@
      being resumed. The ticker above stays hidden (the board face is clean), so these float
      over the foot of the board for a few seconds. They sit outside #app, so they never shrink
      with the fit-to-screen scale and stay readable on the smallest popout. */
+  /* (2026-11-23, owner: "make the alerts hud for power on / power off and everything else match the color /
+     transparency / font and scheme of our hud and make it thinner and longer and sits underneath the board") One thin
+     long strip in the HUD's own fill, outline, face and caps, laid along the foot of the board (notice() places it
+     from the frame's rect: as wide as the board, just under its bottom log). An error keeps the HUD's look with a red
+     outline and may run to two lines. */
   .notice {
-    position: fixed; left: 50%; bottom: max(15vh, 84px); z-index: 45;
-    max-width: min(92vw, 520px); padding: 9px 18px 8px; border-radius: 12px;
-    background: rgba(10, 8, 14, .93); border: 2px solid #FF7A1A;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .55);
-    font-family: var(--legible); font-size: clamp(11px, 2vh, 16px); line-height: 1.35; color: #f4f0ea;
+    position: fixed; left: 50%; bottom: max(15vh, 84px); z-index: 45; box-sizing: border-box;
+    width: min(92vw, 560px); max-width: 96vw; padding: 3px 20px 3px; border-radius: 999px;
+    background: var(--hud-fill, rgba(16, 22, 48, .88)); border: 2px solid var(--hud-line, #000); box-shadow: none;
+    font-family: var(--hud-font, "Fredoka", sans-serif); font-weight: 600; font-size: clamp(9.5px, 1.75vh, 14px); line-height: 1.3;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--hud-soft, #c9d4ee);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     text-align: center; pointer-events: none;
-    opacity: 0; transform: translate(-50%, 10px);
-    transition: opacity .25s ease, transform .3s cubic-bezier(.2, .9, .3, 1.2);
+    opacity: 0; transform: translate(-50%, -6px);
+    transition: opacity .2s ease, transform .25s cubic-bezier(.2, .9, .3, 1.2);
   }
   .notice.on { opacity: 1; transform: translate(-50%, 0); }
-  .notice b { color: var(--gold); }
-  .notice.err { border-color: #ff5a5a; }
+  .notice b { color: var(--hud-ink, #fbf8ee); font-weight: 700; }
+  .notice.err { border-color: #ff5a5a; white-space: normal; border-radius: 14px; }
+  .notice.err b { color: #ffb3b3; }
   /* nothing can be played without a session: the connection error sits over everything,
      the opening screens included */
   #errorWrap { z-index: 70; }
@@ -2786,7 +2797,7 @@
   }
   .fxlayer { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
   .fxlayer > * { position: absolute; }
-  /* a column lit by a Snow Cannon (and a STASH pump) */
+  /* a column lit by an Ice Bong (and a STASH pump) */
   .colglow { border-radius: 16px; background: linear-gradient(90deg, color-mix(in srgb, var(--c) 22%, transparent), transparent 22%, transparent 78%, color-mix(in srgb, var(--c) 22%, transparent));
     box-shadow: 0 0 24px var(--c), inset 0 0 30px color-mix(in srgb, var(--c) 60%, transparent);   /* soft, no outline (2026-11-13) */
     opacity: 0; transition: opacity .25s ease; }
@@ -2798,6 +2809,20 @@
   .pumpdial.out { animation: dialOut calc(.3s * var(--tempo, 1)) ease-in both; }
   @keyframes dialIn { from { transform: scale(.3); opacity: 0; } to { transform: none; opacity: 1; } }
   @keyframes dialOut { to { transform: scale(.6); opacity: 0; } }
+  /* the ice bong that takes the dial's place (pumpShow, icebong.js): it drops into its column and lands with a bounce */
+  .pumpbong { position: absolute; z-index: 7; pointer-events: none; transform-origin: 50% 100%; filter: drop-shadow(0 8px 10px rgba(0, 0, 0, .45));
+    animation: bongDrop calc(.52s * var(--tempo, 1)) cubic-bezier(.55, 0, .85, .6) both; }
+  .pumpbong.out { animation: dialOut calc(.3s * var(--tempo, 1)) ease-in both; }
+  @keyframes bongDrop {
+    0% { transform: translateY(-112%) scale(.96, 1.06); opacity: 0; } 12% { opacity: 1; }
+    62% { transform: translateY(0) scale(1.06, .95); animation-timing-function: ease-out; } 80% { transform: translateY(-2.2%) scale(.985, 1.02); } 100% { transform: none; opacity: 1; }
+  }
+  .pumpbong .grade { position: absolute; left: 50%; top: 58%; translate: -50% 0; white-space: nowrap; z-index: 2;
+    font-family: "Fredoka", var(--num); font-weight: 700; font-size: 24px; letter-spacing: .08em; color: #fff;
+    padding: 4px 16px; border-radius: 999px; background: #071a3a; border: 2px solid var(--c, #fff); box-shadow: 0 0 16px var(--c, #fff);
+    text-shadow: 0 0 8px var(--c, #fff); opacity: 0; scale: .5; transition: opacity .15s, scale .3s cubic-bezier(.2, .9, .3, 1.5); }
+  .pumpbong.landed .grade { opacity: 1; scale: 1; }
+  .pumpbong.fulltank .grade { font-size: 28px; color: #2a1600; background: linear-gradient(180deg, #FFF1B8, #FFA640 50%, #B8860B); text-shadow: none; }
   .pumpdial svg { width: 100%; height: 100%; overflow: visible; }
   .pumpdial .needle { transform-origin: 115px 112px; }
   .pumpdial .grade { position: absolute; left: 50%; top: 118px; translate: -50% 0; white-space: nowrap;
@@ -3013,7 +3038,7 @@
   .modesplash img { width: min(70vw, 900px); height: auto; filter: drop-shadow(0 0 30px rgba(91, 140, 255, .9)); animation: splashIn calc(1.4s * var(--tempo, 1)) cubic-bezier(.2, .9, .3, 1.2) both; }
   @keyframes splashIn { 0% { opacity: 0; scale: .4; } 25% { opacity: 1; scale: 1.06; } 75% { opacity: 1; scale: 1; } 100% { opacity: 0; scale: 1.15; } }
   @media (prefers-reduced-motion: reduce) {
-    .badgelayer .badge.bump > span, .colglow.on, .firebox, .firebox::before, .firebox::after, .pumpdial, .scratchcard, .goldsweep::before, .cell.tflash::after, .modesplash img, .scenewipe { animation: none !important; }
+    .badgelayer .badge.bump > span, .colglow.on, .firebox, .firebox::before, .firebox::after, .pumpdial, .pumpbong, .scratchcard, .goldsweep::before, .cell.tflash::after, .modesplash img, .scenewipe { animation: none !important; }
   }
   /* ---------- the bonus-buy menu (2026-11-10, a premium Stake game's) ----------
      Two wide cards on top (HIGHER CHANCE, AVALANCHE SPIN) and three tall ones under them (STASH, FRESH POWDER,
@@ -3358,15 +3383,10 @@
      the glass on the same side and draws over him (it comes after him in the page). He is sized by the box's height
      and centred in it; his canvas spills past it for smoke and raised arms. Only when that room is there. */
   .yetibox { display: none; }
-  html.railside .yetibox:not([hidden]) {
-    --rfrw: calc((7 * (var(--cell-w) + 10px) + 6 * var(--cell-gap) + 12px) / var(--fo-w));
-    --rfrh: calc((5 * var(--cell-h) + 4 * var(--cell-gap) + 22px) / var(--fo-h));
-    --yh: min(calc(var(--rfrh) * .62), calc(var(--side, 400) * 1px / .78));
-    display: block; position: absolute; z-index: 0; pointer-events: none;
-    height: var(--yh); width: calc(var(--yh) * .78);
-    left: calc(50% + var(--rfrw) / 2 + 6px + (var(--side, 400) * 1px - var(--yh) * .78) / 2);
-    top: calc(12px + var(--rfrh) * .975 - var(--yh));
-  }
+  /* (2026-11-23) he stands in the scene, not the page: placeYeti moves the box into #camfar and sizes and places it
+     in window px from the frame's rect - over the plate (z 1), under the foreground pieces (.lyfront, z 3) */
+  html.railside .yetibox:not([hidden]) { display: block; position: absolute; z-index: 1; pointer-events: none; }
+  body.features-up .yetibox { visibility: hidden; }   /* not on the intro's feature cards: the board is not up yet */
 
   /* The HIGH PEAKS logo on the frame's sign board (owner: "keep the same outline for the board but redo it so it has an
      area for the high peaks logo"): the frame (frame_*.webp) is the old log outline redrawn with a sign board nailed
@@ -3563,6 +3583,8 @@
 <script src="rules.js"></script>
 <script src="scenefx.js"></script>
 <script src="skyfx.js"></script>
+<script src="layers.js"></script>
+<script src="icebong.js"></script>
 <script src="boardgl.js"></script>
 <script src="hudfit.js"></script>
 <script src="charrig.js"></script>
@@ -3573,7 +3595,7 @@
 // a multiplier as the player should read it: 1.25, 5, 1000 - never 5.00
 const fmtMult = v => String(+(+v).toFixed(2));
 const SYM = {   // the 18 Falcos symbols (FALCOS_DESIGN.md); the names in full are rules.js NAMES
-  H1:  { label: "BONG",    sub: "",   cls: "high", img: "assets/flat/H1.webp" },
+  H1:  { label: "SKIS",    sub: "",   cls: "high", img: "assets/flat/H1.webp" },
   H2:  { label: "STASH",   sub: "JAR",      cls: "high", img: "assets/flat/H2.webp" },
   H3:  { label: "SNOW",    sub: "BOARD",   cls: "high", img: "assets/flat/H3.webp" },
   H4:  { label: "GOGGLES", sub: "",      cls: "high", img: "assets/flat/H4.webp" },
@@ -3585,7 +3607,7 @@ const SYM = {   // the 18 Falcos symbols (FALCOS_DESIGN.md); the names in full a
   ZP:  { label: "LIGHTER",   sub: "",         cls: "feat", img: "assets/flat/ZP.webp" },
   ST:  { label: "LIFT",    sub: "PASS",   cls: "feat", img: "assets/flat/ST.webp" },
   GT:  { label: "GOLD",    sub: "PASS",   cls: "feat", img: "assets/flat/GT.webp" },
-  GP:  { label: "SNOW",    sub: "CANNON",     cls: "feat", img: "assets/flat/GP.webp" },
+  GP:  { label: "ICE",     sub: "BONG",       cls: "feat", img: "assets/flat/GP.webp" },
   FDG: { label: "GREEN",   sub: "BUD",     cls: "drop", img: "assets/flat/FDG.webp" },
   FDA: { label: "GOLD",    sub: "BUD",     cls: "drop", img: "assets/flat/FDA.webp" },
   FDR: { label: "RED",     sub: "BUD",     cls: "drop", img: "assets/flat/FDR.webp" },
@@ -3705,7 +3727,7 @@ function startBoardFrame() {
 const SYM_FIT = .92;   // a symbol fills this share of its tile (--sym-fit, boardgl.js)
 // ...times this for one symbol (boardgl.js asks): FILL UP's Fuel Drops are drawn big, ~80% of the cell's height
 // the Gas Pump drawn bigger than the rest (owner, 2026-11-17: "make the gas pump symbol stand out more")
-window.symScaleOf = name => name === "GP" ? 1.22 : state.fill && /^FD/.test(name) ? 1.25 : 1;
+window.symScaleOf = name => name === "GP" ? 1.12 : state.fill && /^FD/.test(name) ? 1.25 : 1;
 const TILE_TINT = { H1: "236,176,48", H2: "236,176,48", H3: "232,44,58", H4: "70,110,255",
                     FDG: "80,220,90", FDA: "255,170,40", FDR: "255,50,60", ST: "255,170,40", GT: "245,197,24", GP: "255,170,40", ZP: "255,110,30" };
 const tileArt = { cell: null };
@@ -4056,8 +4078,10 @@ function setCell(r, y, sym) {
 // leaves the rest pose showing, and a new one cuts the one running.
 const SYM_DENSITY = [1.0, 1.2, 1.6, 2.4];   // sheet px per rig unit (an icon is 100 across); the manifest's list wins (pack_frames.py)
 const SYM_HEADROOM = 1.25;            // sheet px per screen px at rest: crisp at rest, through the lit pop and the hit
-const SYM_IDLE_REST = [8000, 20000];   // ms an icon rests between its idle cycles, at random (the first 0 to the most after it lands)
-const SYM_IDLE_MAX_SHARE = .12;       // at most this share of the board mid-idle at once: a start over it waits a moment
+// (2026-11-23, owner: the idles "need to be better": the symbols are rigged now - tools/highpeaks/blender/symrig.py - and
+// their idles are worth seeing, so they come round about twice as often and a fifth of the board may move at once)
+const SYM_IDLE_REST = [4000, 11000];   // ms an icon rests between its idle cycles, at random (the first 0 to the most after it lands)
+const SYM_IDLE_MAX_SHARE = .2;        // at most this share of the board mid-idle at once: a start over it waits a moment
 const SYM_IDLE_RATE = .575;             // the idles play at this share of their frame rate: slow and barely noticed (owner, 2026-11-04); land/hit/multi at their own speed
 const SYMF = { man: null, density: "d16", sheets: new Map(), k: 1 };   // sheets: "<ID>_<clip>" -> { img, ok, ready, frames }
 // The clips every symbol plays all the time - its landing and its idle - are held as ready frames (perf,
@@ -4894,12 +4918,13 @@ function boardZoom(on, heldEls = [], ms = 1800) {
   bd.classList.add("zoomin");
 }
 function bounceFx() {
-  // background bounce + board pop, on every reveal (base and each free spin)
+  // the board's pop on every reveal (base and each free spin). The background no longer hops with it (owner,
+  // 2026-11-23: "make the background stop bouncing when you press spin"): the scene stands still on a spin.
   if (REDUCED_MOTION) return;
-  const bgw = $("bgwall"), bd = $("board");
-  bgw.classList.remove("bounce"); bd.classList.remove("pop");
-  restyle(bgw, bd);   // apply the removals so they all restart rather than run on
-  bgw.classList.add("bounce"); bd.classList.add("pop");
+  const bd = $("board");
+  bd.classList.remove("pop");
+  restyle(bd);   // apply the removal so it restarts rather than runs on
+  bd.classList.add("pop");
 }
 // A win's punch used to knock the old wall tag; the Falcos canopy neon stutters instead.
 function tagPop(size = 1) {
@@ -5362,6 +5387,12 @@ function notice(html, err = false, ms = 3400) {
   if (!el) return;
   el.innerHTML = html;
   el.classList.toggle("err", !!err);
+  // along the foot of the board: as wide as its frame, just under its bottom log
+  const fr = $("paintframe"), f = fr && fr.getBoundingClientRect();
+  if (f && f.width > 40 && f.bottom < innerHeight - 8) {
+    Object.assign(el.style, { left: (f.left + f.width / 2).toFixed(1) + "px", top: (f.bottom + 2).toFixed(1) + "px", bottom: "auto",
+      width: Math.min(f.width * .96, innerWidth * .96).toFixed(1) + "px" });
+  } else Object.assign(el.style, { left: "", top: "", bottom: "", width: "" });
   el.classList.add("on");
   clearTimeout(noticeTimer);
   if (ms > 0) noticeTimer = setTimeout(() => el.classList.remove("on"), ms);
@@ -6212,7 +6243,7 @@ function flashCells(list, colour = "#FF7A1A") {
 }
 const syncMax = cells => { state.max = new Set((cells || []).map(p => rc(p).join(","))); };
 
-/* ---------- the Snow Cannon dial ---------- */
+/* ---------- the Ice Bong (was the Snow Cannon and its dial) ---------- */
 // REGULAR / PLUS / PREMIUM / FULL TANK on a 180-degree fuel gauge; the needle sweeps, hunts and lands on the
 // grade the event rolled, at the low or high end of its band by the multiplier
 const PUMP_GRADES = {
@@ -6296,21 +6327,40 @@ async function pumpShow(ev) {
   const glow = fxEl("colglow", { x: col.x - 4, y: col.y - 4, w: col.w + 8, h: col.h + 8 });
   glow.style.setProperty("--c", "#FFB547");
   const pb = cellBox(r, ev.row - 1);
-  const dial = fxEl("pumpdial", { x: pb.x + pb.w / 2, y: Math.min(Math.max(pb.y + pb.h / 2, 80), col.y + col.h - 80), w: 230, h: 150 }, dialSvg());
-  dial.style.width = dial.style.height = "";
+  // The ICE BONG (owner, 2026-11-23). Its icon drops in like any symbol; when it fires it does this, the way a Lift
+  // Pass's scratch card comes up over the ticket: a TALL tube bong (icebong.js tall(): "it should just look like this
+  // shape" - a straight tube over the whole column on a round base, cartoon, see-through) drops down the column, and
+  // "all the icons break as the bong falls down in one animation": each symbol the event burns - and the icon itself -
+  // goes as the bong's foot passes its row, top row first. Landed, it is RIPPED - the heap on its bowl burns, the water
+  // bubbles, smoke climbs the tube - and when the roll is in the hit leaves the rim and the multiplier slams onto the
+  // middle of the tube; the column's cells take it; it lifts away. (dialSvg / pumpTarget, the old dial, are kept unused.)
+  // From the top of the column to the bottom of it (owner: "make sure the bong takes up the entire board ... we want it
+  // from top to bottom"): its box is the column (its rim a little over the top row, its foot on the bottom one) and
+  // the bong is drawn for that very shape - tall(vh) gives the tube the length the column has.
+  const bw = col.w * 1.14, bh = col.h + pb.h * .2;
+  const dial = fxEl("icebong tallbong pumpbong", { x: col.x + col.w / 2 - bw / 2, y: col.y - pb.h * .16, w: bw, h: bh },
+    window.IceBong ? IceBong.tall(200 * bh / bw) : "");
   rigPlay(at(ev), "hit");
   requestAnimationFrame(() => glow.classList.add("on"));
   sfx("pumpRoll");
-  const needle = dial.querySelector(".needle"), target = pumpTarget(ev), t = tempo();
-  const roll = REDUCED_MOTION ? null : needle.animate([
-    { transform: "rotate(-90deg)" }, { transform: "rotate(80deg)", offset: .28 }, { transform: "rotate(-60deg)", offset: .52 },
-    { transform: `rotate(${target + 18}deg)`, offset: .78 }, { transform: `rotate(${target - 5}deg)`, offset: .92 }, { transform: `rotate(${target}deg)` },
-  ], { duration: 1500 * t, easing: "cubic-bezier(.3,.1,.3,1)", fill: "forwards" });
-  if (!roll) needle.style.transform = `rotate(${target}deg)`;
-  await hold(1500);
+  const breaks = [...(ev.burned || []), ev], dropMs = REDUCED_MOTION ? 0 : 520 * tempo();
+  let burnEnd = 0;
+  for (let y = 0; y < ROWS; y++) {
+    const mine = breaks.filter(p => rc(p)[1] === y);
+    // the fall speeds up: its foot reaches row y at about this share of the way down (bongDrop touches down at 62%)
+    const when = dropMs * .62 * Math.sqrt((y + .55) / ROWS);
+    setTimeout(() => {
+      flashCells([[r, y]], "#CFF1FF");
+      if (mine.length) burnEnd = Math.max(burnEnd, performance.now() + burnCells(mine));
+    }, when);
+  }
+  await hold(REDUCED_MOTION ? 0 : 600);
+  dial.classList.add("rip");
+  await hold(1150);
+  if (window.IceBong) IceBong.label(dial, full ? "MAX" : "x" + ev.mult);
   dial.classList.add("landed", ...(full ? ["fulltank"] : []));
-  const lbl = dial.querySelector(".grade");
-  lbl.textContent = full ? g.name : `${g.name} x${ev.mult}`;
+  // (no grade name on it - owner, 2026-11-23: "get rid of when it says powder dusting and whatever on the bong
+  // multipliers": the multiplier on the tube is all it says)
   dial.style.setProperty("--c", g.c);
   glow.style.setProperty("--c", g.c);
   if (full) glow.classList.add("fulltank");
@@ -6320,17 +6370,15 @@ async function pumpShow(ev) {
     Cam.quake(1);
     if (window.SceneFX) SceneFX.surge();
     sparkBurst($("fxLayer"), { x: (pb.x + pb.w / 2) / $("board").offsetWidth, y: .5, n: 34, reach: 1.6, colors: ["#FFF6CF", "#FFA640", "#FF7A1A", "#ffffff"] });
-    tick(`<b>WHITEOUT</b> — the whole column is MAX`);
-  } else tick(`<b>${g.name} x${ev.mult}</b> on reel ${r + 1}`);
+    tick(`<b>MAX</b> — the whole column is MAX`);
+  } else tick(`<b>ICE BONG x${ev.mult}</b> on reel ${r + 1}`);
   await hold(full ? 900 : 520);
-  // the column takes it: every cell top to bottom, then the column's paying symbols burn
+  // the column takes it: every cell top to bottom
   flashCells(Array.from({ length: ROWS }, (_, y) => [r, y]), g.c);
   if (!full) await applyCells(ev.cells, 70);
-  // the pump breaks with the symbols it breaks (owner, 2026-11-12): it is gone in the same tumble (game_executables
-  // fire_pump: explode), so it burns now with them instead of coming apart later in the tumble's burst
-  const burnMs = burnCells([...(ev.burned || []), ev]);
   await hold(full ? 500 : 360);
   dial.classList.add("out");
+  const burnMs = Math.max(0, burnEnd - performance.now());   // the breaks began with the fall: nearly always over by now
   return { glow, dial, burnMs, full };
 }
 
@@ -6665,6 +6713,7 @@ const Scene = (() => {
     const a = el();
     now = name;
     if (window.SkyFX) SkyFX.scene(name);   // the hut smoke and windows rest on a bonus plate; clouds, spindrift and snow go on
+    if (window.Layers) { Layers.scene(name); if (window.Yeti) Yeti.mood(Layers.mood(name)); }   // the layers rest under the plate; the yeti takes its light
     if (p) {
       a.style.setProperty("--alt", `url("${p.url}")`);
       a.style.setProperty("--altpatch", `url("${p.patch}")`);   // its building lettering hidden while playing
@@ -6774,7 +6823,7 @@ const handlers = {
       // every pump of this step goes together: take the ones that follow straight on
       const group = [ev];
       while (state.evs[state.evi + 1] && state.evs[state.evi + 1].type === "featureFire" && state.evs[state.evi + 1].kind === "pump" && state.evs[state.evi + 1].step === ev.step) group.push(state.evs[++state.evi]);
-      if (group.length > 1) tick(`<b>${group.length} SNOW CANNONS</b>`);
+      if (group.length > 1) tick(`<b>${group.length} ICE BONGS</b>`);
       const shows = await Promise.all(group.map((g, i) => hold(i * 140).then(() => pumpShow(g))));
       const last = group[group.length - 1];
       state.grid = (last.gridMults || state.grid).map(col => col.slice());
@@ -7194,7 +7243,7 @@ const handlers = {
     const b = cellBox(r, ev.row - 1);
     const lbl = fxEl("pumpdial landed", { x: b.x + b.w / 2, y: b.y + b.h / 2 - 40, w: 230, h: 150 }, `<div class="grade" style="top:60px">x${ev.mult}</div>`);
     lbl.style.width = lbl.style.height = ""; lbl.style.setProperty("--c", g.c);
-    tick(`<b>SNOW CANNON x${ev.mult}</b> — reel ${r + 1}`);
+    tick(`<b>ICE BONG x${ev.mult}</b> — reel ${r + 1}`);
     await hold(600);
     for (const d of ev.boosted || []) {
       const [x, y] = rc(d);
@@ -7487,7 +7536,8 @@ function placeWinChip(positions, amount, mult) {
     const t = winFigure(v, exact);
     if (t === num.textContent) return;   // only a new figure is drawn (and its new colour)
     num.textContent = t;
-    chip.style.color = `hsl(${(44 - 46 * Math.min(1, v / Math.max(1e-9, final))).toFixed(0)} 100% 62%)`;   // sodium amber -> neon red (Falcos)
+    const k = Math.min(1, v / Math.max(1e-9, final));
+    chip.style.color = `hsl(${(198 + 6 * k).toFixed(0)} 100% ${(93 - 21 * k).toFixed(0)}%)`;   // frost white -> glacier blue (ice, 2026-11-23)
   };
   const slamTag = () => {
     const tag = document.createElement("span");
@@ -8146,12 +8196,39 @@ function refreshBet() {
 // has none and never loads him. charReact hands the round's moments to him: anticipation (two FS down: he leans in
 // and holds it until the round answers), win, big_win, bonus (the trigger), lose (the teased bonus never came).
 let yetiOn = null;
+// (2026-11-23, owner: "our character should move with the background when the cinematic camera moves" and "make the
+// character behind the foreground") His box is IN the scene now: in #camfar - the layer the plate rides, which the
+// camera moves - over the plate and under the foreground pieces (layers.js .lyfront), no longer in the page beside the
+// board. So he pans, zooms and rolls with the mountain he stands on, and the near drift lies in front of his boots.
+// He is still placed by the board: right of the frame, in the room beside it, his feet on its bottom edge.
 function placeYeti() {
   const box = $("yetiBox");
   if (!box || !window.Yeti) return;
   const room = document.documentElement.classList.contains("railside");
   box.hidden = !room;
-  if (room && !yetiOn) yetiOn = Yeti.mount(box).catch(() => false);
+  const far = $("camfar"), fr = $("paintframe");
+  if (far && box.parentElement !== far) far.appendChild(box);
+  if (room && fr) {
+    const f = fr.getBoundingClientRect(), cs = getComputedStyle(document.documentElement);
+    const fit = parseFloat(cs.getPropertyValue("--fit")) || 1, side = (parseFloat(cs.getPropertyValue("--side")) || 400) * fit;
+    if (f.width > 0) {
+      const yh = Math.min(f.height * .62, side / .78);
+      Object.assign(box.style, { height: yh.toFixed(1) + "px", width: (yh * .78).toFixed(1) + "px",
+        left: (f.right + 6 * fit + (side - yh * .78) / 2).toFixed(1) + "px", top: (f.bottom - yh).toFixed(1) + "px" });
+    }
+  }
+  if (room && !yetiOn) yetiOn = mountYeti(box);
+  // a window grown a lot since he was loaded: load him again at the size he is shown now (never mid-reaction)
+  else if (room && Yeti.stale() && !state.playing) yetiOn = mountYeti(box);
+}
+// He stands IN the scene (owner, 2026-11-23: "blend the yeti with the background"): with the layered scene up, his own
+// outlined mound of snow is left out and a drift of the scene's snow is drawn round his boots and the foot of his
+// board instead, and he and it take the light of whichever scene is showing (Layers.mood: the base day, FRESH
+// POWDER, BLACK DIAMOND night, AVALANCHE) - eased over as the scene changes (Scene.to).
+function mountYeti(box) {
+  const L = window.Layers ? Layers.start($("bgwall"), $("camfar")) : Promise.resolve(null);
+  return L.then(c => Yeti.mount(box, c && c.yeti_drift ? { hide: ["snow"], ground: { src: c.yeti_drift.src } } : {}))
+    .then(ok => { if (ok && window.Layers) Yeti.mood(Layers.mood(Scene.now), 0); return ok; }).catch(() => false);
 }
 let charReact = kind => { if (window.Yeti) Yeti.react(kind); }, charEnter = () => {}, charExit = () => {};
 const charsLoaded = Promise.resolve([]);
@@ -8238,6 +8315,7 @@ function fitToScreen() {
 function placeScenery() {
   if (window.SceneFX && SceneFX.layout) SceneFX.layout();
   if (window.SkyFX) SkyFX.layout();
+  if (window.Layers) Layers.layout();
   placeYeti();
 }
 addEventListener("resize", fitToScreen);
@@ -8563,6 +8641,7 @@ runIntro();
 // the scene's life on the plate: the canopy neon, the blinks, the smoke and the window's glints
 if (window.SceneFX) SceneFX.start($("bgwall"));
 if (window.SkyFX) SkyFX.start($("bgwall"));   // High Peaks: clouds, hut smoke and windows, spindrift and snow (no people)
+if (window.Layers) Layers.start($("bgwall"), $("camfar"));   // the scene in depth: far peaks, clouds, the summit, the lift, the flag; close drifts in the corners
 // the bonus's counter plate wanders gently, more gently, on a path of its own (its jumps are on scale)
 hoverWin(document.querySelector("#fsCard .fsplate"), { x: .35, y: .45, r: .4, s: 0, unit: "vh", pace: 2.6 }, 0,
   v => ({ transform: `translate(${v.x.toFixed(3)}vh, ${v.y.toFixed(3)}vh) rotate(${v.r.toFixed(3)}deg)` }));
@@ -9112,7 +9191,7 @@ function runFeatures() {
         T(`<b>3</b> start <b>STASH</b>, <b>4</b> or more <b>FRESH POWDER</b>: <b>10</b> free spins, sticky multipliers.`)) +
       box(`<img src="${SYM.DS.img}" alt="${T("XFS scatter")}" draggable="false">`,
         T("XFS scatter \u00b7 Extreme"),
-        T(`<b>3</b> anywhere - or <b>3</b> or more tokens of both kinds together - start <b>BLACK DIAMOND</b>: <b>10</b> free spins with sticky cell multipliers, every cell starting at <b>x4</b>, and Snow Cannons landing far more often.`),
+        T(`<b>3</b> anywhere - or <b>3</b> or more tokens of both kinds together - start <b>BLACK DIAMOND</b>: <b>10</b> free spins with sticky cell multipliers, every cell starting at <b>x4</b>, and Ice Bongs landing far more often.`),
         T(`<b>3</b> start <b>BLACK DIAMOND</b>: <b>10</b> free spins, every cell from <b>x4</b>.`)) +
     `</div>` +
     `<div class="fcont"><span class="fhit"><span class="ftxt">${T("Click to play")}</span></span></div>`;
@@ -9194,13 +9273,13 @@ const BONUS_KINDS = {
   fillup: { name: "STASH", logo: "assets/menu/logo_fillup.webp", x: false, noSpins: true,
     how: [`<b>Buds</b> stick where they land - green, gold and red, worth up to <b>x500</b> each - and change colour as they grow.`,
           `You start with <b>3</b> spins - the gauge shows how many are left. Every spin uses one; anything new landing sets it back to 3, and a <b>PEAK Token</b> adds <b>5</b> more. The bonus ends when no spins are left.`,
-          `Lift Passes collect their neighbours, Gold Lift Passes collect the whole board and double it, Snow Cannons multiply them. At the end you win every drop left and every collector's total.`] },
+          `Lift Passes collect their neighbours, Gold Lift Passes collect the whole board and double it, Ice Bongs multiply them. At the end you win every drop left and every collector's total.`] },
   premium: { name: "BLIZZARD", logo: "assets/menu/logo_premium_zombie.webp", x: false, z: true,
     how: [`Fresh powder is dumping on the slopes. Every cell has its own multiplier, doubling each time a win or a feature hits it, up to <b>x2048</b>.`,
           `In here the cells keep their multipliers for the whole bonus: a cell that reached <b>x8</b> keeps it into the next spin and keeps growing. <b>3</b> or more PEAK Tokens at the end of a spin add <b>5</b> free spins.`] },
   midnight: { name: "BLACK DIAMOND", logo: "assets/menu/logo_midnight.webp", x: true,
     how: [`Sticky cell multipliers for the whole bonus, every cell starting at <b>x4</b> and doubling up to <b>x2048</b>.`,
-          `Snow Cannons land far more often - and any cluster touching a <b>WHITEOUT</b> column pays the max win. <b>3</b> or more PEAK Tokens at the end of a spin add <b>5</b> free spins. The biggest bonus in the game.`] },
+          `Ice Bongs land far more often - and any cluster touching a <b>WHITEOUT</b> column pays the max win. <b>3</b> or more PEAK Tokens at the end of a spin add <b>5</b> free spins. The biggest bonus in the game.`] },
 };
 function bonusIntroHow(kind) {
   return `<p><strong>${T("How it works")}</strong></p>` + BONUS_KINDS[kind].how.map(l => `<p>${T(l)}</p>`).join("");

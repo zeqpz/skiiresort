@@ -1,0 +1,12 @@
+[
+ {
+  "background": "transparent",
+  "name": "sym_H1_skis",
+  "prompt": "A single slot-game symbol on a fully transparent background, nothing else, drawn in exactly the reference pictures' flat cartoon style, line weight and finish (the snowboard and the ski goggles are symbols of the same game): a PAIR OF SKIS crossed in an X, with two ski poles crossed behind them. Chunky, rounded, slightly goofy cartoon skis with turned-up tips: glossy bright red with a yellow-and-orange flame stripe running up each ski, gold-and-black bindings in the middle, and one small green cannabis leaf sticker with a white edge on the front ski. A little clump of white snow with pale-blue shade sticks to the bottom ends. One small white highlight on each ski. Thick even black outline around everything. The symbol fills the picture, centred, with a small clear margin. No ground, no shadow under it, no text, no letters, no characters. Everything else fully transparent.\n\nStyle: flat 2D adult-animation TV cartoon (late-night animated sitcom look). Thick, even, confident black outlines; flat cel colours with at most one simple hard-edged shadow tone and one small white highlight; bright saturated candy colours; chunky, rounded, slightly goofy proportions; simple readable shapes. NO realistic lighting, NO gradients, NO painterly texture, NO 3D render, NO photo. Clean vector-like finish.",
+  "aspect_ratio": "1:1",
+  "refs": [
+   "art/highpeaks/symbols_static/H3.png",
+   "art/highpeaks/symbols_static/H4.png"
+  ]
+ }
+]

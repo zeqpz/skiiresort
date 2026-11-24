@@ -1,0 +1,18 @@
+{
+ "_": "Where the layered scene's moving parts stand on the generated art, in plate px (3840 x 2160), read off art/highpeaks/raw/layer_mid.png. tools/highpeaks/layers_install.py merges this into frontend/assets/scene/layers/layers.json.",
+ "windows": [[741, 1173, 190, 130], [518, 1161, 90, 100]],
+ "clouds": {"high": [40, 420], "low": [640, 1160]},
+ "pines": [
+  {"src": "spr_pine.webp", "x": 150, "y": 1420, "h": 1190, "sway": 0.9},
+  {"src": "spr_pine.webp", "x": 372, "y": 1330, "h": 900, "sway": 1.2}
+ ],
+ "flag": {"src": "spr_flag.webp", "x": 3480, "y": 598, "w": 300},
+ "lift": {"src": "chair.webp", "chairs": 5, "secs": 52, "gap": 34,
+          "out": [[1238, 1088, 158], [1356, 1136, 132], [1596, 1298, 92], [1806, 1430, 64]]},
+ "sparkle": {"box": [900, 1520, 3700, 2100], "n": 10},
+ "front": [
+  {"src": "fg_drift.webp", "corner": "bl", "h": 0.3, "inset": [-0.012, -0.03]},
+  {"src": "fg_drift.webp", "corner": "br", "h": 0.3, "inset": [-0.012, -0.03], "flip": true},
+  {"src": "fg_bough.webp", "corner": "tl", "h": 0.36, "inset": [-0.02, -0.04]}
+ ]
+}

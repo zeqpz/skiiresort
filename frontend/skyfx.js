@@ -25,8 +25,10 @@
   const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const PW = 3840, PH = 2160;
   const B = "assets/scene/";
+  const SMOKE = false;
   const CHIMNEY = [652, 742], PUFF = 150, PUFF_EVERY = 900, PUFF_LIFE = 5200;
-  const WINDOWS = [[755, 1170, 190, 130], [515, 1158, 90, 100]];
+  let WINDOWS = [[755, 1170, 190, 130], [515, 1158, 90, 100]];
+  let layered = false;          // layers.js draws the base scene's clouds (between its far and middle layers)
   const SKY = [40, 380];        // the band the clouds drift in
   const GROUND = [1480, 2120];  // the summit's snow floor, where the spindrift blows
   const GUST_GAP = [3500, 9000], GUST_MS = 2600;
@@ -101,9 +103,9 @@
     g.clearRect(0, 0, PW, PH);
     const base = mode === "normal";
 
-    // clouds (behind everything else of ours)
+    // clouds (behind everything else of ours); on the layered base scene they are layers.js's, under the summit
     const cloud = pic("cloud");
-    for (const c of clouds) {
+    for (const c of (layered && base ? [] : clouds)) {
       c.x += c.v * dt;
       if (c.x > PW + 500) { c.x = -500; c.y = rand(SKY[0], SKY[1]); c.k = rand(.7, 1.25); }
       sprite(cloud, c.x, c.y, 200 * c.k, { alpha: mode === "midnight" ? .35 : .92 });
@@ -123,8 +125,9 @@
       });
       g.restore();
 
-      // chimney smoke
-      if (t > nextPuff) { puffs.push({ t0: t, dx: rand(-20, 20), spin: rand(-.3, .3) }); nextPuff = t + PUFF_EVERY * rand(.7, 1.3); }
+      // chimney smoke - off (owner, 2026-11-23: "remove the little tree above the grand"): on a landscape screen the
+      // jackpot board stands in front of the hut, so the green puffs rose from behind GRAND like a bush growing on it
+      if (SMOKE && t > nextPuff) { puffs.push({ t0: t, dx: rand(-20, 20), spin: rand(-.3, .3) }); nextPuff = t + PUFF_EVERY * rand(.7, 1.3); }
       for (let i = puffs.length - 1; i >= 0; i--) {
         const p = puffs[i], u = (t - p.t0) / PUFF_LIFE;
         if (u >= 1) { puffs.splice(i, 1); continue; }
@@ -189,7 +192,7 @@
     root.appendChild(cv);
     host.appendChild(root);
     g = cv.getContext("2d");
-    ["cloud", "puff"].forEach(pic);
+    (SMOKE ? ["cloud", "puff"] : ["cloud"]).forEach(pic);
     seed();
     layout();
     if (typeof ResizeObserver === "function") new ResizeObserver(layout).observe(host);
@@ -204,5 +207,11 @@
     if (RM) draw(performance.now(), 0);
   }
 
-  window.SkyFX = { start, layout, scene };
+  // layers.js takes over what it draws in depth: the base scene's clouds, and where the hut's windows are in its art
+  function own({ clouds: c, windows } = {}) {
+    layered = !!c;
+    if (Array.isArray(windows)) WINDOWS = windows;
+  }
+
+  window.SkyFX = { start, layout, scene, own };
 })();

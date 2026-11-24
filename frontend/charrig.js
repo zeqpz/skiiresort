@@ -62,15 +62,52 @@
   }
 
   // the room his canvas has round his box: a fraction of the box's height each side, above and below
-  const ROOM = { side: .42, top: .3, bottom: .04 };
+  const ROOM = { side: .42, top: .3, bottom: .12 };
 
-  CR.make = async function ({ host, base = "assets/yeti/rig/", flip = false, headroom = 1.06, maxFps = 60, reducedMotion } = {}) {
+  // The page scales its layout to the window (#app's --fit), so the host's layout height is not what the screen
+  // shows: a phone drew him on a 2316 x 1916 antialiased buffer, from a 4096 x 2048 atlas, for a figure ~500 px
+  // tall (2026-11-23: an iPhone showed smeared texture beside and under the board). His canvas and his atlas are
+  // now sized by the pixels he really covers.
+  const shownScale = host => {
+    const h = host.clientHeight;
+    const k = h ? host.getBoundingClientRect().height / h : 1;
+    return k > 0 && isFinite(k) ? k : 1;
+  };
+  const MAX_DPR = 2;
+  const resFor = host => Math.max(.5, Math.min(MAX_DPR, (window.devicePixelRatio || 1) * shownScale(host)));
+
+  // his contact shadow: one soft disc, drawn flat on the snow under him
+  let shadowCv = null;
+  const shadowCanvas = () => {
+    if (shadowCv) return shadowCv;
+    const N = 128, cv = document.createElement("canvas");
+    cv.width = cv.height = N;
+    const g = cv.getContext("2d"), rg = g.createRadialGradient(N / 2, N / 2, 0, N / 2, N / 2, N / 2);
+    rg.addColorStop(0, "rgba(255,255,255,1)");
+    rg.addColorStop(.55, "rgba(255,255,255,.62)");
+    rg.addColorStop(1, "rgba(255,255,255,0)");
+    g.fillStyle = rg; g.fillRect(0, 0, N, N);
+    return (shadowCv = cv);
+  };
+
+  // his shadow as the scene draws shadows: one flat ellipse with a crisp edge
+  let flatCv = null;
+  const flatShadowCanvas = () => {
+    if (flatCv) return flatCv;
+    const cv = document.createElement("canvas");
+    cv.width = 512; cv.height = 96;
+    const g = cv.getContext("2d");
+    g.fillStyle = "#fff"; g.beginPath(); g.ellipse(256, 48, 252, 45, 0, 0, 6.2832); g.fill();
+    return (flatCv = cv);
+  };
+
+  CR.make = async function ({ host, base = "assets/yeti/rig/", flip = false, headroom = 1.06, maxFps = 60, reducedMotion, hide = [], ground = null } = {}) {
     if (!host || typeof PIXI === "undefined" || !PIXI.MeshSimple || !PIXI.Application || !webgl()) return null;
     const still = reducedMotion !== undefined ? reducedMotion
       : !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    let res = resFor(host);
     let R;
-    try { R = await load(base, Math.max(80, host.clientHeight) / headroom * dpr); }
+    try { R = await load(base, Math.max(80, host.clientHeight) / headroom * res); }
     catch (e) { console.warn("character rig failed to load:", e.message); return null; }
     const { man, D } = R;
     const B = man.bones.length, fps = man.fps;
@@ -89,7 +126,7 @@
     place();
     const app = new PIXI.Application();
     try {
-      await app.init({ backgroundAlpha: 0, antialias: true, autoDensity: true, resolution: dpr, resizeTo: stageEl,
+      await app.init({ backgroundAlpha: 0, antialias: true, autoDensity: true, resolution: res, resizeTo: stageEl,
                        preference: "webgl", hello: false });
     } catch (e) { stageEl.remove(); return null; }
     app.ticker.maxFPS = maxFps;
@@ -109,6 +146,15 @@
     });
     const actor = new PIXI.Container();
     app.stage.addChild(actor);
+    // the shadow he casts on the snow: under every piece, at his ground line, as wide as his mound
+    const shade = new PIXI.Sprite(PIXI.Texture.from(shadowCanvas()));
+    shade.anchor.set(.5);
+    shade.tint = man.shadow_tint === undefined ? 0x16305e : man.shadow_tint;
+    shade.alpha = .5;
+    shade.width = man.art[0] * 1.2; shade.height = man.rest_height * .12;
+    shade.position.set(man.cx, man.ground_y + man.rest_height * .006);
+    actor.addChild(shade);
+    const hideSet = new Set(hide);
     const parts = man.parts.map(p => {
       const fr = D.frames[p.tex], page = pages[fr[0]], pw = page.source.width, ph = page.source.height;
       const rest = new Float32Array(R.geo, p.o_pos, p.verts * 2);
@@ -118,11 +164,37 @@
         uvs[2 * i + 1] = (fr[2] + uv0[2 * i + 1] * fr[4]) / ph;
       }
       const mesh = new PIXI.MeshSimple({ texture: page, vertices: new Float32Array(rest), uvs,
-        indices: new Uint32Array(new Uint16Array(R.geo, p.o_idx, p.tris * 3)) });
+        indices: new Uint16Array(new Uint16Array(R.geo, p.o_idx, p.tris * 3)) });   // 16-bit: every GL has them
       actor.addChild(mesh);
       return { p, mesh, rest, bi: new Uint8Array(R.geo, p.o_bi, p.verts * 4), bw: new Uint8Array(R.geo, p.o_bw, p.verts * 4),
-               face: p.face ? man.faces.indexOf(p.face) : -1, hidden: false };
+               face: p.face ? man.faces.indexOf(p.face) : -1, hidden: hideSet.has(p.name) };
     });
+    // The snow he stands in, when the scene gives him some (ground: { src, w, h, top } in art px; layers.js): a drift
+    // drawn over his boots and the foot of his board, in place of a piece hidden with `hide` (his own outlined mound)
+    // - so he stands IN the scene's snow, lit like it (tint), not on an island of his own.
+    let groundSpr = null, flatShade = null;
+    if (ground && ground.src) image(ground.src).then(im => {
+      if (!alive) return;
+      groundSpr = new PIXI.Sprite(PIXI.Texture.from(im));
+      groundSpr.anchor.set(.5, 0);
+      groundSpr.width = ground.w || man.art[0] * 1.42;
+      groundSpr.height = ground.h || man.rest_height * .17;
+      groundSpr.position.set(man.cx + (ground.dx || 0), ground.top !== undefined ? ground.top : man.ground_y - man.rest_height * .075);
+      groundSpr.tint = light.ground;
+      actor.addChildAt(groundSpr, actor.getChildIndex(fxLayer));
+      // His shadow on that snow, drawn the way the scene draws its own: one flat, hard-edged pale-blue shape, multiplied
+      // over the drift (its ink stays black), lying in front of his boots a little to his left - not a soft grey blur
+      // (owner, 2026-11-23: "our character still doesn't blend well with the background").
+      flatShade = new PIXI.Sprite(PIXI.Texture.from(flatShadowCanvas()));
+      flatShade.anchor.set(.5);
+      flatShade.blendMode = "multiply";
+      flatShade.width = man.art[0] * 1.02; flatShade.height = man.rest_height * .068;
+      flatShade.position.set(man.cx - man.art[0] * .045, man.ground_y + man.rest_height * .014);
+      flatShade.tint = light.shade;
+      actor.addChildAt(flatShade, actor.getChildIndex(fxLayer));
+      shade.visible = false;
+      touch();
+    }).catch(() => { /* he keeps standing without it */ });
     const tex = key => {
       const fr = D.frames["fx_" + key];
       return fr ? new PIXI.Texture({ source: pages[fr[0]].source, frame: new PIXI.Rectangle(fr[1], fr[2], fr[3], fr[4]) }) : null;
@@ -272,6 +344,60 @@
       for (const [fr, kind] of E) if (fr > f0 && fr <= f1) spawn(kind, now);
     };
 
+    // the scene's light on him (tint): every piece multiplied by `body`, his drift by `ground`, eased over a moment
+    const light = { body: 0xffffff, ground: 0xffffff, shade: 0xd2e6fa, from: null, to: null, t0: 0, ms: 0 };
+    const rgb = c => [(c >> 16) & 255, (c >> 8) & 255, c & 255];
+    const mixc = (a, b, k) => { const A = rgb(a), Bc = rgb(b); return (Math.round(A[0] + (Bc[0] - A[0]) * k) << 16) | (Math.round(A[1] + (Bc[1] - A[1]) * k) << 8) | Math.round(A[2] + (Bc[2] - A[2]) * k); };
+    const relight = now => {
+      if (light.to) {
+        const k = light.ms > 0 ? Math.min(1, (now - light.t0) / light.ms) : 1, e = k * k * (3 - 2 * k);
+        light.body = mixc(light.from.body, light.to.body, e); light.ground = mixc(light.from.ground, light.to.ground, e);
+        light.shade = mixc(light.from.shade, light.to.shade, e);
+        if (k >= 1) light.to = null;
+      }
+      for (const q of parts) q.mesh.tint = light.body;
+      if (groundSpr) groundSpr.tint = light.ground;
+      if (flatShade) flatShade.tint = light.shade;
+      touch();
+    };
+    // Near snow: the scene's snow falls on a canvas behind the whole page, so every flake passed BEHIND him - one of
+    // the things that made him look laid on top of the picture. A few of the nearest flakes fall over his own canvas,
+    // in front of him, fading in and out at its edges so its box never shows.
+    const flakeLayer = new PIXI.Container();
+    actor.addChild(flakeLayer);
+    const flakes = [];
+    let flakeTex = null, lastFlake = 0, viewBox = null;
+    let frnd = 48271;
+    const fr01 = () => ((frnd = (frnd * 48271) % 2147483647) - 1) / 2147483646;
+    const setSnow = n => {
+      n = still ? 0 : Math.max(0, Math.min(40, n | 0));
+      if (!flakeTex) {
+        const cv = document.createElement("canvas"); cv.width = cv.height = 32;
+        const g = cv.getContext("2d"); g.fillStyle = "#fff"; g.beginPath(); g.arc(16, 16, 14, 0, 6.2832); g.fill();
+        flakeTex = PIXI.Texture.from(cv);
+      }
+      while (flakes.length < n) {
+        const s = new PIXI.Sprite(flakeTex); s.anchor.set(.5); flakeLayer.addChild(s);
+        const z = fr01();
+        flakes.push({ s, u: fr01(), v: fr01(), r: 5 + z * 11, fall: .045 + z * .075, sway: fr01() * 6.28, sw: .5 + fr01() * .9, a: .55 + z * .4 });
+      }
+      flakes.forEach((p, i) => { p.s.visible = i < n; p.on = i < n; });
+      touch();
+    };
+    const stepFlakes = now => {
+      if (!flakes.length || !viewBox) return;
+      const dt = Math.min(.1, (now - (lastFlake || now)) / 1000); lastFlake = now;
+      const { x0, x1, y0, y1 } = viewBox, W2 = x1 - x0, H2 = y1 - y0;
+      for (const p of flakes) {
+        if (!p.on) continue;
+        p.v += p.fall * dt; p.sway += p.sw * dt;
+        if (p.v > 1) { p.v -= 1; p.u = fr01(); }
+        const edge = Math.min(1, p.u / .1, (1 - p.u) / .1, p.v / .12, (1 - p.v) / .1);
+        p.s.position.set(x0 + p.u * W2 + Math.sin(p.sway) * 34, y0 + p.v * H2);
+        p.s.scale.set(p.r / 14);
+        p.s.alpha = p.a * Math.max(0, edge);
+      }
+    };
     let shown = null, onlySet = null;
     const show = (clip, f, glow) => {
       const C = man.clips[clip];
@@ -293,14 +419,32 @@
     };
 
     // ---- the figure on its canvas: his ground line on the box's bottom edge, centred, sized by the box's height
+    let fitting = false;
     const fit = () => {
+      if (fitting) return;
       place();
       const h = host.clientHeight;
       if (!h) return;
+      // the buffer follows the size he is shown at (the page's fit changes with the window)
+      // ... and the canvas is always as big as his stage. (bug, 2026-11-23, owner: "our character's legs missing":
+      // Pixi's resizeTo only follows WINDOW resizes, and reads the stage before the page has re-fitted - so after a
+      // window was resized the canvas kept its old, smaller size while he was placed for the new one, and everything
+      // below his waist fell off the bottom of it. The stage's own size is what the canvas takes, every fit.)
+      const r2 = resFor(host), sw = stageEl.clientWidth, sh = stageEl.clientHeight;
+      const resOff = Math.abs(r2 - res) / res > .08;
+      if (sw > 0 && sh > 0 && (resOff || Math.abs(app.screen.width - sw) > 1 || Math.abs(app.screen.height - sh) > 1)) {
+        if (resOff) res = r2;
+        fitting = true;
+        try { app.renderer.resize(sw, sh, res); } catch (e) { /* next resize */ }
+        fitting = false;
+      }
       const k = h / headroom / man.rest_height;
       actor.pivot.set(man.cx, man.ground_y);
       actor.scale.set(flip ? -k : k, k);
       actor.position.set(app.screen.width / 2, h * (1 + ROOM.top));
+      // what of his drawing the canvas shows (art px): where the near snow falls
+      viewBox = { x0: man.cx - app.screen.width / 2 / k, x1: man.cx + app.screen.width / 2 / k,
+                  y0: man.ground_y - h * (1 + ROOM.top) / k, y1: man.ground_y + h * ROOM.bottom / k };
       touch();
     };
     let ro = null;
@@ -340,7 +484,9 @@
         glow += (fade.glow - glow) * a;
       }
       show(cur.clip, f, glow);
+      if (light.to) relight(now);
       stepParticles(now);
+      stepFlakes(now);
     };
     sample("idle", 0, M); show("idle", 0); app.render();
     let alive = true, frozen = false;
@@ -366,8 +512,25 @@
         return true;
       },
       state: () => ({ clip: cur.clip, hold: cur.hold, frame: shown ? +shown.f.toFixed(1) : 0, fading: !!fade,
-                      density: D.d, still, particles: particles.length }),
+                      density: D.d, still, particles: particles.length, res: +res.toFixed(3),
+                      buffer: [app.canvas.width, app.canvas.height] }),
+      // the atlas he was loaded with has gone soft for the size he is shown at now (a window grown a lot): remount
+      stale: () => {
+        const want = Math.max(80, host.clientHeight) / headroom * resFor(host) / man.rest_height;
+        return want > D.d * 1.35 && man.densities.some(d => d.d > D.d);
+      },
       resize: fit,
+      // the scene's light: colours as 0xRRGGBB or "#rrggbb"; ms to ease over (0: at once)
+      tint(body, groundC, ms = 700, shadeC) {
+        if (!alive) return;
+        const num = c => typeof c === "string" ? parseInt(c.replace("#", ""), 16) : c;
+        const to = { body: body === undefined ? light.body : num(body), ground: groundC === undefined ? light.ground : num(groundC),
+                     shade: shadeC === undefined ? light.shade : num(shadeC) };
+        if (still || ms <= 0) { Object.assign(light, to); light.to = null; relight(0); app.render(); return; }
+        light.from = { body: light.body, ground: light.ground, shade: light.shade }; light.to = to; light.t0 = performance.now(); light.ms = ms;
+      },
+      // the scene's snow falling in FRONT of him too (n near flakes over his canvas; 0: none)
+      weather(n) { setSnow(n); },
       // QA: the clock stops and he is drawn on frame f of a clip until play() / idle() / resume()
       pose(clip, f) {
         if (!alive || !man.clips[clip]) return;
@@ -380,7 +543,7 @@
       // QA: draw only these pieces (part names; null = all) - the live and keyed effects are hidden meanwhile
       only(names) {
         onlySet = names ? new Set(names) : null;
-        for (const q of parts) q.hidden = !!onlySet && !onlySet.has(q.p.name);
+        for (const q of parts) q.hidden = hideSet.has(q.p.name) || (!!onlySet && !onlySet.has(q.p.name));
         if (shown) { show(shown.clip, shown.f); app.render(); }
       },
       // QA: where a point is (art px) in the pose now drawn, and where the ember sprite is

@@ -28,7 +28,7 @@
       math: "math-sdk/games/highpeaks/library/publish_files/",
     },
     skip: [/(^|\/)__pycache__\//, /^frontend\/mock_rgs\.py$/,   // the local dev server is not part of the game
-           /^frontend\/yeti_test\.html$/],                       // nor the yeti's test page
+           /^frontend\/(yeti|sym|icebong)_test\.html$/],              // nor the test pages
     only: null,        // e.g. ["front/index.html"]: just these bundle paths (null: every file in the parts)
     partsToDo: null,   // e.g. ["front"]: just these bundles (null: all of CFG.parts)
     dryRun: false,     // true: report what differs, upload nothing

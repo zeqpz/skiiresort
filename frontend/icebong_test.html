@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ice bong test</title>
+<style>
+  /* High Peaks: the ice bong on its own (frontend/icebong.js) - the still picture the symbol is made from, and the
+     show it plays when it fires. Not part of the game. ?shot=1 shows only the still, on nothing, for
+     tools/highpeaks/icebong.py to photograph. */
+  @font-face { font-family: "Fredoka"; src: url("assets/fredoka.woff2") format("woff2"); font-weight: 300 700; }
+  html, body { margin: 0; height: 100%; background: #1b2a55; color: #fff; font: 14px system-ui, sans-serif; }
+  body.shot { background: transparent; }
+  .bar { padding: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+  button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid #5a6ea8; background: #22305c; color: #fff; cursor: pointer; }
+  .row { display: flex; gap: 40px; padding: 10px 30px; align-items: flex-end; }
+  .icebong { position: relative; width: 240px; height: 416px; }
+  .icebong.small { width: 120px; height: 208px; }
+  body.shot .bar, body.shot .row { display: none; }
+  #shot { display: none; }
+  body.shot #shot { display: block; position: fixed; left: 50%; top: 50%; translate: -50% -50%; height: 94vh; width: auto; aspect-ratio: 300 / 520; }
+</style>
+</head>
+<body>
+<div class="bar">
+  <button data-x="2">rip x2</button><button data-x="16">rip x16</button><button data-x="64">rip x64</button>
+  <button data-x="MAX">WHITEOUT</button><button id="reset">reset</button>
+</div>
+<div class="row">
+  <div class="icebong" id="still"></div>
+  <div class="icebong" id="live"></div>
+  <div class="icebong small" id="tiny"></div>
+</div>
+<div class="icebong" id="shot"></div>
+<script src="icebong.js"></script>
+<script>
+  const $ = id => document.getElementById(id);
+  if (/[?&]shot=1/.test(location.search)) { document.body.classList.add("shot"); document.documentElement.style.background = "transparent"; }
+  $("still").innerHTML = IceBong.svg({ still: true });
+  $("shot").innerHTML = IceBong.svg({ still: true });
+  const fresh = () => { for (const id of ["live", "tiny"]) { const e = $(id); e.className = "icebong" + (id === "tiny" ? " small" : ""); e.innerHTML = IceBong.svg(); } };
+  fresh();
+  $("reset").onclick = fresh;
+  for (const b of document.querySelectorAll("[data-x]")) b.onclick = () => {
+    fresh();
+    for (const id of ["live", "tiny"]) {
+      const e = $(id);
+      requestAnimationFrame(() => e.classList.add("rip"));
+      setTimeout(() => {
+        IceBong.label(e, b.dataset.x === "MAX" ? "MAX" : "x" + b.dataset.x);
+        e.classList.add("landed"); if (b.dataset.x === "MAX") e.classList.add("fulltank");
+      }, 1500);
+    }
+  };
+</script>
+</body>
+</html>
