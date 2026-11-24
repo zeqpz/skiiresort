@@ -6246,6 +6246,7 @@ const syncMax = cells => { state.max = new Set((cells || []).map(p => rc(p).join
 /* ---------- the Ice Bong (was the Snow Cannon and its dial) ---------- */
 // REGULAR / PLUS / PREMIUM / FULL TANK on a 180-degree fuel gauge; the needle sweeps, hunts and lands on the
 // grade the event rolled, at the low or high end of its band by the multiplier
+const BONG_TEXT = false;   // text drawn on the ice bong when it fires (owner: none)
 const PUMP_GRADES = {
   regular: { name: "DUSTING", c: "#4F9BFF", lo: -90, sfx: "pumpRegular" },
   plus: { name: "POWDER", c: "#FFB547", lo: -45, sfx: "pumpPlus" },
@@ -6357,10 +6358,12 @@ async function pumpShow(ev) {
   await hold(REDUCED_MOTION ? 0 : 600);
   dial.classList.add("rip");
   await hold(1150);
-  if (window.IceBong) IceBong.label(dial, full ? "MAX" : "x" + ev.mult);
+  // No text on the bong at all (owner, 2026-11-23: first "get rid of when it says powder dusting and whatever on the
+  // bong multipliers", then "get rid of the text that appears on the bong multipliers"): no grade name and no figure on
+  // the tube. The multiplier is read where it lands - on every cell of the column - and in the line under the board.
+  // BONG_TEXT = true writes the figure on the tube again.
+  if (BONG_TEXT && window.IceBong) IceBong.label(dial, full ? "MAX" : "x" + ev.mult);
   dial.classList.add("landed", ...(full ? ["fulltank"] : []));
-  // (no grade name on it - owner, 2026-11-23: "get rid of when it says powder dusting and whatever on the bong
-  // multipliers": the multiplier on the tube is all it says)
   dial.style.setProperty("--c", g.c);
   glow.style.setProperty("--c", g.c);
   if (full) glow.classList.add("fulltank");
@@ -7241,8 +7244,9 @@ const handlers = {
     rigPlay(me, "hit");
     sfx(g.sfx);
     const b = cellBox(r, ev.row - 1);
-    const lbl = fxEl("pumpdial landed", { x: b.x + b.w / 2, y: b.y + b.h / 2 - 40, w: 230, h: 150 }, `<div class="grade" style="top:60px">x${ev.mult}</div>`);
-    lbl.style.width = lbl.style.height = ""; lbl.style.setProperty("--c", g.c);
+    // (no pill of text over the bong - BONG_TEXT, pumpShow)
+    const lbl = BONG_TEXT ? fxEl("pumpdial landed", { x: b.x + b.w / 2, y: b.y + b.h / 2 - 40, w: 230, h: 150 }, `<div class="grade" style="top:60px">x${ev.mult}</div>`) : null;
+    if (lbl) { lbl.style.width = lbl.style.height = ""; lbl.style.setProperty("--c", g.c); }
     tick(`<b>ICE BONG x${ev.mult}</b> — reel ${r + 1}`);
     await hold(600);
     for (const d of ev.boosted || []) {
@@ -7257,8 +7261,9 @@ const handlers = {
     rigPlay(me, "burn");
     await hold(Math.min(ms, 600));
     fillSet(r, ev.row - 1, null);
-    lbl.classList.add("out"); glow.classList.remove("on");
-    setTimeout(() => { lbl.remove(); glow.remove(); }, 400);
+    if (lbl) lbl.classList.add("out");
+    glow.classList.remove("on");
+    setTimeout(() => { if (lbl) lbl.remove(); glow.remove(); }, 400);
     fillTotal(ev.boardTotal);
     await hold(200);
   },

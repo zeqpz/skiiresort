@@ -85,7 +85,8 @@ use a plugin or tool to rig"):**
   firing, the `alert` strip, a `cam` move, or `replay<book id>` for a real round) - the way to look at an animation
   mid-flight.
 - **2026-11-23, later**: the ice bong's show is drawn for its column (`IceBong.tall(vh)`: rim over the top row, foot on
-  the bottom one) and says only its multiplier (no DUSTING / POWDER / BLIZZARD names, on it or in the ticker or the
+  the bottom one) and carries no text at all (`BONG_TEXT` in index.html: no grade names, no figure on the tube - the cells and the line
+  under the board say the multiplier; no DUSTING / POWDER / BLIZZARD names in the ticker or the
   rules); its bowl burns a real flame (`tools/highpeaks/flame_sheet.py` -> `assets/fx/flame.webp`, 12 looping frames)
   over real smoke (`smoke_tile.py`). The yeti's box lives in `#camfar` now (`placeYeti`): he pans, zooms and rolls
   with the scene on a camera move and stands under the foreground pieces (`.lyfront`, z 3 over his 1). The alert
