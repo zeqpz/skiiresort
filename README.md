@@ -101,9 +101,17 @@ use a plugin or tool to rig"):**
   frame's bottom edge, and the green chimney smoke is off (`skyfx.js` SMOKE): behind the jackpot board it read as a
   little tree growing on GRAND.
 
-Lobby covers for engine.io's Media page: `media/cover_16x9.png` (3840x2160) and `media/cover_3x4.png` (3072x4096),
-no text on them (owner rule), painted by `tools/highpeaks/gen_covers.py gen` from the game's own art and upscaled
-by `gen_covers.py build` (Real-ESRGAN x4 anime when it is installed).
+Lobby art for engine.io, built from a BACKGROUND and a FOREGROUND the way the studio's Media Editor builds a tile
+(`tools/highpeaks/gen_covers.py gen`, then `build`; no text on any of it, owner rule):
+- `media/bg_16x9.png` (3840x2160) and `media/bg_3x4.png` (3072x4096): the summit with nobody in it, a sunburst sky,
+  coins / leaves / snowflakes round the edges, bright to every edge (the build prints each edge's brightness).
+- `media/fg_yeti.png`: the yeti, waist up, cut out of flat magenta by distance from the key colour (the scene's key
+  would eat his purple trousers and goggles).
+- `media/cover_16x9.png` and `media/cover_3x4.png` (+ `.jpg`): the two put together, with a soft halo round him.
+The model's long edge stops at 3840 and its picture at about 8.3 MP: a 3:4 plate is asked for at 2448x3264.
+
+The yeti stands behind a pile of snow-capped rocks of his own (`assets/scene/layers/yeti_rock.webp`, placed by
+`placeYeti` in his camera layer, over him; `YETI_ROCK` in index.html): the corner drifts slope away under him.
 
 Design: [DESIGN.md](DESIGN.md). Event contract: [math-sdk/games/highpeaks/EVENTS.md](math-sdk/games/highpeaks/EVENTS.md).
 

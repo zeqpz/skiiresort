@@ -3386,7 +3386,14 @@
   /* (2026-11-23) he stands in the scene, not the page: placeYeti moves the box into #camfar and sizes and places it
      in window px from the frame's rect - over the plate (z 1), under the foreground pieces (.lyfront, z 3) */
   html.railside .yetibox:not([hidden]) { display: block; position: absolute; z-index: 1; pointer-events: none; }
-  body.features-up .yetibox { visibility: hidden; }   /* not on the intro's feature cards: the board is not up yet */
+  body.features-up .yetibox, body.features-up .yetirock { visibility: hidden; }
+  .yetirock[hidden] { display: none; }
+  /* its snow bank runs off its sides and its foot: both fade into the snow floor instead of ending in a cut */
+  .yetirock {
+    -webkit-mask-image: linear-gradient(to bottom, #000 58%, transparent 97%), linear-gradient(to right, transparent 1%, #000 13%, #000 87%, transparent 99%);
+    mask-image: linear-gradient(to bottom, #000 58%, transparent 97%), linear-gradient(to right, transparent 1%, #000 13%, #000 87%, transparent 99%);
+    -webkit-mask-composite: source-in; mask-composite: intersect;
+  }   /* not on the intro's feature cards: the board is not up yet */
 
   /* The HIGH PEAKS logo on the frame's sign board (owner: "keep the same outline for the board but redo it so it has an
      area for the high peaks logo"): the frame (frame_*.webp) is the old log outline redrawn with a sign board nailed
@@ -8206,6 +8213,9 @@ let yetiOn = null;
 // camera moves - over the plate and under the foreground pieces (layers.js .lyfront), no longer in the page beside the
 // board. So he pans, zooms and rolls with the mountain he stands on, and the near drift lies in front of his boots.
 // He is still placed by the board: right of the frame, in the room beside it, his feet on its bottom edge.
+// the rock pile in front of him: its width in yeti widths, its height over its width, where its middle sits across
+// him (its big boulder is left of its middle), and how far above his foot line its top comes, in yeti heights
+const YETI_ROCK = { w: 1.5, aspect: 344 / 900, cx: .47, up: .25 };
 function placeYeti() {
   const box = $("yetiBox");
   if (!box || !window.Yeti) return;
@@ -8218,10 +8228,26 @@ function placeYeti() {
     const fit = parseFloat(cs.getPropertyValue("--fit")) || 1, side = (parseFloat(cs.getPropertyValue("--side")) || 400) * fit;
     if (f.width > 0) {
       const yh = Math.min(f.height * .62, side / .78);
-      Object.assign(box.style, { height: yh.toFixed(1) + "px", width: (yh * .78).toFixed(1) + "px",
-        left: (f.right + 6 * fit + (side - yh * .78) / 2).toFixed(1) + "px", top: (f.bottom - yh).toFixed(1) + "px" });
+      const yw = yh * .78, yl = f.right + 6 * fit + (side - yw) / 2;
+      Object.assign(box.style, { height: yh.toFixed(1) + "px", width: yw.toFixed(1) + "px", left: yl.toFixed(1) + "px", top: (f.bottom - yh).toFixed(1) + "px" });
+      // He stands BEHIND a rock (owner, 2026-11-23: "we just need to put our yeti behind the rock" - the corner drifts
+      // slope away under him, so his boots stood in the open above them). A pile of snow-capped rocks of his own, in
+      // the same camera layer and over him (a .lyfront: z 3, the scenes' light), wider than he is, its caps up to his
+      // shins and its snow bank fading into the snow floor below.
+      let rock = $("yetiRock");
+      if (!rock && far) {
+        rock = Object.assign(document.createElement("img"), { id: "yetiRock", className: "lyfront yetirock", alt: "", decoding: "async", src: "assets/scene/layers/yeti_rock.webp" });
+        far.appendChild(rock);
+      }
+      if (rock) {
+        const rw = yw * YETI_ROCK.w, rh = rw * YETI_ROCK.aspect;
+        Object.assign(rock.style, { width: rw.toFixed(1) + "px", height: rh.toFixed(1) + "px", left: (yl + yw / 2 - rw * YETI_ROCK.cx).toFixed(1) + "px",
+          top: (f.bottom - yh * YETI_ROCK.up).toFixed(1) + "px" });
+      }
     }
   }
+  const rock0 = $("yetiRock");
+  if (rock0) rock0.hidden = !room;
   if (room && !yetiOn) yetiOn = mountYeti(box);
   // a window grown a lot since he was loaded: load him again at the size he is shown now (never mid-reaction)
   else if (room && Yeti.stale() && !state.playing) yetiOn = mountYeti(box);

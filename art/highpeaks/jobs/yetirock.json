@@ -1,0 +1,10 @@
+[
+  {
+    "name": "fg_yetirock",
+    "aspect_ratio": "3:2",
+    "background": "transparent",
+    "quality": "high",
+    "refs": ["art/highpeaks/raw/fg_drift.png"],
+    "prompt": "A single foreground prop for a cartoon slot game on a fully transparent background, nothing else in the picture: a low, WIDE pile of snow-capped grey boulders half-buried in a bank of snow, seen from the front at eye level. Three chunky rounded grey rocks of different sizes sit side by side across the picture - the biggest a little left of the middle, a medium one at the right, a small one at the far left - each wearing a thick rounded cap of white snow with pale blue shadow shapes, the grey stone showing below the caps with a few simple crack lines. Between and in front of the rocks a rolling bank of soft snow fills the whole lower half of the picture and runs off the LEFT, RIGHT and BOTTOM edges (no outline along those three edges, the snow just continues past them). Two or three small tufts of dry golden grass poke out of the snow. The top silhouette is bumpy - rock caps and dips of snow between them - and nothing rises into the top third of the picture, which stays empty and transparent. Drawn exactly like the attached picture and in its colours: flat 2D adult-animation sitcom cartoon style, thick clean black outlines along the top silhouette and round the rocks, flat solid colours with simple hard-edged shadow shapes, pale ice-blue snow with lighter blue highlights, warm grey rocks. No text, no characters, no shadow on the background, no glow, no 3D rendering."
+  }
+]
