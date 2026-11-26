@@ -120,6 +120,20 @@ character animation, the Bonus Menu "more polished, maybe animated") and the own
 - **Bonus Buy menu**: same black-and-white glass, now moving - cards rise in one after another, their pictures push in
   slowly, the lettering floats, snow drifts behind the cards, the card under the pointer lifts.
 
+Owner's notes of 2026-11-26:
+- **Ice bong**: the bong leaves the board first; only then do its multipliers drop into the column (`pumpShow`).
+- **Yeti's rock** stands lower and smaller: its caps reach his boot tops (`YETI_ROCK`).
+- **Jackpots**: four rounded plaques with a gloss, a rim in their own colour and a cap of snow, set inside the frame's
+  opening with an even margin (the last block of the stylesheet; they were flat bands run edge to edge).
+- **Camera**: every move takes `CAM_EASE` (1.8) times as long and its rumble swells in instead of kicking.
+- **HUD**: black and white like the Bonus Buy sheet - a black sheet at half opacity, a white keyline, white type; what
+  is ON is solid white (the `--hud-*` variables, last block of the stylesheet). The alert strip follows.
+- **Sound**: `sfx(name, rate, { vol, pan })`. The cluster's note climbs the D major pentatonic with each cascade of a
+  spin (`sndChain`), a win's worth sets its level and adds a ring, a multiplier's ding is pitched by its value, many
+  breaks at once are each quieter, Rapid plays the board quicker and higher, and a reel sounds from where it is. New
+  synthesised sets (`tools/highpeaks/sfx/dynamics.py`, 26 takes, 260 KB): ice shatter x6, multiplier ding x4, snow /
+  wood / glass / cloth landings, the tumble's whoosh - the board's foley was the gas station's (coins, chains, cans).
+
 Lobby art for engine.io, built from a BACKGROUND and a FOREGROUND the way the studio's Media Editor builds a tile
 (`tools/highpeaks/gen_covers.py gen`, then `build`; no text on any of it, owner rule):
 - `media/bg_16x9.png` (3840x2160) and `media/bg_3x4.png` (3072x4096): the summit with nobody in it, a sunburst sky,

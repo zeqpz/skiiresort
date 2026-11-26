@@ -3502,6 +3502,44 @@
     #bonusWrap .bssnow { display: none; }
     #bonusWrap .bc .bcart { animation: none; will-change: auto; }
   }
+  /* ---------- High Peaks, 2026-11-26: the HUD is black and white (owner: "make the hud simple black and white like
+     the bonus hud") - the Bonus Buy sheet's scheme on the bar, its pop-ups and the alert strip: a black sheet at half
+     opacity, a white keyline, white type; what is ON (Rapid, Auto, the chosen option) is solid white with black on
+     it rather than yellow. No colour but the game's art. ---------- */
+  :root { --hud-fill: rgba(0, 0, 0, .52); --hud-line: rgba(255, 255, 255, .88); --hud-hi: #fff; --hud-on: #fff; --hud-ink: #fff; --hud-soft: rgba(255, 255, 255, .64); }
+  .hudframe .tabshape path, .hudframe .barshape path { stroke-width: 2.5; }
+  .hudframe .hudbtn.open .tabshape path { fill: rgba(255, 255, 255, .16); stroke: #fff; }
+  .hudframe .sidebtn.on .tabshape path { fill: #fff; stroke: #fff; }
+  .hudframe .sidebtn.on, .hudframe .sidebtn.on:disabled { color: #000; }
+  .autoopts button.on, .autoopts button.on:hover:not(:disabled) { border-color: #fff; background: #fff; color: #000; }
+  .autoopts button.on small { color: rgba(0, 0, 0, .7); }
+  .hudstat.win .lbl, .hudstat.bet.boost .lbl, .hudstat.bet.boost .val { color: #fff; }
+  .notice b { color: #fff; }
+  /* ---------- High Peaks, 2026-11-26: the jackpot plaques (owner: "make the boxes the grand major minor and mini
+     fit the theme and shape nicely and fit inside of the border correctly") - they were four flat bands run edge to
+     edge under the frame. Now each is its own rounded plaque, set inside the frame's opening (measured off
+     jackpot/board.webp: l .110 t .166 r .122 b .057 at its widest) with an even margin and a gap between them, on a
+     night-blue backing like the reels': a gloss on its upper half, a rim in its own colour, a cap of snow on its top
+     edge. ---------- */
+  html.railside .jpbar { gap: 7px;
+    padding: calc(330px * 900 / 600 * .19) calc(330px * .148) calc(330px * 900 / 600 * .084) calc(330px * .136); }
+  html.railside .jpbar::after { background: linear-gradient(180deg, #0B1634, #14285A); border-radius: 12px; }
+  .jp, html.railside .jp { border-radius: 14px; overflow: hidden; border: 3px solid color-mix(in srgb, var(--jpc) 50%, #06080F);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .26) 0, rgba(255, 255, 255, .05) 38%, rgba(255, 255, 255, 0) 52%), var(--jpbg);
+    box-shadow: inset 0 -14px 20px rgba(0, 0, 0, .34), 0 3px 0 rgba(0, 0, 0, .5), 0 6px 10px rgba(0, 0, 0, .3); }
+  html.railside .jp:first-child { border-top: 3px solid color-mix(in srgb, var(--jpc) 50%, #06080F); }
+  .jp::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; z-index: 1; pointer-events: none;
+    background: linear-gradient(#fff, #fff) 0 0 / 100% 4px no-repeat,
+      radial-gradient(11px 9px at 50% 3px, #fff 96%, rgba(255, 255, 255, 0) 100%) 3px 0 / 23px 12px repeat-x;
+    filter: drop-shadow(0 1.5px 0 rgba(120, 175, 220, .9)); }
+  .jp.major::before { background-position: 0 0, -8px 0; } .jp.minor::before { background-position: 0 0, 9px 0; } .jp.mini::before { background-position: 0 0, -3px 0; }
+  .jp img { position: relative; z-index: 2; margin-top: 5px; }
+  .jp .jpv { position: relative; z-index: 2; }
+  .jp.grand { --jpbg: linear-gradient(180deg, #B4291A, #6a120b 55%, #45090a); }
+  .jp.major { --jpbg: linear-gradient(180deg, #7B2BC0, #46167a 55%, #2a0b4c); }
+  .jp.minor { --jpbg: linear-gradient(180deg, #2270D0, #134693 55%, #0a2a5e); }
+  .jp.mini  { --jpbg: linear-gradient(180deg, #2BA42B, #176a1b 55%, #0c4212); }
+  .jp.lit { box-shadow: inset 0 0 0 3px #fff, 0 0 30px 8px var(--jpc); }
 </style>
 </head>
 <body>
@@ -5060,6 +5098,7 @@ function boardThud(r) {
 // of the moves it was tuned with - the scene breathes with a win rather than being filmed.
 // Skip: no new moves; Rapid: a little quicker; a phone: smaller; reduced motion: no camera at all.
 const CAM_DEPTH = { far: .45, near: 1.12 };   // the wall and the figures, against the board's 1
+const CAM_EASE = 1.8;                         // how unhurried it is (1: as first tuned - snappy)
 const CAM_STRENGTH = .25;                     // how much it moves at all, of the moves below (1: as tuned)
 const Cam = (() => {
   const REST = { x: 0, y: 0, z: 1, r: 0 };
@@ -5070,9 +5109,9 @@ const Cam = (() => {
     const ph = [0, 1, 2, 3, 4].map(() => Math.random() * 6.3);
     return t => {
       if (t >= ms) return null;
-      const k = amp * Math.pow(1 - t / ms, 2), u = t / 1000;
-      return { x: k * (.7 * Math.sin(u * 23 + ph[0]) + .3 * Math.sin(u * 37 + ph[1])),
-               y: k * (.7 * Math.sin(u * 26 + ph[2]) + .3 * Math.sin(u * 41 + ph[3])), r: k * .04 * Math.sin(u * 19 + ph[4]) };
+      const inn = Math.min(1, t / 200), k = .7 * amp * inn * inn * (3 - 2 * inn) * Math.pow(1 - t / ms, 2), u = t / 1000;
+      return { x: k * (.7 * Math.sin(u * 13 + ph[0]) + .3 * Math.sin(u * 21 + ph[1])),
+               y: k * (.7 * Math.sin(u * 15 + ph[2]) + .3 * Math.sin(u * 24 + ph[3])), r: k * .04 * Math.sin(u * 11 + ph[4]) };
     };
   }
   function pose(t = performance.now()) { return path ? path(Math.min(dur, Math.max(0, t - t0))) : { ...REST }; }
@@ -5146,7 +5185,10 @@ const Cam = (() => {
     const tx = (1 - pull) * dx - z * (c * dx - s * dy), ty = (1 - pull) * dy - z * (s * dx + c * dy);
     return { x: Math.max(-lim, Math.min(lim, tx)), y: Math.max(-lim, Math.min(lim, ty)), z, r };
   }
-  const sp = () => Math.max(.7, tempo());                               // Rapid: a little quicker, never twitchy
+  // (owner, 2026-11-26: "make the cinematic camera less snappy and smoothed out") Every move takes CAM_EASE times as
+  // long to get where it is going - the springs settle slower and the moves that ride on them last longer - and a
+  // rumble swells in over its first fifth of a second and rolls at a lower pace instead of starting at full kick.
+  const sp = () => Math.max(.7, tempo()) * CAM_EASE;                    // Rapid: a little quicker, never twitchy
   const amp = v => v * CAM_STRENGTH * (geo && geo.phone ? .65 : 1);     // how much it moves at all; a phone: smaller
   function ready() {
     if (REDUCED_MOTION || state.skip) return false;
@@ -5340,7 +5382,7 @@ function dropReel(r, ev, wait, inExtra = 0, onCrewLeader = null, slow = 1) {
     // a tile lands (its contact, on its column's clock): its note, and a bonus symbol announces itself
     const land = (y, pace, tt) => {
       const c = cells[y];
-      landFoley(shownSym[r] && shownSym[r][y]);   // what it is made of
+      landFoley(shownSym[r] && shownSym[r][y], r);   // what it is made of, where it is
       const crew = c.classList.contains("scat"), bonusSym = crew || c.classList.contains("escat");
       if (reel.classList.contains("antic")) anticHit(reel, bonusSym);   // the held column's fire answers every landing
       if (bonusSym) {
@@ -5395,7 +5437,7 @@ function dropReel(r, ev, wait, inExtra = 0, onCrewLeader = null, slow = 1) {
         settled = Math.max(settled, startAt[y] + ms);
       }
       // the column thuds as its last tile lands, and hands over once the slowest has settled
-      later(lastHit + 30 * tt, () => { boardThud(r); sfxGap("reelStop", 40, .97 + r * .012); });
+      later(lastHit + 30 * tt, () => { boardThud(r); sfxGap("reelStop", 40, (.97 + r * .012) * sndFast(), { pan: sndPan(r) }); sfxGap("landSnow", 40, .78 + r * .02, { pan: sndPan(r), vol: .9 }); });
       later(settled + 20 * tt, finish);
     });
     later(wait + 8000, finish);   // a hidden tab must never hang the round
@@ -5856,6 +5898,12 @@ const SFX_SETS = {
   midnightLand: ["sfx_midnight_land", 3, .52, FALCOS_WOBBLE],  // a Midnight Token lands
   bonusTrigger: ["sfx_bonus_trigger", 3, .55, FALCOS_WOBBLE],  // a bonus triggered: a short fanfare in D
   symBreak: ["sfx_break", 3, .6, .04],                        // a winning symbol cracking and its pieces clattering off
+  // High Peaks's own board sounds (tools/highpeaks/sfx/dynamics.py, synthesised): ice and snow, wood and glass - the
+  // exit clip's shatter (six takes), a multiplier's frosty ding (pitched by its value), what each symbol is made of
+  // as it lands, and the tumble's whoosh of powder
+  iceBreak: ["sfx_ice_break", 6, .6, .05], iceMult: ["sfx_ice_mult", 4, .34, .008],
+  landSnow: ["sfx_land_snow", 4, .32], landWood: ["sfx_land_wood", 3, .28], landGlass: ["sfx_land_glass", 3, .25], landCloth: ["sfx_land_cloth", 3, .3],
+  snowWhoosh: ["sfx_snow_whoosh", 3, .36],
   // High Peaks jackpots (tools/highpeaks/sfx/jackpot.py): the "?" landing, one note per bar level as the wheel passes
   // it (D5 F#5 A5 D6), the stop, and each level's fanfare
   jpDrop: ["sfx_jp_drop", 1, .55, 0], jpLand: ["sfx_jp_land", 1, .6, 0],
@@ -6129,11 +6177,13 @@ function audio() {
 // browsers only allow audio once the player has interacted — first gesture opens the context
 addEventListener("pointerdown", () => { audio(); startMusic(); if (actx) loadTrack("intro"); }, { once: true });   // the intro is decoded ahead of the first bonus
 
-function sfx(name, rate = 1) {
+// o (optional): { vol: a level on top of the sound's own (1 = as mixed), pan: -1 left .. 1 right } - what makes the
+// same clip sound like THIS moment: how big the win is, how far along the cascade, which reel it came from.
+function sfx(name, rate = 1, o) {
   if (vol.sfx <= 0) return;   // the bar is at the bottom: don't even open the context
   if (SFX_VARS[name]) {       // a set of takes: one of them, never the last one again, a hair off pitch
     const take = pickSfx(SFX_VARS[name], sfxVarMemo[name] || (sfxVarMemo[name] = { last: null }));
-    return sfx(take, rate * (1 + (Math.random() - .5) * (SFX_WOBBLE[name] ?? .05)));
+    return sfx(take, rate * (1 + (Math.random() - .5) * (SFX_WOBBLE[name] ?? .05)), o);
   }
   if (!SFX[name]) return;     // a name with no sound behind it is nothing at all, never an error
   const ctx = audio();
@@ -6142,7 +6192,7 @@ function sfx(name, rate = 1) {
     // asked for before the clip has decoded (the first press after the page opens): play it
     // the moment it has, as long as that is still the same beat, otherwise let it go
     const at = performance.now(), pending = sfxDecoding[name];
-    if (pending) pending.then(() => { if (sfxBuf[name] && performance.now() - at < 600) sfx(name, rate); });
+    if (pending) pending.then(() => { if (sfxBuf[name] && performance.now() - at < 600) sfx(name, rate, o); });
     return;
   }
   if (SFX_WITH[name]) sfx(SFX_WITH[name]);
@@ -6150,8 +6200,12 @@ function sfx(name, rate = 1) {
   src.buffer = sfxBuf[name];
   src.playbackRate.value = rate;           // resampled, so the pitch shifts with it
   const g = ctx.createGain();
-  g.gain.value = SFX_VOL[name] ?? .4;
-  src.connect(g).connect(sfxBus);
+  g.gain.value = (SFX_VOL[name] ?? .4) * (o && o.vol != null ? Math.max(0, Math.min(1.8, o.vol)) : 1);
+  if (o && o.pan && ctx.createStereoPanner) {
+    const pn = ctx.createStereoPanner();
+    pn.pan.value = Math.max(-1, Math.min(1, o.pan));
+    src.connect(g).connect(pn).connect(sfxBus);
+  } else src.connect(g).connect(sfxBus);
   src.start();
   src._gain = g;   // so sfxFade can take it out softly
   return src;   // the caller can stop it: some of these clips run for ten seconds
@@ -6160,27 +6214,44 @@ function sfx(name, rate = 1) {
 // The same clip can't be allowed to fire seven times in one frame (seven reels landing on a
 // skipped spin, say): one play, then nothing until the gap has passed.
 const sfxLast = {};
-function sfxGap(name, gapMs, rate = 1) {
+function sfxGap(name, gapMs, rate = 1, o) {
   const now = performance.now();
   if ((sfxLast[name] || 0) + gapMs > now) return;
   sfxLast[name] = now;
-  sfx(name, rate);
+  sfx(name, rate, o);
 }
+// (owner, 2026-11-26: "the sound fx could be more dynamic depending on value, speed, amount, etc and add more sounds
+// so they are less repetitive") What the round's sounds are steered by:
+//   the CASCADE  sndChain counts the tumbles of this spin; the cluster's note, the ring on a real win and the whoosh
+//                of the refill each sit a step higher up the D major pentatonic (SND_SCALE) for every one
+//   the VALUE    a win's size in bets sets how loud its note is and whether it gets the ring on top; a cell
+//                multiplier's ding is pitched by its value (x2 the root ... x128 an octave and a third up)
+//   the AMOUNT   many symbols breaking at once are each quieter, and climb a hair in pitch along the cluster
+//   the SPEED    Rapid (and a skipped spin) plays the board's sounds a little quicker and higher
+//   the PLACE    a reel's sounds come from where it is, left to right
+const SND_SCALE = [1, 1.1225, 1.2599, 1.4983, 1.6818, 2, 2.2449, 2.5198];
+let sndChain = 0;
+const sndStep = (n = sndChain) => SND_SCALE[Math.max(0, Math.min(SND_SCALE.length - 1, n))];
+const sndPan = r => (typeof REELS === "number" && REELS > 1) ? (r / (REELS - 1) - .5) * 1.1 : 0;
+const sndFast = () => 1 + (1 - Math.min(1, tempo())) * .2;
 
 // A symbol landing makes the sound of what it is: the drawer's coins, the key's clink, the can's knock. Quiet, under the drop note, and thinned out - one every 34 ms at most and the same
 // material not again inside 90 ms - so a board of 49 reads as a patter, never a pile-up.
+// (2026-11-26: High Peaks's own - skis and a board knock like wood, the jar, the goggles, the mug and the bong
+// clink, the beanie, the joint and the slice pat, the brownie thumps into snow; LAND_PITCH sets each one apart)
 const LAND_FOLEY = {
-  H1: "landCoin", H2: "landChain", H3: "landMetal", H4: "landCan", L1: "landCan", L2: "landSoft", L3: "landSoft",
-  L4: "landBaggie", L5: "landSoft", ZP: "landMetal", ST: "landCard", GT: "landCard", GP: "landMetal",
+  H1: "landWood", H2: "landGlass", H3: "landWood", H4: "landGlass", L1: "landGlass", L2: "landCloth", L3: "landSnow",
+  L4: "landCloth", L5: "landCloth", ZP: "landMetal", ST: "landCard", GT: "landCard", GP: "landGlass",
 };
+const LAND_PITCH = { H1: 1.12, H3: .86, H2: .92, H4: 1.18, L1: .76, GP: 1.04, L2: 1.2, L4: .9, L5: 1.05 };
 let foleyAt = 0;
-function landFoley(sym) {
-  const key = LAND_FOLEY[sym && artOf(sym.name)];
+function landFoley(sym, r) {
+  const id = sym && artOf(sym.name), key = LAND_FOLEY[id];
   if (!key) return;
   const now = performance.now();
   if (now - foleyAt < 34 || (sfxLast[key] || 0) + 90 > now) return;
   foleyAt = now; sfxLast[key] = now;
-  sfx(key);
+  sfx(key, (LAND_PITCH[id] || 1) * sndFast(), r == null ? undefined : { pan: sndPan(r) });
 }
 
 
@@ -6304,7 +6375,10 @@ async function applyCells(cells, gap = 45) {
   for (const c of list) {
     const [r, y] = rc(c);
     setMult(r, y, c.to);
-    if (c.to >= 2 && c.to !== c.from) sfxGap("multDouble", 70);
+    if (c.to >= 2 && c.to !== c.from) {
+      sfxGap("multDouble", 70, 1, { pan: sndPan(r) });
+      sfxGap("iceMult", 45, sndStep(Math.round(Math.log2(c.to)) - 1) * sndFast(), { pan: sndPan(r), vol: .7 + .4 * Math.min(1, Math.log2(c.to) / 6) });
+    }
     if (gap > 0 && ++n < list.length) await hold(gap);
   }
 }
@@ -6468,11 +6542,14 @@ async function pumpShow(ev) {
     tick(`<b>MAX</b> — the whole column is MAX`);
   } else tick(`<b>ICE BONG x${ev.mult}</b> on reel ${r + 1}`);
   await hold(full ? 900 : 520);
-  // the column takes it: every cell top to bottom
-  flashCells(Array.from({ length: ROWS }, (_, y) => [r, y]), g.c);
-  if (!full) await applyCells(ev.cells, 70);
-  await hold(full ? 700 : 620);   // long enough to see the bowl burn down to ash (icebong.js .landed)
+  await hold(full ? 500 : 560);   // long enough to see the bowl burn down to ash (icebong.js .landed)
+  // (owner, 2026-11-26: "make the multipliers wait until the bong disappears until they drop in") The bong goes
+  // first; only when it is off the board does the column take its multipliers, cell by cell from the top.
   dial.classList.add("out");
+  await hold(REDUCED_MOTION ? 0 : 340);
+  flashCells(Array.from({ length: ROWS }, (_, y) => [r, y]), g.c);
+  if (!full) await applyCells(ev.cells, 80);
+  await hold(full ? 320 : 220);
   const burnMs = Math.max(0, burnEnd - performance.now());   // the breaks began with the fall: nearly always over by now
   return { glow, dial, burnMs, full };
 }
@@ -6847,6 +6924,7 @@ function jpClearQ() { if (state.jpQ) { state.jpQ.remove(); state.jpQ = null; } }
 const handlers = {
   async reveal(ev) {
     Cam.rest(300);   // every spin is filmed from home
+    sndChain = 0;    // and heard from the bottom of the scale
     // the round's cells were reset (or preloaded by NITRO) when it began; a bonus keeps its grid across spins
     if (ev.gameType === "basegame" && !state.bonus) musicTo("base");
     await renderReveal(ev);
@@ -6871,8 +6949,10 @@ const handlers = {
       Cam.cluster(w.positions.map(at), cents(w.win) / Math.max(1, bet()));
       const drawMs = glowTiles(w.positions);
       const chipMs = placeWinChip(w.positions, cents(w.win), m.maxWin ? 1 : mult);
-      sfx("line");
-      if (SYM_WIN_SFX[w.symbol]) sfx(SYM_WIN_SFX[w.symbol]);
+      const winX = cents(w.win) / Math.max(1, bet()), big = Math.min(1, Math.log10(1 + Math.max(0, winX)) / 2);   // 1x .15, 10x .52, 100x 1
+      sfx("line", sndStep(), { vol: .8 + .5 * big });
+      if (SYM_WIN_SFX[w.symbol]) sfx(SYM_WIN_SFX[w.symbol], 1, { vol: .85 + .4 * Math.min(1, Math.max(0, size - 5) / 10) });
+      if (winX >= 3) setTimeout(() => sfx("iceMult", sndStep(sndChain + 2), { vol: .55 + .6 * big }), 90 * tempo());   // a real win rings
       const parts = [`<b>${(SYM[w.symbol] || { label: w.symbol }).label} x${size}</b>`, "cluster"];
       if (m.maxWin) parts.push("<b>MAX</b>"); else if (mult > 1) parts.push(`<b>x${fmtMult(mult)}</b>`);
       parts.push(`<b>${fmt(cents(w.win))}</b>`);
@@ -7011,6 +7091,7 @@ const handlers = {
     // would scale the cell under the clip), and the cell is emptied just before the clip's last frame, or the symbol
     // would show on its rest pose again until the tumble.
     let burnMs = 0;
+    const breakVol = Math.max(.5, 1 / Math.sqrt(Math.max(1, solid.length / 5)));
     solid.forEach(([r, y], i) => {
       timers.push(setTimeout(() => {
         const cell = cellEls[r][y], ms = winClipMs([cell], "burn"), rate = .94 + Math.random() * .14;
@@ -7018,7 +7099,7 @@ const handlers = {
           burnMs = Math.max(burnMs, ms);
           clearTimeout(cell._burnT);
           cell._burnT = setTimeout(() => { cell._burnT = 0; setCell(r, y, { name: "X" }); }, ms * .96);
-          setTimeout(() => { sfxGap("symBreak", 38, rate); multEls[r][y].classList.add("bare"); }, 200 * tempo());   // frame 6: it bursts
+          setTimeout(() => { sfxGap("iceBreak", 30, rate * (1 + i * .016) * sndFast(), { pan: sndPan(r), vol: breakVol }); multEls[r][y].classList.add("bare"); }, 200 * tempo());   // frame 6: it bursts
         } else {
           burstIcon(geo[i]); cell.classList.add("explode");
           setTimeout(() => { sfxGap("symBreak", 38, rate); multEls[r][y].classList.add("bare"); }, BURST_AT * tempo());
@@ -7059,7 +7140,7 @@ const handlers = {
           const time = setDrop(cell, fall * CELL_STEP, pace);
           cell.classList.add("tdrop");
           dropIn(cell, 500 * tempo() * time);
-          landers.push({ row: fy, pace, time, sym: finalSyms[fy], cell });
+          landers.push({ row: fy, reel: r, pace, time, sym: finalSyms[fy], cell });
         }
       }
     }
@@ -7068,12 +7149,14 @@ const handlers = {
       const t = tempo(), gap2 = Math.min(18, 260 / landers.length);
       landers.sort((a, b) => a.time - b.time || b.row - a.row);
       let next = 0;
-      if (!state.skip) sfx("cascade", .96 + Math.random() * .08);
+      // the refill: powder coming down - higher with every cascade of this spin, fuller the more that falls
+      if (!state.skip) sfx(sndChain % 2 ? "snowWhoosh" : "cascade", (.96 + Math.random() * .08) * Math.min(1.5, 1 + sndChain * .07), { vol: Math.min(1.35, .85 + landers.length / 50) });
+      sndChain++;
       for (const l of landers) {
         const at2 = Math.max(500 * DROP_CONTACT * t * l.time, next);
         next = at2 + gap2;
         setTimeout(() => {
-          landFoley(l.sym);
+          landFoley(l.sym, l.reel);
           if (l.sym && l.sym.name === "BS") sfxGap("tokenLand", 140);
           if (l.sym && l.sym.name === "DS") sfxGap("midnightLand", 140);
           if (l.sym && l.sym.name === "ZP") sfxGap("zippoFlick", 140);
@@ -7207,7 +7290,7 @@ const handlers = {
     musicTo("bonus");
     state.skip = false;
     state.multiCount = 0;
-    sfx("spin");
+    sfx("spin", sndFast());
     turnSpinArrows();
     $("spinBtn").classList.add("armed");
     paintFsCount(ev.amount, ev.total);   // amount is the spin about to play, 1-based
@@ -7283,7 +7366,7 @@ const handlers = {
       }
       const snd = c.name === "FD" ? "dropLand" : c.name === "ZP" ? "zippoFlick" : null;
       const art = c.name === "FD" ? fdArt(c.value || 0) : c.name;
-      setTimeout(() => { if (snd) sfxGap(snd, 70); else landFoley({ name: c.name }); bumpBadge(r, y); fillSplash(r, y, art); }, 160 * tempo());
+      setTimeout(() => { if (snd) sfxGap(snd, 70); else landFoley({ name: c.name }, r); bumpBadge(r, y); fillSplash(r, y, art); }, 160 * tempo());
     };
     if (!(ev.spin > 0) || REDUCED_MOTION) {
       // the opening board (the tokens' drops) or no motion: they land one after another
@@ -7304,7 +7387,7 @@ const handlers = {
     const empty = (r, y) => !state.fill[r][y];
     eachCell((el, r, y) => { if (empty(r, y)) el.classList.add("froll"); el.classList.toggle("tense", tense === 2); });
     if (tense === 2) { boardZoom(true, [], 900 + 7 * 330); reelEls.forEach((rl, r) => { if ([...Array(ROWS).keys()].some(y => empty(r, y))) rl.classList.add("antic"); }); }
-    sfx("spin");
+    sfx("spin", sndFast());
     await hold(tense === 2 ? 760 : tense ? 640 : 520);
     const gap = [130, 210, 330][tense];
     for (let r = 0; r < REELS; r++) {
@@ -7317,7 +7400,7 @@ const handlers = {
         if (!col.some(c => rc(c)[1] === y)) { el.classList.remove("fspin"); restyle(el); el.classList.add("fspin"); }
       }
       reelEls[r] && reelEls[r].classList.remove("antic");
-      sfxGap("reelStop", 40, .97 + r * .012);
+      sfxGap("reelStop", 40, (.97 + r * .012) * sndFast(), { pan: sndPan(r) });
       for (const c of col) landOne(c);
       if (col.length) await hold(tense ? 380 : 220);   // a column that brought something: let it be seen
       await hold(gap);
@@ -7681,7 +7764,7 @@ function placeWinChip(positions, amount, mult) {
       const p = Math.min(1, (now - t0) / dur);
       if (p >= 1) return;
       paint(from + (to - from) * (1 - Math.pow(1 - p, 3)));
-      if (num.textContent !== shown) { shown = num.textContent; sfxGap("countTick", 70); }
+      if (num.textContent !== shown) { shown = num.textContent; sfxGap("countTick", 70, .9 + .55 * p); }
       requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
@@ -8314,7 +8397,9 @@ let yetiOn = null;
 // He is still placed by the board: right of the frame, in the room beside it, his feet on its bottom edge.
 // the rock pile in front of him: its width in yeti widths, its height over its width, where its middle sits across
 // him (its big boulder is left of its middle), and how far above his foot line its top comes, in yeti heights
-const YETI_ROCK = { w: 1.5, aspect: 344 / 900, cx: .47, up: .25 };
+// (owner, 2026-11-26: "back the foreground rock up so it's not covering so much of our character": it came up to his
+// shins; now its caps reach his boot tops and no higher)
+const YETI_ROCK = { w: 1.32, aspect: 344 / 900, cx: .47, up: .135 };
 function placeYeti() {
   const box = $("yetiBox");
   if (!box || !window.Yeti) return;
@@ -8489,7 +8574,7 @@ $("spinBtn").addEventListener("click", e => {
   if (state.playing) { e.stopImmediatePropagation(); return; }
   const b = e.currentTarget;
   b.classList.remove("punch"); restyle(b); b.classList.add("punch");   // restart on every press
-  sfx("spin");
+  sfx("spin", sndFast());
   playRound(spinMode());
 });
 // clicking the board fast-forwards too — same cancel note, but only if a round is running
