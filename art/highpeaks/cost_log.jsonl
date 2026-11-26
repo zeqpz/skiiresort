@@ -126,3 +126,7 @@
 {"name": "cover_bg_3x4", "file": "art\\highpeaks\\raw\\cover_bg_3x4.v3.png", "size": [2448, 3264], "mode": "RGB", "cost": 0.143764, "model": "openai/gpt-image-2.6-sunburst", "secs": 56.2, "t": "2026-11-23 22:43:55"}
 {"name": "feature_card_a", "file": "art\\highpeaks\\raw\\feature_card_a.png", "size": [1152, 1536], "mode": "RGBA", "cost": 0.057185, "model": "openai/gpt-image-2.6-sunburst", "secs": 32.3, "t": "2026-11-24 14:03:44"}
 {"name": "feature_card_b", "file": "art\\highpeaks\\raw\\feature_card_b.png", "size": [1152, 1536], "mode": "RGBA", "cost": 0.05738, "model": "openai/gpt-image-2.6-sunburst", "secs": 33.1, "t": "2026-11-24 14:03:44"}
+{"name": "jp_plaques_a", "file": "art\\highpeaks\\raw\\jp_plaques_a.png", "size": [1024, 1536], "mode": "RGBA", "cost": 0.04828, "model": "openai/gpt-image-2.6-sunburst", "secs": 26.9, "t": "2026-11-26 17:31:39"}
+{"name": "jp_plaques_b", "file": "art\\highpeaks\\raw\\jp_plaques_b.png", "size": [1024, 1536], "mode": "RGBA", "cost": 0.048435, "model": "openai/gpt-image-2.6-sunburst", "secs": 27.7, "t": "2026-11-26 17:31:40"}
+{"name": "jp_plaques_c", "file": "art\\highpeaks\\raw\\jp_plaques_c.png", "size": [1024, 1536], "mode": "RGBA", "cost": 0.048385, "model": "openai/gpt-image-2.6-sunburst", "secs": 26.8, "t": "2026-11-26 17:32:44"}
+{"name": "jp_plaques_d", "file": "art\\highpeaks\\raw\\jp_plaques_d.png", "size": [1024, 1536], "mode": "RGBA", "cost": 0.04847, "model": "openai/gpt-image-2.6-sunburst", "secs": 27.7, "t": "2026-11-26 17:32:45"}

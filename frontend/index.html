@@ -3515,31 +3515,38 @@
   .autoopts button.on small { color: rgba(0, 0, 0, .7); }
   .hudstat.win .lbl, .hudstat.bet.boost .lbl, .hudstat.bet.boost .val { color: #fff; }
   .notice b { color: #fff; }
-  /* ---------- High Peaks, 2026-11-26: the jackpot plaques (owner: "make the boxes the grand major minor and mini
-     fit the theme and shape nicely and fit inside of the border correctly") - they were four flat bands run edge to
-     edge under the frame. Now each is its own rounded plaque, set inside the frame's opening (measured off
-     jackpot/board.webp: l .110 t .166 r .122 b .057 at its widest) with an even margin and a gap between them, on a
-     night-blue backing like the reels': a gloss on its upper half, a rim in its own colour, a cap of snow on its top
-     edge. ---------- */
-  html.railside .jpbar { gap: 7px;
-    padding: calc(330px * 900 / 600 * .19) calc(330px * .148) calc(330px * 900 / 600 * .084) calc(330px * .136); }
+  /* ---------- High Peaks, 2026-11-26: the jackpot plaques ----------
+     (owner: "make the boxes the grand major minor and mini fit the theme and shape nicely and fit inside of the border
+     correctly"; then, of a first pass drawn with CSS gradients: "wasn't high quality enough - fix the outlines, add
+     more detail to the snow, make it blend better") Each jackpot is a DRAWN plaque now, in the board frame's own hand
+     (art/highpeaks/jobs/jp_plaques.json -> assets/jackpot/plaque_<level>.webp): glossy enamel in its colour with a
+     thick ink outline and a rim, and a heavy lumpy cap of snow with icicles at its ends, like the snow on the frames.
+     The art is 939 x 352 with its clear face the lower two thirds; it is laid over the row from a quarter of a row
+     ABOVE it (so each cap of snow sits on the foot of the plaque over it, signs stacked in a drift) and the lettering
+     and the prize sit on the clear face. The rows stand inside the frame's opening (measured off jackpot/board.webp:
+     l .110 t .166 r .122 b .057 at its widest) on a night-blue backing like the reels'. */
+  html.railside .jpbar { gap: 4px;
+    padding: calc(330px * 900 / 600 * .212) calc(330px * .15) calc(330px * 900 / 600 * .082) calc(330px * .138); }
   html.railside .jpbar::after { background: linear-gradient(180deg, #0B1634, #14285A); border-radius: 12px; }
-  .jp, html.railside .jp { border-radius: 14px; overflow: hidden; border: 3px solid color-mix(in srgb, var(--jpc) 50%, #06080F);
-    background: linear-gradient(180deg, rgba(255, 255, 255, .26) 0, rgba(255, 255, 255, .05) 38%, rgba(255, 255, 255, 0) 52%), var(--jpbg);
-    box-shadow: inset 0 -14px 20px rgba(0, 0, 0, .34), 0 3px 0 rgba(0, 0, 0, .5), 0 6px 10px rgba(0, 0, 0, .3); }
-  html.railside .jp:first-child { border-top: 3px solid color-mix(in srgb, var(--jpc) 50%, #06080F); }
-  .jp::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; z-index: 1; pointer-events: none;
-    background: linear-gradient(#fff, #fff) 0 0 / 100% 4px no-repeat,
-      radial-gradient(11px 9px at 50% 3px, #fff 96%, rgba(255, 255, 255, 0) 100%) 3px 0 / 23px 12px repeat-x;
-    filter: drop-shadow(0 1.5px 0 rgba(120, 175, 220, .9)); }
-  .jp.major::before { background-position: 0 0, -8px 0; } .jp.minor::before { background-position: 0 0, 9px 0; } .jp.mini::before { background-position: 0 0, -3px 0; }
-  .jp img { position: relative; z-index: 2; margin-top: 5px; }
-  .jp .jpv { position: relative; z-index: 2; }
-  .jp.grand { --jpbg: linear-gradient(180deg, #B4291A, #6a120b 55%, #45090a); }
-  .jp.major { --jpbg: linear-gradient(180deg, #7B2BC0, #46167a 55%, #2a0b4c); }
-  .jp.minor { --jpbg: linear-gradient(180deg, #2270D0, #134693 55%, #0a2a5e); }
-  .jp.mini  { --jpbg: linear-gradient(180deg, #2BA42B, #176a1b 55%, #0c4212); }
-  .jp.lit { box-shadow: inset 0 0 0 3px #fff, 0 0 30px 8px var(--jpc); }
+  .jpbar { margin-top: 22px; }
+  .jp, html.railside .jp { background: none; border: 0; border-radius: 0; box-shadow: none; overflow: visible; justify-content: flex-end; padding-bottom: 5px; box-sizing: border-box; }   /* (px: a % here is of the BAR's width) */
+  .jp { height: 78px; }
+  html.railside .jp { padding-bottom: 7px; }
+  html.railside .jp:first-child { border-top: 0; }
+  .jp::before { content: ""; position: absolute; left: -3.2%; right: -3.5%; top: -25%; bottom: -3%; z-index: 0; pointer-events: none;
+    background: center / 100% 100% no-repeat; }
+  .jp.grand::before { background-image: url("assets/jackpot/plaque_grand.webp"); }
+  .jp.major::before { background-image: url("assets/jackpot/plaque_major.webp"); }
+  .jp.minor::before { background-image: url("assets/jackpot/plaque_minor.webp"); }
+  .jp.mini::before  { background-image: url("assets/jackpot/plaque_mini.webp"); }
+  .jp::after { inset: 14% 2.5% 5%; border-radius: 20px; z-index: 1; }
+  .jp img { position: relative; z-index: 2; height: 37%; width: 78%; margin: 0; }
+  .jp .jpv { position: relative; z-index: 2; margin-top: 0; font-size: 21px; }
+  html.railside .jp .jpv { font-size: 29px; }
+  .jp.lit { box-shadow: none; transform: scale(1.07); filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 16px var(--jpc)) brightness(1.15) !important; }
+  .jp.won { animation: jpwon2 .38s ease-in-out infinite alternate; }
+  @keyframes jpwon2 { from { transform: scale(1.05); filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 10px var(--jpc)) brightness(1.1); }
+                      to { transform: scale(1.13); filter: drop-shadow(0 0 7px #fff) drop-shadow(0 0 26px var(--jpc)) brightness(1.3); } }
 </style>
 </head>
 <body>

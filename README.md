@@ -123,8 +123,10 @@ character animation, the Bonus Menu "more polished, maybe animated") and the own
 Owner's notes of 2026-11-26:
 - **Ice bong**: the bong leaves the board first; only then do its multipliers drop into the column (`pumpShow`).
 - **Yeti's rock** stands lower and smaller: its caps reach his boot tops (`YETI_ROCK`).
-- **Jackpots**: four rounded plaques with a gloss, a rim in their own colour and a cap of snow, set inside the frame's
-  opening with an even margin (the last block of the stylesheet; they were flat bands run edge to edge).
+- **Jackpots**: four DRAWN plaques in the frame's own hand (`art/highpeaks/jobs/jp_plaques.json` ->
+  `assets/jackpot/plaque_<level>.webp`): glossy enamel with an ink outline and a heavy cap of snow with icicles, set
+  inside the frame's opening, each cap sitting on the foot of the plaque above (a first pass drawn with CSS gradients
+  was sent back: "wasn't high quality enough - fix the outlines, add more detail to the snow, make it blend better").
 - **Camera**: every move takes `CAM_EASE` (1.8) times as long and its rumble swells in instead of kicking.
 - **HUD**: black and white like the Bonus Buy sheet - a black sheet at half opacity, a white keyline, white type; what
   is ON is solid white (the `--hud-*` variables, last block of the stylesheet). The alert strip follows.
