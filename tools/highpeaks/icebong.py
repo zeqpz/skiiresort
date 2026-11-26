@@ -23,9 +23,10 @@ FLAT = os.path.join(ROOT, 'frontend', 'assets', 'flat', 'GP.webp')
 BROWSERS = [r'C:\Program Files\Google\Chrome\Application\chrome.exe', r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe',
             '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome']
 SHOT = 1600                       # the window photographed (the bong is 94% of its height)
-# points of the drawing (its own 300 x 520 box) that the rig wants
-POINTS = {'foot': (150, 506), 'flask': (150, 392), 'neck': (150, 285), 'rim': (150, 60), 'top': (150, 28), 'bowl': (244, 348),
-          'wisp0': (246, 330), 'wisp1': (249, 300), 'wisp2': (252, 270), 'glint_flask': (72, 348), 'glint_tube': (119, 140)}
+# points of the drawing (its own 200 x 470 box: frontend/icebong.js ICON_H) that the rig wants
+BOX = (200, 470)
+POINTS = {'foot': (100, 456), 'flask': (100, 342), 'neck': (100, 165), 'rim': (100, 50), 'top': (100, 30), 'bowl': (100, 248),
+          'wisp0': (100, 222), 'wisp1': (103, 192), 'wisp2': (106, 162), 'glint_flask': (62, 318), 'glint_tube': (75, 120)}
 
 
 def photograph():
@@ -55,8 +56,8 @@ if __name__ == '__main__':
     f = pic.copy(); f.thumbnail((372, 372), Image.LANCZOS)
     flat.alpha_composite(f, ((400 - f.size[0]) // 2, (400 - f.size[1]) // 2))
     flat.save(FLAT, 'WEBP', quality=90, method=6, alpha_quality=95)
-    # the drawing's box in the photograph: 94vh tall, 300:520, centred
-    dh = SHOT * .94; s = dh / 520; dx0 = SHOT / 2 - 150 * s; dy0 = SHOT / 2 - 260 * s
+    # the drawing's box in the photograph: 94vh tall, BOX's shape, centred
+    dh = SHOT * .94; s = dh / BOX[1]; dx0 = SHOT / 2 - BOX[0] / 2 * s; dy0 = SHOT / 2 - BOX[1] / 2 * s
     pts = {n: (round(((x * s + dx0) - bb[0]) * k + ox), round(((y * s + dy0) - bb[1]) * k + oy)) for n, (x, y) in POINTS.items()}
     print('wrote', OUT, im.size, '| ink box', im.getchannel('A').getbbox())
     print('wrote', FLAT)

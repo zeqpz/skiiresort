@@ -101,6 +101,25 @@ use a plugin or tool to rig"):**
   frame's bottom edge, and the green chimney smoke is off (`skyfx.js` SMOKE): behind the jackpot board it read as a
   little tree growing on GRAND.
 
+Review round of 2026-11-24 (Engine: "Low quality assets / Poor animations" - symbol win and disappearance animations,
+character animation, the Bonus Menu "more polished, maybe animated") and the owner's notes of the same day:
+- **Symbols**: every symbol's `hit` (win) is its own acted move with a timed accent, and `burn` (the exit) is a freeze,
+  crack and SHATTER into inked shards of the picture with powder snow (`tools/highpeaks/blender/symrig.py`; same frame
+  counts and sheet format). A cluster win now plays that clip (`tumbleBoard`); the old procedural tear is only the
+  fallback.
+- **Yeti**: the puff on his joint is made by the forearm and hand hinging at a planted elbow (upper arm 2.8 deg against
+  his chest, was 67.7); he leans in to meet it (`yeti_rigify.py` `ARM_R["puff"]`, `contact()`).
+- **Ice bong, redrawn** (`frontend/icebong.js`): a straight tube with a lip and icicles, a round chamber, the bowl a
+  collar of the same ice where they meet, a foot under it; soft shading in the ice's own blues, no black ink. The bowl
+  is packed green, burns under a flame with a round foot (`flame_sheet.py`) that goes OUT when the hit is let go, and
+  is left as ash with a wisp of smoke. The symbol's picture is the same drawing, short (`IceBong.svg()`,
+  `tools/highpeaks/icebong.py` -> `symbols_static/GP.png`).
+- **Intro cards**: lodge notice boards (`assets/feature_card.webp`, `art/highpeaks/jobs/feature_cards.json`) that drop
+  in, bounce, kick up snow and then sway like hung signs; each icon bobs over slow rays (`fanPlates`, the last block
+  of the stylesheet).
+- **Bonus Buy menu**: same black-and-white glass, now moving - cards rise in one after another, their pictures push in
+  slowly, the lettering floats, snow drifts behind the cards, the card under the pointer lifts.
+
 Lobby art for engine.io, built from a BACKGROUND and a FOREGROUND the way the studio's Media Editor builds a tile
 (`tools/highpeaks/gen_covers.py gen`, then `build`; no text on any of it, owner rule):
 - `media/bg_16x9.png` (3840x2160) and `media/bg_3x4.png` (3072x4096): the summit with nobody in it, a sunburst sky,

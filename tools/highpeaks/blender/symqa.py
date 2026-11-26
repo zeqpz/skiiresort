@@ -5,7 +5,7 @@
 For each symbol: one PNG, a row per clip (land, idle, hit, burn), every frame on a dark tile with the clip's box
 drawn, and a red edge on any frame whose picture touches the box (it would be cut off on the board). Prints, per
 clip: frames touching the edge, whether the last frame of land / idle / hit equals the rest pose (land's last
-frame), and whether burn's last frame is empty.
+frame), whether the first frame of hit / burn does (they cut in on it), and whether burn's last frame is empty.
 """
 import json, os, sys
 from PIL import Image, ImageChops, ImageDraw
@@ -51,6 +51,11 @@ for sid in ids:
             diff = ImageChops.difference(a.convert('RGBA'), b.convert('RGBA')).getextrema()
             worst = max(hi for _lo, hi in diff)
             note += f' | end-vs-rest max diff {worst}'
+        if clip in ('hit', 'burn') and rest is not None:          # a clip cuts in on the rest pose: its first frame must be it
+            a, b = fr[0], rest
+            o = (a.size[0] - b.size[0]) // 2
+            a = a.crop((o, o, o + b.size[0], o + b.size[1])) if o > 0 else a
+            note += f' | start-vs-rest max diff {max(hi for _lo, hi in ImageChops.difference(a, b).getextrema())}'
         if clip == 'burn':
             note += f' | last frame alpha max {fr[-1].getchannel("A").getextrema()[1]}'
         report.append(note)

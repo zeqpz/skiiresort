@@ -1,7 +1,11 @@
 """High Peaks yeti QA: contact sheets of the Blender stills (rig_build/renders/<clip>/NNNN.png) on a flat colour, each
 frame labelled, so a clip's poses can be judged side by side.
-  python tools/highpeaks/yeti/qa_sheet.py [clip ...] [--cols 6] [--sub renders] [--frames 0,6,12]
--> art/highpeaks/yeti/rig_build/<sub>/sheets/<clip>_<k>.png"""
+  python tools/highpeaks/yeti/qa_sheet.py [clip ...] [--cols 6] [--rows 2] [--sub renders] [--frames 0,6,12]
+                                          [--crop .3,.2,.9,.7] [--src <folder of clip/NNNN.png>] [--out <folder>]
+-> art/highpeaks/yeti/rig_build/<sub>/sheets/<clip>_<k>.png
+The puff (idle 84-176, every 4th frame, the arm close up at twice the size):
+  blender -b --python tools/highpeaks/yeti/yeti_rigify.py -- zoom idle:84,idle:88,...,idle:176
+  python tools/highpeaks/yeti/qa_sheet.py idle --sub renders/zoom --cols 8 --rows 3 --crop .3,.17,.95,.62"""
 import glob, os, sys
 
 from PIL import Image, ImageDraw
@@ -13,7 +17,8 @@ BUILD = os.path.join(ROOT, "art", "highpeaks", "yeti", "rig_build")
 
 def main():
     args = sys.argv[1:]
-    opt = {"--cols": "6", "--sub": "renders", "--frames": "", "--rows": "2", "--bg": "58,96,150"}
+    opt = {"--cols": "6", "--sub": "renders", "--frames": "", "--rows": "2", "--bg": "58,96,150", "--crop": "", "--src": "",
+           "--out": ""}
     clips = []
     while args:
         a = args.pop(0)
@@ -21,10 +26,11 @@ def main():
             opt[a] = args.pop(0)
         else:
             clips.append(a)
-    ren = os.path.join(BUILD, opt["--sub"])
+    ren = opt["--src"] or os.path.join(BUILD, opt["--sub"])     # --src: any folder of <clip>/NNNN.png stills
     cols, rows = int(opt["--cols"]), int(opt["--rows"])
     bg = tuple(int(v) for v in opt["--bg"].split(",")) + (255,)
-    out = os.path.join(ren, "sheets")
+    crop = [float(v) for v in opt["--crop"].split(",")] if opt["--crop"] else None     # x0,y0,x1,y1 as parts of a still
+    out = opt["--out"] or os.path.join(ren, "sheets")
     os.makedirs(out, exist_ok=True)
     for clip in clips or sorted(d for d in os.listdir(ren) if os.path.isdir(os.path.join(ren, d)) and d not in ("sheets", "zoom")):
         files = sorted(f for f in glob.glob(os.path.join(ren, clip, "*.png")) if os.path.basename(f)[:4].isdigit())
@@ -36,6 +42,9 @@ def main():
         per = cols * rows
         for k in range(0, len(files), per):
             ims = [Image.open(f).convert("RGBA") for f in files[k:k + per]]
+            if crop:
+                W, H = ims[0].size
+                ims = [im.crop((round(crop[0] * W), round(crop[1] * H), round(crop[2] * W), round(crop[3] * H))) for im in ims]
             w, h = ims[0].size
             r = (len(ims) + cols - 1) // cols
             sheet = Image.new("RGBA", (cols * w, r * h), bg)

@@ -21,7 +21,8 @@ What is different
       and neck a moment late, forearm trailing upper arm, wrist trailing forearm, a carried board swinging) is a
       small spring filter on the channels in channels(), not the add-on.
   * every clip is re-authored on the control rig: IK feet (planted unless he jumps), IK board hand that rides the
-      board, FK joint arm (with the old contact solve for the puff: the joint's end ON his lips), torso / hips / chest
+      board, FK joint arm (the puff is forearm and hand hinging at a planted elbow, and a contact solve - forearm,
+      wrist and his head's lean, never the upper arm - holds the joint's end ON his lips), torso / hips / chest
       / neck / head controls, tweak scale for breathing; channels are in screen terms (art px, degrees
       counter-clockwise) and mapped onto whatever local axes Rigify gave each control.
 
@@ -186,6 +187,12 @@ def head_weights(x, y):
     return w
 
 
+# the joint arm's wrist: rigid on the hand above the first art y, on the forearm below the second. The whole fur cuff
+# is above it (2026-11-24; it was 616 .. 668, which cut through the cuff's right lobe: turned 60 degrees and more
+# against the forearm - the puff - the lobe's lower half stayed behind on the sleeve as a white flap)
+WRIST_BAND = (634.0, 684.0)
+
+
 def finish(part, x, y, heat):
     """A vertex's weights: the bone-heat solve (heat: DEF bone -> weight, {} for the rigid pieces) with the rigid
     regions and the secondary bones laid over it."""
@@ -252,8 +259,8 @@ def finish(part, x, y, heat):
         t = tpos(p, MB["forearm.R"][1], MB["forearm.R"][2])     # then cuff, hand and joint rigid on the hand
         k = smooth(.42, .72, t)
         w = {D("forearm.R"): 1 - k, D("forearm.R.001"): k}
-        paint(D("hand.R"), smooth(668, 616, y))
-        paint(D("cuff.R"), .7 * smooth(888, 924, x) * smooth(588, 606, y) * (1 - smooth(640, 662, y)))
+        paint(D("hand.R"), smooth(WRIST_BAND[1], WRIST_BAND[0], y))
+        paint(D("cuff.R"), .7 * smooth(888, 924, x) * smooth(588, 606, y) * (1 - smooth(WRIST_BAND[0] + 24, WRIST_BAND[0] + 46, y)))
         return w
     raise KeyError(part)
 
@@ -471,9 +478,11 @@ CH = ("hx hy tor pel ch chx chy s1 s3 br shrug_l shrug_r nk hd hdx hdy face_x fa
       "fl_x fl_y fl_r fr_x fr_y fr_r board bsw bx by ember gust ga").split()
 REST = {c: 0.0 for c in CH}
 REST.update(ember=.4, ikl=1.0)
-# the joint arm's FK poses (upper, fore, hand: degrees, + = counter-clockwise): the joint to his lips with the elbow
-# dropped to his belly; raised up and out to his right; held high; clutched to his chest; let drop (yeti_rig.py)
-ARM_R = {"puff": (-55.4, 112.3, -62.0), "raise": (79.8, -85.4, 10.0), "high": (93.2, -85.4, 0.0),
+# the joint arm's FK poses (upper, fore, hand: degrees, + = counter-clockwise): the joint to his lips - FOREARM AND
+# HAND ONLY, hinging at the elbow, the upper arm where it is (2026-11-24; it was (-55.4, 112.3, -62.0): the elbow
+# dropped to his belly and the whole arm heaved over); raised up and out to his right; held high; clutched to his
+# chest; let drop (yeti_rig.py)
+ARM_R = {"puff": (0.0, 77.5, -64.0), "raise": (79.8, -85.4, 10.0), "high": (93.2, -85.4, 0.0),
          "hold": (-54.2, 56.9, -8.0), "drop": (-17.1, -6.4, 4.0), "vee": (86.0, -85.0, 0.0),
          "droop": (-30.0, -34.0, -16.0), "tuck": (-34.0, 40.0, -6.0)}
 ARM_L = {"up": (-100.0, -52.0, 0.0), "vee": (-50.0, -56.0, 0.0), "pull": (6.0, 0.0, 0.0)}
@@ -587,20 +596,35 @@ def drive(name, i, n):
         c["ur"] = 1.6 * math.sin(2 * a + 1.0) + 1.2 * br
         c["fr"] = 2.2 * math.sin(2 * a + .2)
         c["hr"] = 2.6 * math.sin(2 * a - .7)
-        # the puff: a look at it, the joint comes up to his lips (the elbow drops to his belly), he leans in to
-        # meet it, a long draw swelling his chest, the arm swings away, the head tips back and he breathes out
+        # the puff: a look at it, then the FOREARM hinges at the elbow and swings the hand over to his mouth, the
+        # wrist turning the joint in (the way a cigarette is lifted: the elbow stays where it is, the upper arm only
+        # gives a couple of degrees as the forearm starts and stops); he tips his head over and leans in to meet it,
+        # a long draw swelling his chest, the forearm swings back out a little past home, the head tips back and he
+        # breathes out. contact() then puts the joint's end ON his lips through the hold - with the forearm, the
+        # wrist and his head; never the upper arm.
         pf = kf(i, (88, 0), (116, 1), (142, 1), (164, 0))
-        c["ur"] += ARM_R["puff"][0] * kf(i, (86, 0), (92, -.05), (113, 1.04), (118, 1), (142, 1), (161, -.05), (170, 0))
-        c["fr"] += ARM_R["puff"][1] * kf(i, (88, 0), (94, -.04), (116, 1.03), (121, 1), (143, 1), (164, -.04), (173, 0))
-        c["hr"] += ARM_R["puff"][2] * pf + kf(i, (116, 0), (124, 3), (134, -2), (142, 0))
-        c["hd"] += kf(i, (92, 0), (100, 2.5), (116, -4), (140, -4.6), (150, -1), (158, 5.5), (176, 2), (190, 0))
-        c["hdx"] += kf(i, (96, 0), (116, 2.5), (141, 3), (152, 0), (160, -5), (184, 0))
-        c["hdy"] += kf(i, (96, 0), (116, 4), (141, 2), (156, -7), (172, -2), (186, 0))
-        c["face_y"] = kf(i, (100, 0), (118, -3), (140, -3), (152, -6), (170, 0))
         draw = kf(i, (114, 0), (140, 1), (148, 1), (158, -.55), (176, 0))        # the long draw, then out
+        lift = 3.0 * max(0.0, draw) + 1.5 * pf                 # his shoulder comes up with the draw
+        c["ur"] += (ARM_R["puff"][0] * pf - lift               # (the shoulder lifts the arm; it does not swing it out)
+                    + kf(i, (88, 0), (97, -1.0), (110, 1.2), (119, 0), (143, 0), (153, -1.6), (167, 0)))
+        # (in: slow off the mark, fastest half way, the last sixth of the swing over six frames - it lands, it does
+        # not hit; out: the same the other way, a little past home and back)
+        c["fr"] += ARM_R["puff"][1] * kf(i, (88, 0), (94, -.05), (103, .47), (110, .88), (116, 1), (143, 1), (149, .9),
+                                         (156, .42), (162, .1), (167, -.05), (176, 0))
+        c["hr"] += ARM_R["puff"][2] * kf(i, (91, 0), (104, .42), (112, .9), (117, 1), (144, 1), (163, 0))
+        # his lean to the joint: with the elbow planted the joint's end stops some 50 art px short of his lips, and
+        # the upper arm cannot help (lips, shoulder and elbow lie on one line) - so HE comes over: the head slides
+        # toward the joint more than it tips (tipped far over, his fingers sat across his nose), the features with it
+        lean = kf(i, (96, 0), (116, 1), (141, 1.04), (152, 0))
+        c["nk"] += -2.5 * lean
+        c["hd"] += kf(i, (92, 0), (100, 2.5), (116, -7), (140, -7.6), (150, -1), (158, 5.5), (176, 2), (190, 0))
+        c["hdx"] += kf(i, (96, 0), (116, 27), (141, 27.5), (152, 0), (160, -5), (184, 0))
+        c["hdy"] += kf(i, (96, 0), (116, 16), (141, 15), (156, -7), (172, -2), (186, 0))
+        c["face_x"] += 4 * kf(i, (98, 0), (114, 1), (142, 1), (152, 0))
+        c["face_y"] = kf(i, (100, 0), (116, 2), (141, 2), (152, -6), (170, 0))
         c["br"] += .9 * draw
         c["chy"] += -7 * draw
-        c["shrug_r"] += 3.0 * max(0.0, draw) + 1.5 * pf
+        c["shrug_r"] += lift
         c["shrug_l"] += 3.0 * max(0.0, draw)
         c["ch"] += -1.2 * pf + 2.5 * kf(i, (148, 0), (160, 1), (180, 0))
         c["tor"] += -.6 * pf
@@ -1031,20 +1055,33 @@ def wrist_follow(rig, A, chans, gain=.5, most=32.0):
         A.poke("hand_ik.L", "rot", k, c["wl_r"] + .7 * (c["board"] + c["bsw"]))
 
 
-REACH = 95.0                                          # art px shoulder to wrist he holds a joint to his lips at
-PALM = (835, 548)                                     # the middle of his fist (art px, on the hand)
+WRIST_IN = 14.0                                       # degrees the hand stays turned in off the forearm's line through a
+                                                      # hit (at rest it is 78): a near-straight wrist, the joint about 34
+                                                      # degrees above level. Less and the hand must turn further against
+                                                      # the drawn sleeve (the cuff starts to fold); more and his fingers
+                                                      # climb over his nose
 CONTACT_LOG = {}
 
 
 def contact(rig, name, A, chans, warm):
-    """Through each hit of the clip put the joint's mouth end ON his lips (yeti_rig.py's solve, on the Rigify FK
-    arm): one turn of the hand for the whole hit, chosen so his wrist sits a comfortable REACH from the shoulder,
-    then upper arm and forearm re-solved (two bones, the same bend) so the wrist lands where that hand puts the end
-    on the lips; blended in and out over the window's ramps. Re-keys the three FK controls."""
+    """Through each hit of the clip put the joint's mouth end ON his lips WITHOUT moving the upper arm (2026-11-24:
+    "it should be just the upper top part of his arm moving over" - the old solve re-posed upper arm and forearm
+    together and the whole arm heaved about). The elbow stays where the keys left it; the unknowns are
+      * the hand's turn on the wrist: ONE angle for the whole hit (WRIST_IN off the forearm's line), which fixes how
+        far the joint's end is from the elbow,
+      * the forearm's turn about the planted elbow, per frame: it points the joint's end at his lips (so through the
+        hold forearm and hand hinge at the elbow as one piece, following his mouth as he sways),
+      * the head's place, per frame: what is still missing along the line elbow -> lips is closed by HIM (the head
+        control's move - he leans in to the joint, or gives a little), never by the upper arm. The keys in drive()
+        already lean him in by about that much (the solve prints what it had to add: keep it a few px).
+    Exact on every frame of the hold; over the window's ramps what it asked on the hold's first / last frame is faded
+    in / out on top of the keys. Re-keys forearm, hand and head; the upper arm's keys are not touched."""
     sc = bpy.context.scene
     n, loop = CLIPS[name]
     log = []
     UP, FO, HA = D("upper_arm.R"), D("forearm.R"), D("hand.R")
+    ang = lambda p_, q_: math.degrees(math.atan2(-(q_[1] - p_[1]), q_[0] - p_[0]))
+    wrap = lambda r: (r + 180.0) % 360.0 - 180.0
 
     def state(k):
         sc.frame_set(A.f0 + k)
@@ -1052,77 +1089,72 @@ def contact(rig, name, A, chans, warm):
 
     def rekey(k):
         c = chans[k]
-        for b, ch in zip(ARM_R_FK, ("ur", "fr", "hr")):
-            A.poke(b, "rot", k, c[ch])
+        A.poke("forearm_fk.R", "rot", k, c["fr"])
+        A.poke("hand_fk.R", "rot", k, c["hr"])
+        A.poke("head", "loc", k, (c["hdx"], c["hdy"]))
 
     cycles = range(0, len(chans), n) if loop else [0]
+    last = cycles[-1]
     for (a, b, c_, d) in CONTACT.get(name, []):
-        km = (len(chans) - n if loop else 0) + (b + c_) // 2
-        S, E, Wr, Jn, L = state(km)
-        Tp, Pm = bone_pt(rig, HA, TIP), bone_pt(rig, HA, PALM)
-        v = (Jn[0] - Wr[0], Jn[1] - Wr[1])
-        tv, pv0 = (Tp[0] - Jn[0], Tp[1] - Jn[1]), (Pm[0] - Jn[0], Pm[1] - Jn[1])
-        best = None
-        for dth in range(-90, 91):
-            vv = rot2(v, dth)
-            T = (L[0] - vv[0], L[1] - vv[1])
-            td = rot2(tv, dth)
-            elev = math.degrees(math.atan2(-td[1], td[0]))      # the joint's angle above level, to his right = 0
-            pv = rot2(pv0, dth)
-            Lu, Lf = math.dist(S, E), math.dist(E, Wr)
-            rd = math.dist(S, T)
-            if not (abs(Lu - Lf) + 4 <= rd <= Lu + Lf - 4):    # out of the arm's reach
-                continue
-            cost = (abs(rd - REACH) + .3 * abs(dth) + 3 * max(0.0, abs(elev - 27) - 14)
-                    + 4 * max(0.0, 30 - pv[0]) + 4 * max(0.0, 0 - pv[1]))
-            if best is None or cost < best[0]:
-                best = (cost, dth, round(elev, 1), round(rd, 1), tuple(round(q_) for q_ in pv))
-        if best is None:
-            raise RuntimeError(f"{name}: the joint cannot reach his lips")
-        dth = best[1]
-        print(f"     contact {name}: hand turn {dth}, joint {best[2]} deg above level, wrist {best[3]} px from the shoulder, palm {best[4]}, cost {best[0]:.1f}", flush=True)
-        ang = lambda p_, q_: math.degrees(math.atan2(-(q_[1] - p_[1]), q_[0] - p_[0]))
-        wrap = lambda r: (r + 180.0) % 360.0 - 180.0
-        hand_dir = ang(Wr, Jn) + dth                             # the hand's direction (wrist -> joint end) in the hit
-        side = None                                             # which way the elbow breaks: as keyed, and low
+        # the arm's two lengths, and how far his lips are from the elbow through the hold as keyed (printed: the lean
+        # in drive() is tuned until that is about the reach, so the solve only has to take out his sway)
+        S, E, Wr, Jn, L = state(last + (b + c_) // 2)
+        Lf, Lh = math.dist(E, Wr), math.dist(Wr, Jn)            # elbow -> wrist, wrist -> joint end (rigid)
+        span = lambda rel: math.sqrt(Lf * Lf + Lh * Lh + 2 * Lf * Lh * math.cos(math.radians(rel)))
+        keyed = []
+        for i in range(b, c_ + 1, 2):
+            S, E, Wr, Jn, L = state(last + i)
+            keyed.append(math.dist(E, L))
+        want = sum(keyed) / len(keyed)
+        rel = WRIST_IN
+        dist = span(rel)
+        lead = math.degrees(math.atan2(Lh * math.sin(math.radians(rel)), Lf + Lh * math.cos(math.radians(rel))))
+        print(f"     contact {name}: elbow to lips as keyed {min(keyed):.1f} .. {max(keyed):.1f} art px (mean {want:.1f}); "
+              f"forearm {Lf:.1f} + hand to joint end {Lh:.1f} reach {dist:.1f} with the hand {rel:.1f} deg in off the forearm's line",
+              flush=True)
 
         def solve(k):
-            """The three FK turns that put the joint's end on his lips on keyed frame k (from the pose as keyed)."""
-            nonlocal side
+            """Forearm turn, hand turn, head move that put the joint's end on his lips on keyed frame k."""
             S, E, Wr, Jn, L = state(k)
-            r = math.radians(hand_dir)
-            vl = math.dist(Wr, Jn)
-            T = (L[0] - vl * math.cos(r), L[1] + vl * math.sin(r))
-            Lu, Lf = math.dist(S, E), math.dist(E, Wr)
-            dist = max(1e-6, math.dist(S, T))
-            dd = min(max(dist, abs(Lu - Lf) + 1), Lu + Lf - 1)
-            ux, uy = (T[0] - S[0]) / dist, (T[1] - S[1]) / dist
-            aa = (Lu * Lu - Lf * Lf + dd * dd) / (2 * dd)
-            hh = math.sqrt(max(0.0, Lu * Lu - aa * aa))
-            px, py = S[0] + aa * ux, S[1] + aa * uy
-            cands = {+1: (px - hh * uy, py + hh * ux), -1: (px + hh * uy, py - hh * ux)}
-            if side is None:
-                side = min(cands, key=lambda q_: math.dist(cands[q_], E) - .5 * cands[q_][1])
-            En = cands[side]
-            Tn = (S[0] + dd * ux, S[1] + dd * uy)
-            return (wrap(ang(S, En) - ang(S, E)), wrap(ang(En, Tn) - ang(E, Wr)), wrap(hand_dir - ang(Wr, Jn)),
-                    math.dist(Jn, L), math.dist(S, Wr))
+            dH = wrap(rel - wrap(ang(Wr, Jn) - ang(E, Wr)))
+            dF = wrap(ang(E, L) - (ang(E, Wr) + lead))
+            r = max(1e-6, math.dist(E, L))
+            f = (dist - r) / r
+            return dF, dH, (f * (L[0] - E[0]), f * (L[1] - E[1]))
 
-        solve(km)                                               # fixes the elbow's side from the middle of the hold
+        KEYS = ("fr", "hr", "hdx", "hdy")
         for base in cycles:
+            # the hold: exact on every frame
+            asked = {}
+            for i in range(b, c_ + 1):
+                k = base + i
+                was = [chans[k][q_] for q_ in KEYS]
+                for it in range(4):                             # (one pass is exact but for the head control's own
+                    dF, dH, mv = solve(k)                       # frame, turned a few degrees by his lean: the rest polish)
+                    chans[k]["fr"] += dF
+                    chans[k]["hr"] += dH
+                    chans[k]["hdx"] += mv[0]
+                    chans[k]["hdy"] += mv[1]
+                    rekey(k)
+                asked[i] = [chans[k][q_] - v for q_, v in zip(KEYS, was)]
+            # the ramps: what the solve asked at the hold's first / last frame, faded in / out on top of the keys - so
+            # the swing in and the swing out keep the easing they were keyed with (solving the ramp frames against
+            # their own gap pulled the arm ahead of its keys: a lump in the forearm's speed just before the hit)
+            for i in list(range(a, b)) + list(range(c_ + 1, d + 1)):
+                k = base + i
+                w, off = (ease((i - a) / max(1, b - a)), asked[b]) if i < b else (ease((d - i) / max(1, d - c_)), asked[c_])
+                for q_, v in zip(KEYS, off):
+                    chans[k][q_] += w * v
+                rekey(k)
             for i in range(a, d + 1):
                 k = base + i
                 w = ease((i - a) / max(1, b - a)) if i < b else (ease((d - i) / max(1, d - c_)) if i > c_ else 1.0)
-                for it in range(3 if w == 1.0 else 1):          # (FK is exact: the 2nd and 3rd pass only polish)
-                    dU, dF, dH, gap, reach = solve(k)
-                    chans[k]["ur"] += w * dU
-                    chans[k]["fr"] += w * (dF - dU)
-                    chans[k]["hr"] += w * (dH - dF)
-                    rekey(k)
-                if base == cycles[-1]:
+                if base == last:
                     S, E, Wr, Jn, L = state(k)
-                    log.append((i, round(w, 2), round(math.dist(Jn, L), 2), round(math.dist(S, Wr), 1)))
-        log.append(("turn", best))
+                    Tp = bone_pt(rig, HA, TIP)
+                    log.append((i, round(w, 2), round(math.dist(Jn, L), 3), round(ang(E, Wr) - ang(S, E), 1),
+                                round(ang(Jn, Tp), 1), round(math.dist(E, L), 1)))
+        log.append(("turn", {"hand in off the forearm": round(rel, 1), "reach": round(dist, 1), "keyed": round(want, 1)}))
     CONTACT_LOG[name] = log
     return log
 
@@ -1177,8 +1209,18 @@ def animate(rig):
         tracks[name] = {"first": warm, "ember": [c["ember"] for c in chans[warm:]]}
         hits = [r for r in log if r[0] != "turn" and r[1] == 1.0]
         print(f"ANIM {name:13s} keyed {len(chans):3d} frames (export from {warm}), jiggle baked, {time.time() - t0:.1f} s"
-              + (f"; joint end to lips through the hold: max {max(r[2] for r in hits):.3f} art px, pick {log[-1][1]}" if hits else ""),
+              + (f"; joint end to lips through the hold: max {max(r[2] for r in hits):.3f} art px, pick {log[-1][1]}; "
+                 f"through the hold the elbow is folded to {180 - max(r[3] for r in hits):.1f} .. {180 - min(r[3] for r in hits):.1f} deg "
+                 f"(forearm against upper arm; 85 at rest), "
+                 f"the joint sits {min(r[4] for r in hits):.1f} .. {max(r[4] for r in hits):.1f} deg above level" if hits else ""),
               flush=True)
+        if hits:                                               # what the solve asked of him, against the keys
+            w0 = len(chans) - n if loop else 0
+            raw = [drive(name, r[0], n) for r in hits]
+            mv = [math.hypot(chans[w0 + r[0]]["hdx"] - q["hdx"], chans[w0 + r[0]]["hdy"] - q["hdy"]) for r, q in zip(hits, raw)]
+            print(f"     the solve moved his head {min(mv):.1f} .. {max(mv):.1f} art px off its keys through the hold; forearm keys "
+                  f"{min(chans[w0 + r[0]]['fr'] for r in hits):.1f} .. {max(chans[w0 + r[0]]['fr'] for r in hits):.1f}, hand "
+                  f"{min(chans[w0 + r[0]]['hr'] for r in hits):.1f} .. {max(chans[w0 + r[0]]['hr'] for r in hits):.1f} deg", flush=True)
     sc.jiggle.enable = False
     rig["tracks"] = json.dumps(tracks)
     return tracks
@@ -1491,10 +1533,14 @@ def run(steps, clips=None, step=6):
         bpy.ops.wm.open_mainfile(filepath=blend)
         STATE["rig"] = bpy.data.objects["yeti"]
     rig = STATE["rig"]
+    if "weights" in steps:                                     # the joint arm's two pieces re-weighted in place (they
+        for nm in ("arm_r_up", "arm_r_lo"):                    # take no bone heat: finish() alone), the rig untouched
+            bind(bpy.data.objects[nm], nm, rig)
+        bpy.ops.wm.save_as_mainfile(filepath=blend)
     if "rest" in steps:
         render_rest(rig, os.path.join(OUT, "renders", "rest.png"))
     if "animate" in steps:
-        animate(rig)
+        animate(rig)                                           # (always every clip: the blend holds one action each)
     if "build" in steps or "animate" in steps:
         bpy.ops.wm.save_as_mainfile(filepath=blend)
     if "export" in steps:

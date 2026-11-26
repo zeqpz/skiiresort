@@ -6,7 +6,8 @@ frontend/charrig.js does (4 weights / 255, 2x3 affines) and measures
   * the puff: the joint's end against his lips through the hold
   * meshes: triangles turned inside out or stretched hard (a tear, a fold, a limb bent the wrong way)
   * how much he moves: the range of each main bone's turn / stretch per clip, air time and height of the jumps
-  python tools/highpeaks/yeti/qa_rig.py [build|packed] [--bones]"""
+  * the puff's arm: the upper arm's turn through the hit (it must stay put: forearm and hand make the move)
+  python tools/highpeaks/yeti/qa_rig.py [build|packed] [--src <rig folder>] [--bones]"""
 import json, math, os, sys
 
 import numpy as np
@@ -16,6 +17,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
 BUILD = os.path.join(ROOT, "art", "highpeaks", "yeti", "rig_build", "rig")
 PACKED = os.path.join(ROOT, "frontend", "assets", "yeti", "rig")
 JUMPS = {"big_win", "bonus"}
+PUFF = (84, 176)                                       # idle: the whole hit on the joint, look to arm home
+ELBOW = (762, 715)                                     # the joint arm's elbow (art px, on forearm_r)
 
 
 def load(src):
@@ -62,6 +65,8 @@ def area(v, idx):
 
 def main():
     src = PACKED if "packed" in sys.argv[1:] else BUILD
+    if "--src" in sys.argv:                                    # any rig folder (an older build kept for comparison)
+        src = sys.argv[sys.argv.index("--src") + 1]
     man, clips, parts = load(src)
     bones = man["bones"]
     bi = {b: k for k, b in enumerate(bones)}
@@ -133,6 +138,36 @@ def main():
             ok &= not flag
             print(f"the puff (idle {a}-{d}): joint end to lips through the hold {b}-{c_}: max {max(hold):.3f} art px; "
                   f"coming in {' '.join(f'{g:.0f}' for g in gap[:b - a:2])}; leaving {' '.join(f'{g:.0f}' for g in gap[c_ - a + 1::2])}{flag}")
+
+            # the puff is made by the forearm and the hand, hinging at the elbow: the upper arm (shoulder to elbow)
+            # stays put. Its turn through the whole move, on screen and against his chest; where the elbow goes.
+            C = clips["idle"]
+            lo, hi = PUFF
+            turn = lambda b: np.degrees(np.unwrap(np.arctan2(-C[lo:hi + 1, bi[b], 1], C[lo:hi + 1, bi[b], 0])))
+            ua, fa, ha, ca, hda = (turn(b) for b in ("upper_arm_r", "forearm_r", "hand_r", "chest", "head"))
+            inv = lambda M, j, p: np.linalg.solve(np.array([[M[j, 0], M[j, 2]], [M[j, 1], M[j, 3]]]), np.asarray(p) - M[j, 4:6])
+            el = np.array([point(M, bi["forearm_r"], ELBOW) for M in C[lo:hi + 1]])
+            el_c = np.array([inv(M, bi["chest"], point(M, bi["forearm_r"], ELBOW)) for M in C[lo:hi + 1]])
+            lp_c = np.array([inv(M, bi["chest"], point(M, jl, man["points"]["lips"]["at"])) for M in C[lo:hi + 1]])
+            span = lambda v: float(np.ptp(v))
+            reach = lambda P: float(np.hypot(*(P - P[0]).T).max())
+            rel = ua - ca
+            flag = "" if span(rel) <= 8.0 else "   <-- THE UPPER ARM SWINGS"
+            ok &= not flag
+            print(f"the puff's arm (idle {lo}-{hi}): upper arm turns {span(ua):.1f} deg on screen, {span(rel):.1f} deg against his chest "
+                  f"({rel.min() - rel[0]:+.1f} .. {rel.max() - rel[0]:+.1f}); forearm {span(fa):.1f}, hand {span(ha):.1f} deg on screen; "
+                  f"forearm against upper arm {span(fa - ua):.1f}, hand against forearm {span(ha - fa):.1f} deg{flag}")
+            print(f"                 elbow travels {reach(el):.1f} art px on screen, {reach(el_c):.1f} against his chest; "
+                  f"his lips come {reach(lp_c):.1f} art px over (against his chest), the head turns {span(hda - ca):.1f} deg against it")
+
+    # ---- every clip: how near the joint's end comes to his lips (a hit on the joint anywhere else would show here)
+    if "end" in man["points"] and "lips" in man["points"]:
+        je, jl = bi[man["points"]["end"]["bone"]], bi[man["points"]["lips"]["bone"]]
+        near = []
+        for c, C in clips.items():
+            g = [float(np.hypot(*(point(M, je, man["points"]["end"]["at"]) - point(M, jl, man["points"]["lips"]["at"])))) for M in C]
+            near.append(f"{c} {min(g):.0f} (frame {int(np.argmin(g))})")
+        print("joint end to lips, nearest per clip (art px): " + ", ".join(near))
 
     # ---- meshes
     # ---- knees: the IK legs are nearly straight when he stands; their solve must not jitter

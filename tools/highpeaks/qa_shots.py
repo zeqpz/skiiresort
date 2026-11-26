@@ -43,7 +43,7 @@ def main():
                    "&amount=1000000&rgs_url=http://localhost:8755&lang=en&device=desktop")
         b.open(url, settle=1.0)
         b.js("window.__errs = window.__errs || []; addEventListener('error', e => window.__errs.push(String(e.message)));")
-        if not b.wait("typeof state !== 'undefined' && document.querySelector('.cell')", 60):
+        if not b.wait("typeof state !== 'undefined' && !!document.querySelector('.cell')", 60):
             raise RuntimeError("the game never came up")
         time.sleep(5)
         b.js(ENTER)

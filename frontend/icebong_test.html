@@ -14,11 +14,12 @@
   .bar { padding: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
   button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid #5a6ea8; background: #22305c; color: #fff; cursor: pointer; }
   .row { display: flex; gap: 40px; padding: 10px 30px; align-items: flex-end; }
-  .icebong { position: relative; width: 240px; height: 416px; }
-  .icebong.small { width: 120px; height: 208px; }
+  .icebong { position: relative; width: 200px; height: 470px; }
+  .icebong.small { width: 80px; height: 188px; }
+  #live { width: 150px; height: 690px; }
   body.shot .bar, body.shot .row { display: none; }
   #shot { display: none; }
-  body.shot #shot { display: block; position: fixed; left: 50%; top: 50%; translate: -50% -50%; height: 94vh; width: auto; aspect-ratio: 300 / 520; }
+  body.shot #shot { display: block; position: fixed; left: 50%; top: 50%; translate: -50% -50%; height: 94vh; width: auto; aspect-ratio: 200 / 470; }
 </style>
 </head>
 <body>
@@ -27,18 +28,18 @@
   <button data-x="MAX">WHITEOUT</button><button id="reset">reset</button>
 </div>
 <div class="row">
-  <div class="icebong" id="still"></div>
+  <div class="icebong tallbong" id="still"></div>
   <div class="icebong" id="live"></div>
   <div class="icebong small" id="tiny"></div>
 </div>
-<div class="icebong" id="shot"></div>
+<div class="icebong tallbong" id="shot"></div>
 <script src="icebong.js"></script>
 <script>
   const $ = id => document.getElementById(id);
   if (/[?&]shot=1/.test(location.search)) { document.body.classList.add("shot"); document.documentElement.style.background = "transparent"; }
-  $("still").innerHTML = IceBong.svg({ still: true });
-  $("shot").innerHTML = IceBong.svg({ still: true });
-  const fresh = () => { for (const id of ["live", "tiny"]) { const e = $(id); e.className = "icebong" + (id === "tiny" ? " small" : ""); e.innerHTML = IceBong.svg(); } };
+  $("still").innerHTML = IceBong.svg();
+  $("shot").innerHTML = IceBong.svg();
+  const fresh = () => { for (const id of ["live", "tiny"]) { const e = $(id); e.className = "icebong tallbong" + (id === "tiny" ? " small" : ""); e.innerHTML = id === "tiny" ? IceBong.svg() : IceBong.tall(920); } };
   fresh();
   $("reset").onclick = fresh;
   for (const b of document.querySelectorAll("[data-x]")) b.onclick = () => {

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "feature_card_a",
+    "aspect_ratio": "3:4",
+    "background": "transparent",
+    "quality": "high",
+    "refs": [
+      "art/highpeaks/raw/ref_game_shot.png"
+    ],
+    "prompt": "One UI card frame for a cartoon ski-resort slot game's intro screen, on a fully transparent background, nothing else in the picture. It is a chunky wooden lodge notice board, upright (portrait, about 4 wide by 5 tall), seen flat from the front, filling the picture: a frame of thick rounded pine logs in warm orange-brown with darker grain lines and pale ringed cut ends at the four corners - the SAME log frame as the slot board and the jackpot board in the attached screenshot. Across the top, inside the frame, a wide carved wooden plank as the title header: a darker honey-brown board with a simple bevel, completely EMPTY (a title will be put on it later). Below the header the whole inside of the frame is ONE large plain panel in a very pale icy cream-white with the faintest pale-blue frost at its corners: flat, clean, EMPTY, no picture, no pattern - text will be put on it. A thick cap of white snow with pale blue shadow shapes sits along the top log and droops over its corners; a row of small icicles hangs from the top log over the header's upper edge and a few from the bottom log; little heaps of snow rest on the bottom corners. One small bright green cannabis leaf is pinned at the top left corner of the frame and a pine cone with a sprig of pine needles at the top right, as on the board in the screenshot. Drawn exactly in the screenshot's flat 2D adult-animation cartoon style: thick clean black outlines, flat solid colours with simple hard-edged shadow shapes, no realistic lighting, no 3D rendering, no gradients haze. ABSOLUTELY NO text, letters, numbers or symbols on the header or the panel. Symmetrical, tidy, premium game UI."
+  },
+  {
+    "name": "feature_card_b",
+    "aspect_ratio": "3:4",
+    "background": "transparent",
+    "quality": "high",
+    "refs": [
+      "art/highpeaks/raw/ref_game_shot.png"
+    ],
+    "prompt": "One UI card frame for a cartoon ski-resort slot game's intro screen, on a fully transparent background, nothing else in the picture. It is a chunky wooden lodge notice board, upright (portrait, about 4 wide by 5 tall), seen flat from the front, filling the picture: a frame of thick rounded pine logs in warm orange-brown with darker grain lines and pale ringed cut ends at the four corners - the SAME log frame as the slot board and the jackpot board in the attached screenshot. Across the top, inside the frame, a wide carved wooden plank as the title header: a darker honey-brown board with a simple bevel, completely EMPTY (a title will be put on it later). Below the header the whole inside of the frame is ONE large plain panel in a very pale icy cream-white with the faintest pale-blue frost at its corners: flat, clean, EMPTY, no picture, no pattern - text will be put on it. A thick cap of white snow with pale blue shadow shapes sits along the top log and droops over its corners; a row of small icicles hangs from the top log over the header's upper edge and a few from the bottom log; little heaps of snow rest on the bottom corners. One small bright green cannabis leaf is pinned at the top left corner of the frame and a pine cone with a sprig of pine needles at the top right, as on the board in the screenshot. Drawn exactly in the screenshot's flat 2D adult-animation cartoon style: thick clean black outlines, flat solid colours with simple hard-edged shadow shapes, no realistic lighting, no 3D rendering, no gradients haze. ABSOLUTELY NO text, letters, numbers or symbols on the header or the panel. Symmetrical, tidy, premium game UI. This version: the frame is a little slimmer and more elegant, the header plank has two small iron bolts at its ends, and soft powder snow dusts the top edge of the pale panel."
+  }
+]

@@ -38,12 +38,15 @@ def frame(f, coarse, fine, sway):
     v = 1 - yy / H                                                 # 0 at the bowl, 1 at the tip
     lean = (up(sway, s1) - .5) * .55 * v ** 1.2                    # the whole flame leans, more toward its tip
     u = (xx - W / 2) / (W / 2) - lean
-    width = .6 * (1 - v) ** .8 + .03
+    # its foot is ROUND, not a flat cut (owner, 2026-11-24: "make the bottom of the flame rounded and not just cut
+    # off"): over the lowest sixth the teardrop closes on a circle's arc to nothing, and the last rows fade out
+    foot = np.clip(v / .17, 0, 1)
+    width = np.maximum((.6 * (1 - v) ** .8 + .03) * np.sqrt(1 - (1 - foot) ** 2), 1e-3)
     core = np.clip(1 - (np.abs(u) / width) ** 2, 0, 1)
     heat = core ** .8 * (1 - v) ** .62 * 1.12
     eat = (up(coarse, s1) * .62 + up(fine, s2) * .38)
     heat = heat - eat * (.2 + 1.3 * v) - .08 * (1 - core)
-    heat = np.clip(heat, 0, 1)
+    heat = np.clip(heat, 0, 1) * np.clip(v / .035, 0, 1)
     xs = np.array([r[0] for r in RAMP], np.float32)
     rgb = np.stack([np.interp(heat, xs, np.array([r[1][c] for r in RAMP], np.float32)) for c in range(3)], -1)
     alpha = np.clip(heat * 3.0, 0, 1) ** .9
