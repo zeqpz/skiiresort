@@ -37,7 +37,7 @@
   let PW = 3840, PH = 2160;
   const parts = { back: null, clouds: null, front: [] };
   const loops = [];            // per-frame work: the flag, the lift chairs
-  let raf = 0, last = 0, live = true;
+  let raf = 0, last = 0, live = true, over = null;
 
   const css = `
     #layers { position: absolute; z-index: 0; pointer-events: none; overflow: visible; contain: layout style; }
@@ -56,6 +56,12 @@
       animation: lyGlint var(--t, 6s) ease-in-out infinite; animation-delay: var(--d, 0s); }
     @keyframes lyGlint { 0%, 78%, 100% { opacity: 0; scale: .2; rotate: 0deg; } 86% { opacity: .95; scale: 1; rotate: 25deg; } 94% { opacity: 0; scale: .3; rotate: 45deg; } }
     #layers canvas.flag, #layers img.chair { position: absolute; display: block; }
+    /* what flies over EVERY scene's plate (the flag): above a bonus plate (#bgalt, z 1), under the sky's weather (#skyfx, z 5) */
+    #layers-over { position: absolute; z-index: 2; pointer-events: none; }
+    #layers-over canvas.flag { position: absolute; display: block; transition: filter .9s ease; }
+    #layers-over[data-lyscene="zombie"] canvas.flag { filter: brightness(.97) saturate(.82); }
+    #layers-over[data-lyscene="midnight"] canvas.flag { filter: brightness(.6) saturate(.9) hue-rotate(6deg); }
+    #layers-over[data-lyscene="nitro"] canvas.flag { filter: brightness(.84) saturate(1.08) sepia(.2); }
     #layers.off .track, #layers.off .pine, #layers.off .glint { animation-play-state: paused; }
     .lyfront { position: absolute; z-index: 3; display: block; pointer-events: none; user-select: none; transition: filter .9s ease;
       filter: brightness(.86) saturate(.96); }
@@ -134,7 +140,10 @@
     const props = el("div", "ly");
     root.appendChild(props);
     if (cfg.lift) lift(props, cfg.lift);
-    if (cfg.flag) flag(props, cfg.flag);
+    // the flag flies in every scene (the bonus plates' painted one is taken off: tools/highpeaks/unflag_plates.py)
+    over = el("div"); over.id = "layers-over"; over.dataset.lyscene = mode;
+    host.appendChild(over);
+    if (cfg.flag) flag(over, cfg.flag);
     const S = cfg.sparkle;
     if (S && !RM) for (let i = 0; i < (S.n || 8); i++) {
       const g = el("i", "glint", { left: pct(rand(S.box[0], S.box[2]), PW), top: pct(rand(S.box[1], S.box[3]), PH) });
@@ -190,31 +199,47 @@
 
   // The flag: its cloth drawn in upright strips, each lifted by a wave that runs out from the pole and grows toward
   // the free end.
+  // The flag (owner, 2026-11-27: "make the flag more realistic and a knock off colorado flag"): the cloth is cut into
+  // thin strips and each is set where a wave running out from the pole puts it - a big roll, a slow swell under it and
+  // a quick flutter that grows toward the free end, the whole thing rising and easing with the gusts. A strip turned
+  // away from the light is shaded and one turned to it is lit, and a strip seen edge-on is narrower, so the cloth
+  // foreshortens as it folds instead of sliding up and down flat. (It was 26 strips riding one sine.)
   function flag(props, F) {
-    const cv = el("canvas", "flag", { left: pct(F.x, PW), top: pct(F.y - F.h * .25, PH), width: pct(F.w * 1.08, PW) });
+    const cv = el("canvas", "flag", { left: pct(F.x, PW), top: pct(F.y - F.h * .3, PH), width: pct(F.w * 1.1, PW) });
     const im = img(F.src);
     props.appendChild(cv);
-    const N = 26;
+    const N = 46;
     let g = null, cw = 0, ch = 0;
     const size = () => {
       const k = Math.max(.25, Math.min(1, (rect ? rect.s : .3) * Math.min(2, devicePixelRatio || 1)));
-      cw = Math.max(16, Math.round(F.w * 1.08 * k)); ch = Math.max(16, Math.round(F.h * 1.5 * k));
+      cw = Math.max(16, Math.round(F.w * 1.1 * k)); ch = Math.max(16, Math.round(F.h * 1.6 * k));
       cv.width = cw; cv.height = ch; g = cv.getContext("2d");
     };
     size();
-    loops.push((t, resized) => {
+    const loop = (t, resized) => {
       if (resized) size();
       if (!im.complete || !im.naturalWidth) return;
       g.clearRect(0, 0, cw, ch);
-      const w = cw / 1.08, h = ch / 1.5, sw = im.naturalWidth / N;
+      const w = cw / 1.1, h = ch / 1.6, sw = im.naturalWidth / N, gust = .72 + .28 * Math.sin(t / 2100) + .1 * Math.sin(t / 730);
+      let x = 0;
       for (let i = 0; i < N; i++) {
-        const u = i / (N - 1);
-        const lift = Math.sin(t / 260 - u * 5.2) * .13 * u + Math.sin(t / 610 - u * 2.1) * .06 * u;
-        const squeeze = 1 - .05 * u * (1 + Math.sin(t / 260 - u * 5.2 + 1.2));
-        g.drawImage(im, i * sw, 0, sw + .5, im.naturalHeight, u * w * squeeze * (N - 1) / N, h * .25 + lift * h, w / N * squeeze + .8, h);
+        const u = i / (N - 1), amp = Math.pow(u, .8) * gust, ph = t / 235 - u * 6.6;
+        const lift = (Math.sin(ph) * .085 + Math.sin(t / 560 - u * 2.5) * .05 + Math.sin(t / 96 - u * 15) * .011) * amp;
+        const turn = Math.cos(ph) * amp;                       // which way this strip faces: -1 away from the light, 1 into it
+        const wd = (w / N) * (1 - .16 * Math.abs(turn)), hh = h * (1 - .035 * amp * Math.sin(ph));
+        const y = h * .3 + lift * h + (h - hh) / 2;
+        g.globalCompositeOperation = "source-over";
+        g.drawImage(im, i * sw, 0, sw + .5, im.naturalHeight, x, y, wd + .9, hh);
+        g.globalCompositeOperation = "source-atop";             // light and shade, on the cloth only
+        g.fillStyle = turn < 0 ? `rgba(6, 16, 52, ${(.36 * -turn).toFixed(3)})` : `rgba(255, 255, 255, ${(.2 * turn).toFixed(3)})`;
+        g.fillRect(x, y - 1, wd + .9, hh + 2);
+        x += wd;
       }
-    });
-    if (RM) im.addEventListener("load", () => { loops[loops.length - 1](0, true); }, { once: true });
+      g.globalCompositeOperation = "source-over";
+    };
+    loop.always = true;                                         // it flies in every scene
+    loops.push(loop);
+    if (RM) im.addEventListener("load", () => { loop(0, true); }, { once: true });
   }
 
   // ---------------------------------------------------------------- layout
@@ -222,6 +247,7 @@
     if (!root) return;
     rect = plateBox();
     Object.assign(root.style, { left: rect.x.toFixed(1) + "px", top: rect.y.toFixed(1) + "px", width: rect.w.toFixed(1) + "px", height: rect.h.toFixed(1) + "px" });
+    if (over) Object.assign(over.style, { left: root.style.left, top: root.style.top, width: root.style.width, height: root.style.height });
     // the front pieces: sized by the window's height, set into its corners
     const W = innerWidth, H = innerHeight;
     for (const { im, f } of parts.front) {
@@ -242,9 +268,9 @@
   function frame(t) {
     raf = 0;
     if (!live) return;
-    const busy = loops.length && mode === "normal" && !RM;
+    const busy = loops.length && !RM;                           // the lift only in the day scene; the flag in all of them
     if (busy && t - last >= 32) {
-      for (const f of loops) f(t, resized);
+      for (const f of loops) if (mode === "normal" || f.always) f(t, resized);
       resized = false; last = t;
     }
     if (busy) raf = requestAnimationFrame(frame);
@@ -273,6 +299,7 @@
     mode = name === "zombie" || name === "midnight" || name === "nitro" ? name : "normal";
     if (root) root.classList.toggle("off", mode !== "normal");
     if (near) near.dataset.lyscene = mode;
+    if (over) over.dataset.lyscene = mode;
     last = 0; kick();
   }
   const mood = name => (cfg && cfg.moods && (cfg.moods[name] || cfg.moods.normal)) || null;

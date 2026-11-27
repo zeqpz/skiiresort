@@ -148,6 +148,19 @@ canvas at ~30 fps; nothing slides):
   (`sfx_thunder`), powder boiling up off the slide.
 The ice bong bubbles while it is hit and breathes out when it is let go (`sfx_bong_rip`, `sfx_bong_out`).
 
+Owner's notes of 2026-11-27:
+- **Idle animations** play at full speed (`SYM_IDLE_RATE` 1; it was .575).
+- **Win figures in blocky glacier ice** (`assets/num/*.webp`, cut from `art/highpeaks/raw/num_glacier_a.png`, job
+  `art/highpeaks/jobs/num_glacier.json`): chunky block digits of cracked ice with a deep blue side, for the total win,
+  the bonus's count of rounds and every other numeral row; the dollar sign is a glyph too (`NUMERAL`). The soft
+  "ice-chunk" numerals of `ice_numerals.py` are in git history.
+- **The flag** is a Colorado-style parody (blue / white / blue, a red C round a gold disc with a leaf;
+  `art/highpeaks/jobs/flag_co.json`) and waves as cloth: 46 strips on a rolling wave with a swell and a flutter, lit
+  and shaded by which way each strip faces, foreshortened as it folds (`layers.js` `flag`). It flies in EVERY scene
+  now (`#layers-over`); the bonus plates' painted green flag was taken off (`tools/highpeaks/unflag_plates.py`).
+- **The yeti's smoke** is soft and wispy (`assets/fx/smoke_soft.webp`): a breath is a stream of 26 puffs that leave
+  fast, slow, curl apart and thin; a fine thread rises off the joint all the time (`charrig.js`).
+
 Lobby art for engine.io, built from a BACKGROUND and a FOREGROUND the way the studio's Media Editor builds a tile
 (`tools/highpeaks/gen_covers.py gen`, then `build`; no text on any of it, owner rule):
 - `media/bg_16x9.png` (3840x2160) and `media/bg_3x4.png` (3072x4096): the summit with nobody in it, a sunburst sky,

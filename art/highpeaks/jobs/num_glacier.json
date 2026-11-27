@@ -1,0 +1,16 @@
+[
+  {
+    "name": "num_glacier_a",
+    "aspect_ratio": "3:2",
+    "background": "transparent",
+    "quality": "high",
+    "prompt": "A sprite sheet of game numerals in a blocky GLACIER ICE lettering style, on a fully transparent background, nothing else in the picture. Exactly 14 separate characters laid out in a tidy grid of three rows with wide empty gaps between every character so that none touch or overlap: top row: 0 1 2 3 4 ; middle row: 5 6 7 8 9 ; bottom row: $ x . , (a dollar sign, a lower-case multiplication x, a full stop, a comma). Every character is a chunky, heavy, squared-off block letter carved from a slab of glacier ice, like blocks of ice cut with a saw: thick straight strokes with slightly chipped, uneven corners; the FRONT face is pale ice-blue and white with a network of fine white crack lines and angular lighter facets across it; each character has a deep 3D extruded side going down and to the right in a darker glacier blue, with a few crack lines on it; a thick dark navy-blue outline round the whole character and a thinner one between the face and the side. All characters are the same height, the same weight and the same style, upright, evenly lit, flat cartoon shading with hard edges (no soft gradients, no glow, no drop shadow, no snow on top). The digits must be clearly readable and correct: 0 1 2 3 4 5 6 7 8 9. Nothing else: no words, no extra letters, no border."
+  },
+  {
+    "name": "num_glacier_b",
+    "aspect_ratio": "3:2",
+    "background": "transparent",
+    "quality": "high",
+    "prompt": "A sprite sheet of game numerals in a blocky GLACIER ICE lettering style, on a fully transparent background, nothing else in the picture. Exactly 14 separate characters laid out in a tidy grid of three rows with wide empty gaps between every character so that none touch or overlap: top row: 0 1 2 3 4 ; middle row: 5 6 7 8 9 ; bottom row: $ x . , (a dollar sign, a lower-case multiplication x, a full stop, a comma). Every character is a chunky, heavy, squared-off block letter carved from a slab of glacier ice, like blocks of ice cut with a saw: thick straight strokes with slightly chipped, uneven corners; the FRONT face is pale ice-blue and white with a network of fine white crack lines and angular lighter facets across it; each character has a deep 3D extruded side going down and to the right in a darker glacier blue, with a few crack lines on it; a thick dark navy-blue outline round the whole character and a thinner one between the face and the side. All characters are the same height, the same weight and the same style, upright, evenly lit, flat cartoon shading with hard edges (no soft gradients, no glow, no drop shadow, no snow on top). The digits must be clearly readable and correct: 0 1 2 3 4 5 6 7 8 9. Nothing else: no words, no extra letters, no border."
+  }
+]

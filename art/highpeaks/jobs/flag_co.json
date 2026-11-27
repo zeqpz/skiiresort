@@ -1,0 +1,16 @@
+[
+  {
+    "name": "spr_flag_co_a",
+    "aspect_ratio": "3:2",
+    "background": "transparent",
+    "quality": "high",
+    "prompt": "A single flag for a cartoon ski-resort game, on a fully transparent background, nothing else in the picture: NO pole, NO rope, NO background. The flag is shown perfectly FLAT and straight-on as a clean rectangle (3 wide by 2 tall), filling the picture, with no folds, no waves and no perspective (it will be animated later). Its design is a playful parody of a US mountain-state flag: three equal horizontal stripes - rich royal blue on top, white in the middle, royal blue at the bottom. Set a little left of centre, overlapping all three stripes, a big bold red letter 'C' shape (a thick red ring open on its right side); inside the C a solid golden-yellow disc, and on that disc a small bright green cannabis leaf. Drawn in flat 2D adult-animation cartoon style: a thick clean black outline round the flag's edge and round the C and the disc, flat solid colours, a few simple hard-edged darker shadow bands across the cloth to suggest fabric, a row of small stitches along the left (hoist) edge. No text or letters other than that C shape, no stars, no gradients, no 3D rendering."
+  },
+  {
+    "name": "spr_flag_co_b",
+    "aspect_ratio": "3:2",
+    "background": "transparent",
+    "quality": "high",
+    "prompt": "A single flag for a cartoon ski-resort game, on a fully transparent background, nothing else in the picture: NO pole, NO rope, NO background. The flag is shown perfectly FLAT and straight-on as a clean rectangle (3 wide by 2 tall), filling the picture, with no folds, no waves and no perspective (it will be animated later). Its design is a playful parody of a US mountain-state flag: three equal horizontal stripes - rich royal blue on top, white in the middle, royal blue at the bottom. Set a little left of centre, overlapping all three stripes, a big bold red letter 'C' shape (a thick red ring open on its right side); inside the C a solid golden-yellow disc, and on that disc a small bright green cannabis leaf. Drawn in flat 2D adult-animation cartoon style: a thick clean black outline round the flag's edge and round the C and the disc, flat solid colours, a few simple hard-edged darker shadow bands across the cloth to suggest fabric, a row of small stitches along the left (hoist) edge. No text or letters other than that C shape, no stars, no gradients, no 3D rendering."
+  }
+]

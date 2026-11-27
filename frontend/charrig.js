@@ -218,6 +218,11 @@
     const liveLayer = new PIXI.Container();
     actor.addChild(liveLayer);
     const LT = { smoke: tex("smoke"), ember: tex("ember"), sweat: tex("sweat") };
+    // (owner, 2026-11-27: "the smoke coming out the dude's mouth needs to look better and more realistic") His smoke is
+    // made of a soft, wispy puff now (assets/fx/smoke_soft.webp - the bong's), many small ones at a time: a breath
+    // is a stream of them leaving his mouth fast, slowing, curling apart and thinning as they rise, not three round
+    // cartoon balls. Until that picture is in (or if it never comes) the atlas's own puff is used as before.
+    if (PIXI.Assets && PIXI.Assets.load) PIXI.Assets.load("assets/fx/smoke_soft.webp").then(t => { if (t) LT.soft = t; }).catch(() => {});
     const PX = man.fx_px || {};
     const pts = {};
     for (const [k, v] of Object.entries(man.points || {})) pts[k] = { j: man.bones.indexOf(v.bone) * 6, x: v.at[0], y: v.at[1] };
@@ -291,22 +296,35 @@
     const pool = [];
     const sprite = (t, add) => {
       const s = pool.pop() || new PIXI.Sprite();
-      s.texture = t; s.anchor.set(.5); s.blendMode = add ? "add" : "normal"; s.visible = true;
+      s.texture = t; s.anchor.set(.5); s.blendMode = add ? "add" : "normal"; s.visible = true; s.tint = 0xffffff;
       liveLayer.addChildAt(s, 0);
       return s;
     };
-    let seed = 7919;
+    let seed = 7919, lastWisp = 0;
+    const SMOKE_TINT = 0xD6DDE9;   // a touch of grey-blue: pure white smoke is lost against snow and his white fur
     const rnd = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
     const spawn = (kind, now) => {
-      if (kind === "wisp" && LT.smoke && pts.tip) {
-        const s = sprite(LT.smoke);
-        particles.push({ s, kind, t0: now, life: 1700 + 500 * rnd(), from: null, sway: rnd() * 6.28, rise: 200 + 60 * rnd(),
-                         drift: 30 + 30 * rnd(), size: [.2, .72], spin: (rnd() - .5) * 1.2 });
+      const soft = !!LT.soft;
+      if (kind === "wisp1" && soft && pts.tip) {               // one fine puff of the thread
+        const s = sprite(LT.soft); s.tint = SMOKE_TINT;
+        particles.push({ s, kind: "wisp", soft, t0: now, life: 2100 + 900 * rnd(), from: null, sway: rnd() * 6.28, rise: 280 + 170 * rnd(),
+                         drift: 20 + 50 * rnd(), size: [.1, .5 + .32 * rnd()], spin: (rnd() - .5) * 1.6, a: .5, curl: 8 + 22 * rnd() });
+      } else if (kind === "wisp" && LT.smoke && pts.tip) {
+        // off the joint's tip: a thin thread (two fine puffs a beat apart) that rises, drifts and curls wider as it goes
+        for (let k = 0, n = soft ? 2 : 1; k < n; k++) {
+          const s = sprite(soft ? LT.soft : LT.smoke);
+          if (soft) s.tint = SMOKE_TINT;
+          particles.push({ s, kind, soft, t0: now + 110 * k, life: (soft ? 2300 : 1700) + 700 * rnd(), from: null, sway: rnd() * 6.28, rise: soft ? 300 + 160 * rnd() : 200 + 90 * rnd(),
+                           drift: 24 + 40 * rnd(), size: soft ? [.14, .7 + .3 * rnd()] : [.2, .72], spin: (rnd() - .5) * 1.2, a: soft ? .58 : .9, curl: soft ? 10 + 24 * rnd() : 14 });
+        }
       } else if (kind === "exhale" && LT.smoke && pts.mouth) {
-        for (let k = 0; k < 3; k++) {
-          const s = sprite(LT.smoke);
-          particles.push({ s, kind, t0: now + 120 * k, life: 1500 + 300 * rnd(), from: null, sway: rnd() * 6.28,
-                           dx: 70 + 60 * rnd(), dy: -(90 + 80 * rnd()), size: [.4, 1.35], spin: (rnd() - .5) * 1.4 });
+        // a breath out: a stream of soft puffs in a cone, each on its own line, quick at first
+        for (let k = 0, n = soft ? 26 : 3; k < n; k++) {
+          const s = sprite(soft ? LT.soft : LT.smoke);
+          if (soft) s.tint = SMOKE_TINT;
+          particles.push({ s, kind, soft, t0: now + (soft ? 34 : 120) * k, life: (soft ? 1900 : 1500) + (soft ? 1100 : 300) * rnd(), from: null, sway: rnd() * 6.28,
+                           dx: soft ? 110 + 260 * rnd() : 70 + 60 * rnd(), dy: soft ? -(40 + 190 * rnd()) : -(90 + 80 * rnd()),
+                           size: soft ? [.26 + .14 * rnd(), 1.5 + 1.1 * rnd()] : [.4, 1.35], spin: (rnd() - .5) * (soft ? 2.2 : 1.4), a: soft ? .5 + .22 * rnd() : .9, curl: soft ? 10 + 30 * rnd() : 10 });
         }
       } else if (kind === "sweat" && LT.sweat && pts.brow) {
         particles.push({ s: sprite(LT.sweat), kind, t0: now, life: 1450 });
@@ -318,7 +336,7 @@
         if (u >= 1) { s.visible = false; liveLayer.removeChild(s); pool.push(s); particles.splice(i, 1); continue; }
         if (u < 0) { s.visible = false; continue; }
         s.visible = true;
-        const fadeIn = Math.min(1, u / .12), fadeOut = u < .55 ? 1 : (1 - u) / .45;
+        const fadeIn = Math.min(1, u / .12), fadeOut = p.soft ? (u < .28 ? 1 : Math.pow((1 - u) / .72, 1.3)) : (u < .55 ? 1 : (1 - u) / .45);
         if (p.kind === "sweat") {                            // slides down his brow, riding his head
           const q = pointAt("brow", 6 * u, 70 * u * u);
           s.position.set(q.x, q.y);
@@ -329,13 +347,14 @@
         // a puff leaves FROM the point it belongs to: it rides the live point for its first moments, then is let go
         const live = pointAt(p.kind === "wisp" ? "tip" : "mouth");
         if (!p.from || u < .12) p.from = live;
-        const o = p.from, k = ease((u - .0) / 1);
+        // soft smoke leaves fast and slows (it is pushed, then only drifts), and its curl widens as it thins
+        const o = p.from, k = p.soft ? 1 - Math.pow(1 - u, 2.4) : ease((u - .0) / 1), curl = (p.curl ?? 12) * (p.soft ? .25 + u * 1.5 : 1);
         const g = p.size[0] + (p.size[1] - p.size[0]) * Math.sqrt(u);
-        if (p.kind === "wisp") s.position.set(o.x + p.drift * k + 14 * Math.sin(p.sway + 6 * u), o.y - p.rise * k);
-        else s.position.set(o.x + 25 + p.dx * k + 10 * Math.sin(p.sway + 5 * u), o.y + p.dy * k);
+        if (p.kind === "wisp") s.position.set(o.x + p.drift * k + curl * Math.sin(p.sway + 6 * u), o.y - p.rise * (p.soft ? u * (.55 + .45 * u) : k));
+        else s.position.set(o.x + 25 + p.dx * k + curl * Math.sin(p.sway + 5 * u), o.y + p.dy * k - (p.soft ? 110 * u * u : 0));
         s.scale.set(g * (PX.smoke || 150) / s.texture.frame.width);
         s.rotation = p.spin * u;
-        s.alpha = fadeIn * fadeOut * .9;
+        s.alpha = fadeIn * fadeOut * (p.a ?? .9);
       }
     };
     const emitBetween = (clip, f0, f1, now) => {          // the clip's live emits whose frame lies in (f0, f1]
@@ -485,6 +504,8 @@
       }
       show(cur.clip, f, glow);
       if (light.to) relight(now);
+      // the joint smokes all the time: a fine thread off its tip between the clip's own puffs (soft smoke only)
+      if (LT.soft && !still && now - lastWisp > 230) { lastWisp = now; spawn("wisp1", now); }
       stepParticles(now);
       stepFlakes(now);
     };

@@ -6,7 +6,7 @@
   {"src": "spr_pine.webp", "x": 150, "y": 1420, "h": 1190, "sway": 0.9},
   {"src": "spr_pine.webp", "x": 372, "y": 1330, "h": 900, "sway": 1.2}
  ],
- "flag": {"src": "spr_flag.webp", "x": 3480, "y": 598, "w": 300},
+ "flag": {"src": "spr_flag.webp", "x": 3470, "y": 584, "w": 344},
  "lift": {"src": "chair.webp", "chairs": 5, "secs": 52, "gap": 34,
           "out": [[1238, 1088, 158], [1356, 1136, 132], [1596, 1298, 92], [1806, 1430, 64]]},
  "sparkle": {"box": [900, 1520, 3700, 2100], "n": 10},

@@ -3547,6 +3547,15 @@
   .jp.won { animation: jpwon2 .38s ease-in-out infinite alternate; }
   @keyframes jpwon2 { from { transform: scale(1.05); filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 10px var(--jpc)) brightness(1.1); }
                       to { transform: scale(1.13); filter: drop-shadow(0 0 7px #fff) drop-shadow(0 0 26px var(--jpc)) brightness(1.3); } }
+  /* ---------- High Peaks, 2026-11-27: the win figures are blocky GLACIER ice (owner, with a reference: "this win font
+     is boring ... we want a blocky glacier font like this", for the total win and the bonus's count of rounds too).
+     The numerals are pictures (assets/num/*.webp, cut from art/highpeaks/raw/num_glacier_a.png: chunky block digits of
+     cracked ice with a deep blue side); a currency mark that has no picture is lettered to sit with them - heavy,
+     pale ice with a navy edge and the same blue side. ---------- */
+  .totalwin .twamount .sym, .fswin .sym, .fillsum .fsmoney .sym, .fuelnum .sym, .bonusintro .bfig .sym {
+    font-family: "Fredoka", var(--num); font-weight: 700; color: #D6F1FF; -webkit-text-stroke-color: #123C86; paint-order: stroke fill;
+    text-shadow: .045em .06em 0 #2A6FC4, .09em .12em 0 #1B4FA0; letter-spacing: 0; }
+  .totalwin .twfig, .bonusintro .bfig { gap: 0; }
 </style>
 </head>
 <body>
@@ -4219,7 +4228,7 @@ const SYM_HEADROOM = 1.25;            // sheet px per screen px at rest: crisp a
 // their idles are worth seeing, so they come round about twice as often and a fifth of the board may move at once)
 const SYM_IDLE_REST = [4000, 11000];   // ms an icon rests between its idle cycles, at random (the first 0 to the most after it lands)
 const SYM_IDLE_MAX_SHARE = .2;        // at most this share of the board mid-idle at once: a start over it waits a moment
-const SYM_IDLE_RATE = .575;             // the idles play at this share of their frame rate: slow and barely noticed (owner, 2026-11-04); land/hit/multi at their own speed
+const SYM_IDLE_RATE = 1;                // the idles play at their own full speed (owner, 2026-11-27: "make idle animations play at full speed"; it was .575, slow and barely noticed)
 const SYMF = { man: null, density: "d16", sheets: new Map(), k: 1 };   // sheets: "<ID>_<clip>" -> { img, ok, ready, frames }
 // The clips every symbol plays all the time - its landing and its idle - are held as ready frames (perf,
 // 2026-11-03). Drawn straight from the sheets, the board needed every sheet decoded at once (~480 MB at
@@ -8642,7 +8651,7 @@ function assetUrls() {
     try { walk(sheet.cssRules); } catch (err) { /* a sheet from elsewhere: nothing to read */ }
   }
   for (const def of Object.values(SYM)) if (def.img) urls.add(def.img);
-  for (const n of ["0","1","2","3","4","5","6","7","8","9","dot","comma","x"]) urls.add("assets/num/" + n + ".webp");
+  for (const n of ["0","1","2","3","4","5","6","7","8","9","dot","comma","x","dollar"]) urls.add("assets/num/" + n + ".webp");
   // the win screen's lettering, named rather than read off WIN_TIERS: that list is declared
   // further down the file than this screen runs
   for (const n of ["total_win", "big_win", "mega_win", "xtreme_win"]) urls.add("assets/" + n + ".webp");
@@ -8877,7 +8886,8 @@ hoverWin(document.querySelector("#fsCard .fsplate"), { x: .35, y: .45, r: .4, s:
 // on a common baseline, so a row of them stands on one line. Anything the sheet has no glyph
 // for - a currency mark, a letter - is set beside them in the number font instead of being
 // dropped, so the figure still reads in every currency.
-const NUMERAL = { ".": "dot", ",": "comma", "x": "x", "\u00d7": "x" };
+// (2026-11-27: the glyphs are blocky glacier ice now - art/highpeaks/jobs/num_glacier.json - and the dollar sign is one of them)
+const NUMERAL = { ".": "dot", ",": "comma", "x": "x", "\u00d7": "x", "$": "dollar" };
 // A bad-TV-signal twitch (owner, 2026-10-26: YOU WON, the spins and every win figure): now and
 // then, for a fraction of a second, the element tears - bands of scanlines slide sideways, the
 // colour channels split red one way and cyan the other, and it jumps a pixel or two - a few
