@@ -15,6 +15,9 @@ metal) and every winning symbol left with the same three "crack and clatter" tak
   land_glass   x3   a jar, goggles, the bong, a mug: a clink
   land_cloth   x3   a beanie, a joint, a slice: a soft pat
   snow_whoosh  x3   a tumble's refill coming down: air and powder
+  bong_rip     x3   the ice bong being hit: water bubbling hard under the draw of air
+  bong_out     x2   the hit let go: a soft breath of smoke, the water settling
+  thunder      x3   AVALANCHE's storm: a crack and its rumble rolling off
 
 Each take has its own seed (grain positions, partials, lengths), so a run of them never loops; the page adds pitch,
 level and left-right placement on top (index.html sfx(name, rate, { vol, pan })).
@@ -181,10 +184,74 @@ def snow_whoosh(seed):
     return out * e[:, None] * .5
 
 
+def bubble(rng, f0, dur):
+    """One bubble: a sine that rises in pitch as it shrinks, a fast attack and a short ring."""
+    t = t_(dur)
+    f = f0 * (1 + .7 * (t / dur) ** .8)
+    return np.sin(2 * np.pi * np.cumsum(f) / SR) * env(len(t), .002, dur * .45)
+
+
+def bong_rip(seed):
+    """The bong being hit (owner, 2026-11-26: "add a bong bubbling / hitting sound when we get the bong smoke"): water
+    bubbling hard for a second and a bit - small quick bubbles over slower deep glugs - with the draw of air over it,
+    swelling as the smoke climbs."""
+    rng = np.random.default_rng(3700 + seed)
+    dur = 1.3
+    m = Mix(dur)
+    swell = lambda at: .35 + .65 * min(1.0, at / .5)
+    at = .02
+    while at < dur - .12:                                                                 # the quick bubbles
+        m.add(bubble(rng, rng.uniform(300, 760), rng.uniform(.022, .05)), at, rng.uniform(.35, .7) * swell(at), rng.uniform(-.5, .5))
+        at += rng.uniform(.014, .042)
+    at = .0
+    while at < dur - .2:                                                                  # the deep glugs under them
+        m.add(bubble(rng, rng.uniform(120, 210), rng.uniform(.06, .1)), at, rng.uniform(.5, .85) * swell(at), rng.uniform(-.25, .25))
+        at += rng.uniform(.07, .13)
+    n = int(dur * SR); t = np.arange(n) / SR                                              # the draw: air through the water
+    air = sosfilt(butter(2, [450, 2600], 'bandpass', fs=SR, output='sos'), rng.standard_normal(n))
+    air *= (.25 + .75 * np.clip(t / .7, 0, 1)) * np.clip((dur - t) / .12, 0, 1) * (1 + .35 * np.sin(2 * np.pi * rng.uniform(17, 24) * t))
+    m.add(air, 0, .16)
+    low = sosfilt(butter(2, [70, 190], 'bandpass', fs=SR, output='sos'), rng.standard_normal(n)) * np.clip(t / .3, 0, 1) * np.clip((dur - t) / .15, 0, 1)
+    m.add(low, 0, .5)                                                                     # the chamber rumbling
+    return m.x
+
+
+def bong_out(seed):
+    """The hit let go: a long soft breath of smoke out of the mouthpiece, and the water settling."""
+    rng = np.random.default_rng(4100 + seed)
+    dur = .85
+    n = int(dur * SR); t = np.arange(n) / SR
+    m = Mix(dur)
+    raw = rng.standard_normal(n)
+    hi = sosfilt(butter(2, [900, 4200], 'bandpass', fs=SR, output='sos'), raw) * np.clip(1 - t / .5, 0, 1)
+    lo = sosfilt(butter(2, [300, 1400], 'bandpass', fs=SR, output='sos'), raw) * np.clip(t / .25, 0, 1)
+    m.add((hi + lo) * np.sin(np.pi * np.clip(t / dur, 0, 1)) ** .7 * np.exp(-t / .38), 0, .5)
+    for k in range(rng.integers(3, 6)):                                                   # a last few bubbles
+        m.add(bubble(rng, rng.uniform(260, 520), rng.uniform(.03, .05)), .03 + rng.random() * .3, rng.uniform(.15, .3), rng.uniform(-.4, .4))
+    return m.x
+
+
+def thunder(seed):
+    """AVALANCHE's storm: a crack up in the clouds and the rumble rolling away after it (kept low and soft - it plays
+    under a round, again and again)."""
+    rng = np.random.default_rng(4500 + seed)
+    dur = rng.uniform(1.7, 2.1)
+    n = int(dur * SR); t = np.arange(n) / SR
+    m = Mix(dur)
+    m.add(noise(rng, .12, 250, 1800, .002, .03), .0, .5, rng.uniform(-.4, .4))            # the crack
+    m.add(noise(rng, .2, 120, 700, .004, .06), .03, .5)
+    rum = sosfilt(butter(3, [32, 150], 'bandpass', fs=SR, output='sos'), rng.standard_normal(n))
+    roll = 1 + .6 * np.sin(2 * np.pi * rng.uniform(2.2, 3.4) * t + rng.uniform(0, 6)) + .4 * np.sin(2 * np.pi * rng.uniform(5, 8) * t)
+    m.add(rum * roll * np.clip(t / .05, 0, 1) * np.exp(-t / (dur * .42)), .02, 1.0)
+    m.add(knock(rng.uniform(70, 90), 40, .5, .2), .03, .6)
+    return m.x
+
+
 SETS = [  # stem, takes, loudness target (LUFS), maker
     ('ice_break', 6, -21.0, ice_break), ('ice_mult', 4, -24.0, ice_mult), ('land_snow', 4, -26.0, land_snow),
     ('land_wood', 3, -26.0, land_wood), ('land_glass', 3, -26.5, land_glass), ('land_cloth', 3, -27.0, land_cloth),
     ('snow_whoosh', 3, -25.0, snow_whoosh),
+    ('bong_rip', 3, -22.0, bong_rip), ('bong_out', 2, -24.0, bong_out), ('thunder', 3, -24.0, thunder),
 ]
 
 
@@ -226,11 +293,14 @@ def deliver(stem, take, x, ff):
 if __name__ == '__main__':
     ff = ffmpeg()
     total = 0
+    only = set(sys.argv[1:])
     for stem, takes, target, make in SETS:
+        if only and stem not in only:
+            continue
         row = []
         for k in range(1, takes + 1):
             y = master(make(k), target)
             total += deliver(stem, k, y, ff)
             row.append(f'{len(y) / SR:.2f}s {lufs(y):.1f}LUFS pk{20 * np.log10(np.abs(y).max()):.1f}')
         print(f'{stem:12s}', ' | '.join(row), flush=True)
-    print(f'{sum(s[1] for s in SETS)} takes, {total // 1024} KB of .ogg + .aac')
+    print(f'{sum(s[1] for s in SETS if not only or s[0] in only)} takes, {total // 1024} KB of .ogg + .aac')

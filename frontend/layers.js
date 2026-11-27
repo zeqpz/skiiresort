@@ -111,8 +111,9 @@
       t.appendChild(im); cll.appendChild(t);
     };
     const C = cfg.clouds || {};
-    if (C.high) for (let i = 0; i < 4; i++) cloud(C.high, rand(170, 270), rand(150, 260), .95);
-    if (C.low) for (let i = 0; i < 5; i++) cloud(C.low, rand(70, 130), rand(240, 420), .8);
+    // (2026-11-26, owner: "we want clouds always moving": a crossing took 150 - 420 s, which reads as still)
+    if (C.high) for (let i = 0; i < 5; i++) cloud(C.high, rand(170, 270), rand(48, 84), .95);
+    if (C.low) for (let i = 0; i < 6; i++) cloud(C.low, rand(70, 130), rand(80, 140), .8);
 
     // the pines behind the hut
     for (const p of cfg.pines || []) {

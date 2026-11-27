@@ -136,6 +136,18 @@ Owner's notes of 2026-11-26:
   synthesised sets (`tools/highpeaks/sfx/dynamics.py`, 26 takes, 260 KB): ice shatter x6, multiplier ding x4, snow /
   wood / glass / cloth landings, the tumble's whoosh - the board's foley was the gas station's (coins, chains, cans).
 
+Every scene has weather of its own (owner, 2026-11-26: "make all of the backgrounds actually dynamic ... clouds always
+moving, thunder moving", "we want the northern lights moving"), all of it inside the picture (`frontend/skyfx.js`, one
+canvas at ~30 fps; nothing slides):
+- every scene: clouds crossing all the time in two depths (a crossing took minutes before), snow leaning with a
+  gusting wind; the day scene's layered clouds are quicker too (`layers.js`) and a few birds cross now and then;
+- FRESH POWDER: a blizzard driven sideways, banks of mist rolling along the far ridge;
+- BLACK DIAMOND: the northern lights - three curtains waving across the sky, their rays shimmering - twinkling
+  stars, a shooting star now and then, the moon's halo breathing;
+- AVALANCHE: fast storm clouds, forked lightning in a new place each time lighting the sky, thunder after it
+  (`sfx_thunder`), powder boiling up off the slide.
+The ice bong bubbles while it is hit and breathes out when it is let go (`sfx_bong_rip`, `sfx_bong_out`).
+
 Lobby art for engine.io, built from a BACKGROUND and a FOREGROUND the way the studio's Media Editor builds a tile
 (`tools/highpeaks/gen_covers.py gen`, then `build`; no text on any of it, owner rule):
 - `media/bg_16x9.png` (3840x2160) and `media/bg_3x4.png` (3072x4096): the summit with nobody in it, a sunburst sky,

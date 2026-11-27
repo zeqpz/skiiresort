@@ -3025,8 +3025,8 @@
     -webkit-mask-image: linear-gradient(180deg, #000 0, #000 45%, transparent 100%); mask-image: linear-gradient(180deg, #000 0, #000 45%, transparent 100%); }
   #bgalt.zombie .zclouds { display: block; }
   #bgalt .zclouds i { position: absolute; left: 0; top: 0; width: 200%; height: 100%; will-change: transform;
-    background: url("assets/scene/clouds_zombie.webp") 0 0 / 50% 100% repeat-x; animation: cloudDrift 90s linear infinite; }
-  #bgalt .zclouds i.far { top: -12%; height: 90%; opacity: .55; animation-duration: 170s; animation-delay: -63s; }
+    background: url("assets/scene/clouds_zombie.webp") 0 0 / 50% 100% repeat-x; animation: cloudDrift 38s linear infinite; }   /* (2026-11-26: was 90 s - "clouds always moving") */
+  #bgalt .zclouds i.far { top: -12%; height: 90%; opacity: .55; animation-duration: 72s; animation-delay: -27s; }
   @keyframes cloudDrift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { #bgalt .zclouds i { animation: none; } }
   .scenewipe { position: fixed; inset: 0; z-index: 57; pointer-events: none; opacity: 0;
@@ -5911,6 +5911,8 @@ const SFX_SETS = {
   iceBreak: ["sfx_ice_break", 6, .6, .05], iceMult: ["sfx_ice_mult", 4, .34, .008],
   landSnow: ["sfx_land_snow", 4, .32], landWood: ["sfx_land_wood", 3, .28], landGlass: ["sfx_land_glass", 3, .25], landCloth: ["sfx_land_cloth", 3, .3],
   snowWhoosh: ["sfx_snow_whoosh", 3, .36],
+  // the ice bong being hit - water bubbling under the draw - and the hit let go; AVALANCHE's thunder (skyfx.js)
+  bongRip: ["sfx_bong_rip", 3, .6, .04], bongOut: ["sfx_bong_out", 2, .5, .04], thunder: ["sfx_thunder", 3, .42, .06],
   // High Peaks jackpots (tools/highpeaks/sfx/jackpot.py): the "?" landing, one note per bar level as the wheel passes
   // it (D5 F#5 A5 D6), the stop, and each level's fanfare
   jpDrop: ["sfx_jp_drop", 1, .55, 0], jpLand: ["sfx_jp_land", 1, .6, 0],
@@ -6530,6 +6532,7 @@ async function pumpShow(ev) {
   }
   await hold(REDUCED_MOTION ? 0 : 600);
   dial.classList.add("rip");
+  sfx("bongRip", sndFast(), { pan: sndPan(r) });   // (owner, 2026-11-26: "add a bong bubbling / hitting sound when we get the bong smoke")
   await hold(1150);
   // No text on the bong at all (owner, 2026-11-23: first "get rid of when it says powder dusting and whatever on the
   // bong multipliers", then "get rid of the text that appears on the bong multipliers"): no grade name and no figure on
@@ -6540,6 +6543,7 @@ async function pumpShow(ev) {
   dial.style.setProperty("--c", g.c);
   glow.style.setProperty("--c", g.c);
   if (full) glow.classList.add("fulltank");
+  sfx("bongOut", 1, { pan: sndPan(r) });           // the hit let go, with the roll's own note
   sfx(g.sfx);
   boardFlash(full ? "fs" : "multi", ev.mult || 2);
   if (full) {
