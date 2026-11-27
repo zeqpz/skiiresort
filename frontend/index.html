@@ -6985,6 +6985,7 @@ const handlers = {
   async reveal(ev) {
     Cam.rest(300);   // every spin is filmed from home
     sndChain = 0;    // and heard from the bottom of the scale
+    if (!state.bonus) state.jpWon = false;   // (a jackpot's flag lasts its round)
     // the round's cells were reset (or preloaded by NITRO) when it began; a bonus keeps its grid across spins
     if (ev.gameType === "basegame" && !state.bonus) musicTo("base");
     await renderReveal(ev);
@@ -7275,8 +7276,14 @@ const handlers = {
     state.totalWin = (state.totalWin || 0) + amt;
     setRoundWin(state.totalWin);
     paintFsWin();
-    await banner(`${ev.level.toUpperCase()} ${T("JACKPOT")}`, `${fmt(amt)} — ${ev.mult.toLocaleString("en-US")}x`,
-                 { mini: 1500, minor: 1800, major: 2300, grand: 3200 }[ev.level] || 1600, ev.level === "grand" || ev.level === "major" ? "mega" : "");
+    // (owner, 2026-11-27: "when you get a mini minor major grand make it the normal win screen for everything else,
+    // not the custom one it has") No jackpot banner of its own: its plaque pulses for a beat, the prize is in the
+    // round's win, and the round ends on the game's ordinary win screen - the figure counting up over the board
+    // with BIG / MEGA lettering by its size - which a jackpot always gets, a MINI included (state.jpWon, read
+    // where the round is paid; inside a bonus the bonus's own TOTAL WIN carries it).
+    tick(`<b>${ev.level.toUpperCase()} ${T("JACKPOT")}</b> — ${fmt(amt)}`);
+    state.jpWon = true;
+    await hold({ mini: 700, minor: 800, major: 950, grand: 1200 }[ev.level] || 800);
     won.classList.remove("won");
   },
 
@@ -7946,7 +7953,7 @@ async function presentRound(round, { settle = true } = {}) {
     // centre on the icons while they rain down, and the lettering pops in above it at each mark
     // it passes (BIG -> MEGA -> XTREME, the same marks the bonus uses). It holds a moment and
     // gives the board back on its own. Smaller wins have had their say on the clusters.
-    if (mult > OVER_BOARD_AT && !state.totalShown) {   // a bonus has already shown its own
+    if ((mult > OVER_BOARD_AT || state.jpWon) && !state.totalShown) {   // a bonus has already shown its own; a jackpot always gets it
       charReact(mult >= WIN_TIERS[0].at ? "big_win" : "win");
       state.tallied = true;     // the popup does the counting now
       state.totalShown = true;
@@ -9605,7 +9612,7 @@ function bonusIntro(spins, extreme, kind = extreme ? "midnight" : "premium", und
       `<div class="inner"><div class="bstack">` +
         `<img class="blogo" src="${K.logo}" alt="${T(K.name)}" draggable="false">` +
         `<div class="byou">${glacierWord(T("You won")) || T("You won")}</div>` +
-        (K.noSpins ? `<div class="bfs">${T("3 spins to fill the stash")}</div>` :
+        (K.noSpins ? `<div class="bfs">${glacierWord(T("3 spins to fill the stash")) || T("3 spins to fill the stash")}</div>` :
         `<div class="bnum" aria-label="${spins}"><i class="brays" aria-hidden="true"></i><div class="bfig">${numeralRow(REDUCED_MOTION ? String(spins) : "0")}</div></div>` +
         `<div class="bfs">${glacierWord(T("Free spins")) || T("Free spins")}</div>`) +
         `<div class="bhow">${bonusIntroHow(kind)}</div>` +

@@ -173,6 +173,9 @@ Later on 2026-11-27:
   synthesised sets were re-made lower (`tools/highpeaks/sfx/dynamics.py`: the multiplier ding on D5, ice and glass
   an octave down).
 - FRESH POWDER's intro screen (a still of that plate) carries the flag too (`.wflag`).
+- **A jackpot has no banner of its own**: the wheel stops, its plaque pulses, and the round ends on the ordinary win
+  screen (the figure counting up over the board), which a jackpot always gets, a MINI included (`state.jpWon`).
+  STASH's "3 spins to fill the stash" line is in the glacier letters as well.
 
 Lobby art for engine.io, built from a BACKGROUND and a FOREGROUND the way the studio's Media Editor builds a tile
 (`tools/highpeaks/gen_covers.py gen`, then `build`; no text on any of it, owner rule):
