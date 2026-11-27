@@ -134,3 +134,5 @@
 {"name": "num_glacier_a", "file": "art\\highpeaks\\raw\\num_glacier_a.png", "size": [1536, 1024], "mode": "RGBA", "cost": 0.04275, "model": "openai/gpt-image-2.6-sunburst", "secs": 30.8, "t": "2026-11-26 23:00:09"}
 {"name": "spr_flag_co_b", "file": "art\\highpeaks\\raw\\spr_flag_co_b.png", "size": [1536, 1024], "mode": "RGBA", "cost": 0.042425, "model": "openai/gpt-image-2.6-sunburst", "secs": 25.0, "t": "2026-11-26 23:02:23"}
 {"name": "spr_flag_co_a", "file": "art\\highpeaks\\raw\\spr_flag_co_a.png", "size": [1536, 1024], "mode": "RGBA", "cost": 0.042425, "model": "openai/gpt-image-2.6-sunburst", "secs": 27.4, "t": "2026-11-26 23:02:25"}
+{"name": "abc_glacier_a", "file": "art\\highpeaks\\raw\\abc_glacier_a.png", "size": [1536, 1024], "mode": "RGBA", "cost": 0.054768, "model": "openai/gpt-image-2.6-sunburst", "secs": 32.6, "t": "2026-11-27 13:14:09"}
+{"name": "abc_glacier_b", "file": "art\\highpeaks\\raw\\abc_glacier_b.png", "size": [1536, 1024], "mode": "RGBA", "cost": 0.054768, "model": "openai/gpt-image-2.6-sunburst", "secs": 35.5, "t": "2026-11-27 13:14:12"}

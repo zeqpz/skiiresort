@@ -8,7 +8,7 @@ metal) and every winning symbol left with the same three "crack and clatter" tak
 
   ice_break    x6   a symbol freezing and SHATTERING: a bright snap, a cluster of glassy pings, a soft low knock and
                     the shards tinkling away to both sides (the exit clip's sound; was sfx_break)
-  ice_mult     x4   a cell multiplier landing: a frosty glass ding on D6 with a breath of air (the page pitches it by
+  ice_mult     x4   a cell multiplier landing: a frosty glass ding on D5 with a breath of air (the page pitches it by
                     the multiplier's value, so x2 ... x64 climb the scale)
   land_snow    x4   something soft landing in snow: a low thump and a little crunch
   land_wood    x3   skis, a board: a hollow wooden knock
@@ -103,8 +103,8 @@ class Mix:
 def ice_break(seed):
     rng = np.random.default_rng(900 + seed)
     m = Mix(.62)
-    base = rng.uniform(2300, 3400)
-    m.add(noise(rng, .03, 3200, 11000, .0004, .006), 0, .9)                               # the snap
+    base = rng.uniform(1250, 1900)                                                        # (2026-11-27: every set here was re-made lower - "way too high pitch")
+    m.add(noise(rng, .03, 2200, 7000, .0004, .006), 0, .9)                               # the snap
     m.add(noise(rng, .09, 700, 2600, .001, .022), .002, .45)                              # the body cracking through
     m.add(knock(rng.uniform(170, 210), rng.uniform(95, 120), .12, .04), 0, .5)            # a low knock under it
     for k in range(rng.integers(3, 6)):                                                   # the ice ringing: a cluster of pings
@@ -112,20 +112,20 @@ def ice_break(seed):
     n = rng.integers(9, 15)                                                               # the shards tinkling away
     for k in range(n):
         at = .04 + .42 * rng.random() ** 1.7
-        m.add(ping(rng.uniform(3200, 8200), .09, rng.uniform(.012, .035), partials=((1, 1), (2.3, .25))), at, .3 * (1 - at) ** 1.5 * rng.uniform(.5, 1), rng.uniform(-.9, .9))
-    m.add(noise(rng, .3, 2500, 9000, .01, .09), .03, .12)                                 # a breath of powder
+        m.add(ping(rng.uniform(1700, 4300), .09, rng.uniform(.012, .035), partials=((1, 1), (2.3, .25))), at, .3 * (1 - at) ** 1.5 * rng.uniform(.5, 1), rng.uniform(-.9, .9))
+    m.add(noise(rng, .3, 1600, 6000, .01, .09), .03, .12)                                 # a breath of powder
     return m.x
 
 
 def ice_mult(seed):
     rng = np.random.default_rng(1300 + seed)
     m = Mix(.55)
-    f = 1174.66                                                                           # D6
+    f = 587.33                                                                            # D5
     parts = [((1, 1), (2.76, .3), (5.4, .1)), ((1, 1), (2.0, .35), (3.01, .2), (4.2, .08)), ((1, 1), (2.76, .2), (4.07, .22)), ((1, 1), (1.5, .3), (2.76, .25), (6.1, .06))][seed % 4]
     m.add(ping(f, .5, rng.uniform(.11, .16), partials=parts, settle=.012), .004, .9)
     m.add(ping(f * 2, .3, .05, partials=((1, 1), (2.76, .2))), .004, .22, rng.uniform(-.3, .3))
-    m.add(noise(rng, .05, 2500, 9000, .004, .012), 0, .3)                                 # the frost of its attack
-    m.add(noise(rng, .25, 1800, 7000, .02, .07), .01, .07)
+    m.add(noise(rng, .05, 1800, 6000, .004, .012), 0, .3)                                 # the frost of its attack
+    m.add(noise(rng, .25, 1300, 5000, .02, .07), .01, .07)
     return m.x
 
 
@@ -142,7 +142,7 @@ def land_snow(seed):
 def land_wood(seed):
     rng = np.random.default_rng(2100 + seed)
     m = Mix(.26)
-    f = rng.uniform(380, 470)
+    f = rng.uniform(260, 330)
     for r, g, tau in ((1, 1, .03), (2.32, .5, .02), (3.9, .3, .013), (5.6, .14, .008)):
         m.add(ping(f * r * rng.uniform(.98, 1.02), .2, tau, partials=((1, 1),), settle=0), 0, g * .6)
     m.add(noise(rng, .012, 1500, 6000, .0003, .003), 0, .45)
@@ -153,11 +153,11 @@ def land_wood(seed):
 def land_glass(seed):
     rng = np.random.default_rng(2500 + seed)
     m = Mix(.34)
-    f = rng.uniform(1700, 2300)
+    f = rng.uniform(950, 1350)
     m.add(ping(f, .3, rng.uniform(.04, .07)), 0, .7)
     m.add(ping(f * rng.uniform(1.45, 1.62), .25, .035), .003, .4, rng.uniform(-.4, .4))
     m.add(ping(f * rng.uniform(2.3, 2.6), .18, .02, partials=((1, 1),)), .001, .2, rng.uniform(-.4, .4))
-    m.add(noise(rng, .01, 3000, 10000, .0003, .002), 0, .35)
+    m.add(noise(rng, .01, 2200, 7000, .0003, .002), 0, .35)
     return m.x
 
 
@@ -176,7 +176,7 @@ def snow_whoosh(seed):
     n = int(dur * SR); t = np.arange(n) / SR
     raw = rng.standard_normal((n, 2))
     # a band of air sliding DOWN as the powder falls: three fixed bands, cross-faded from the highest to the lowest
-    bands = [(1900, 7000), (1000, 3600), (450, 1700)]
+    bands = [(1300, 4800), (700, 2600), (350, 1300)]
     u = t / dur
     gains = [np.clip(1 - u * 2.2, 0, 1), np.clip(1 - np.abs(u - .45) * 2.6, 0, 1), np.clip((u - .35) * 2.0, 0, 1)]
     out = sum(sosfilt(butter(2, bd, 'bandpass', fs=SR, output='sos'), raw, axis=0) * g[:, None] for bd, g in zip(bands, gains))
@@ -201,7 +201,7 @@ def bong_rip(seed):
     swell = lambda at: .35 + .65 * min(1.0, at / .5)
     at = .02
     while at < dur - .12:                                                                 # the quick bubbles
-        m.add(bubble(rng, rng.uniform(300, 760), rng.uniform(.022, .05)), at, rng.uniform(.35, .7) * swell(at), rng.uniform(-.5, .5))
+        m.add(bubble(rng, rng.uniform(220, 520), rng.uniform(.026, .056)), at, rng.uniform(.35, .7) * swell(at), rng.uniform(-.5, .5))
         at += rng.uniform(.014, .042)
     at = .0
     while at < dur - .2:                                                                  # the deep glugs under them

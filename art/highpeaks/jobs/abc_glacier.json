@@ -1,0 +1,22 @@
+[
+  {
+    "name": "abc_glacier_a",
+    "aspect_ratio": "3:2",
+    "background": "transparent",
+    "quality": "high",
+    "refs": [
+      "art/highpeaks/raw/num_glacier_a.png"
+    ],
+    "prompt": "A sprite sheet of the 26 capital letters of the alphabet in a blocky GLACIER ICE lettering style, on a fully transparent background, nothing else in the picture. It must match the attached numerals EXACTLY - the same chunky squared-off block shapes cut from slabs of glacier ice with slightly chipped corners, the same pale ice-blue and white front face with a network of fine white crack lines and angular facets, the same deep 3D extruded side going down and to the right in darker glacier blue, the same thick dark navy outline, the same height and stroke weight. Lay the letters out in a tidy grid of four rows with wide empty gaps between every letter so that none touch or overlap: row 1: A B C D E F G ; row 2: H I J K L M N ; row 3: O P Q R S T U ; row 4: V W X Y Z. Every letter is a clear, correct, readable capital letter, upright, all the same height, in alphabetical order. Flat cartoon shading with hard edges, no soft gradients, no glow, no drop shadow, no snow. Nothing else: no numbers, no punctuation, no words, no border."
+  },
+  {
+    "name": "abc_glacier_b",
+    "aspect_ratio": "3:2",
+    "background": "transparent",
+    "quality": "high",
+    "refs": [
+      "art/highpeaks/raw/num_glacier_a.png"
+    ],
+    "prompt": "A sprite sheet of the 26 capital letters of the alphabet in a blocky GLACIER ICE lettering style, on a fully transparent background, nothing else in the picture. It must match the attached numerals EXACTLY - the same chunky squared-off block shapes cut from slabs of glacier ice with slightly chipped corners, the same pale ice-blue and white front face with a network of fine white crack lines and angular facets, the same deep 3D extruded side going down and to the right in darker glacier blue, the same thick dark navy outline, the same height and stroke weight. Lay the letters out in a tidy grid of four rows with wide empty gaps between every letter so that none touch or overlap: row 1: A B C D E F G ; row 2: H I J K L M N ; row 3: O P Q R S T U ; row 4: V W X Y Z. Every letter is a clear, correct, readable capital letter, upright, all the same height, in alphabetical order. Flat cartoon shading with hard edges, no soft gradients, no glow, no drop shadow, no snow. Nothing else: no numbers, no punctuation, no words, no border."
+  }
+]

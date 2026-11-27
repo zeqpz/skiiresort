@@ -161,6 +161,19 @@ Owner's notes of 2026-11-27:
 - **The yeti's smoke** is soft and wispy (`assets/fx/smoke_soft.webp`): a breath is a stream of 26 puffs that leave
   fast, slow, curl apart and thin; a fine thread rises off the joint all the time (`charrig.js`).
 
+Later on 2026-11-27:
+- **YOU WON / FREE SPINS in the glacier letters** (`glacierWord`, `assets/glacier/A-Z.webp`, cut from
+  `art/highpeaks/raw/abc_glacier_a.png` - generated with the numerals as its reference); a phrase in another alphabet
+  keeps its type.
+- **The alert strip** sits in the gap between the board's bottom log and the HUD bar's middle panel, as wide as the
+  panel and as tall as the gap (its type shrinks with it; on an upright phone, where there is room above the whole
+  HUD, as wide as the board). It never lies over the HUD (`notice`).
+- **Sounds lower** ("way too high pitch"): the cascade's climb runs from a fourth below the root to a fifth above
+  (`SND_SCALE`; it reached 2.5x), Rapid no longer raises pitch, nothing lands above its own pitch, and the
+  synthesised sets were re-made lower (`tools/highpeaks/sfx/dynamics.py`: the multiplier ding on D5, ice and glass
+  an octave down).
+- FRESH POWDER's intro screen (a still of that plate) carries the flag too (`.wflag`).
+
 Lobby art for engine.io, built from a BACKGROUND and a FOREGROUND the way the studio's Media Editor builds a tile
 (`tools/highpeaks/gen_covers.py gen`, then `build`; no text on any of it, owner rule):
 - `media/bg_16x9.png` (3840x2160) and `media/bg_3x4.png` (3072x4096): the summit with nobody in it, a sunburst sky,

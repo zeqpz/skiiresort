@@ -3556,6 +3556,20 @@
     font-family: "Fredoka", var(--num); font-weight: 700; color: #D6F1FF; -webkit-text-stroke-color: #123C86; paint-order: stroke fill;
     text-shadow: .045em .06em 0 #2A6FC4, .09em .12em 0 #1B4FA0; letter-spacing: 0; }
   .totalwin .twfig, .bonusintro .bfig { gap: 0; }
+  /* ---------- High Peaks, 2026-11-27: YOU WON and FREE SPINS in the glacier letters (glacierWord) - block ice like
+     the figure between them. A row is never wider than the screen: its letters shrink to fit (--n: how many). ---------- */
+  .gword { display: inline-flex; align-items: flex-end; justify-content: center; flex-wrap: nowrap; vertical-align: bottom;
+    filter: drop-shadow(0 .09em 0 rgba(6, 18, 56, .55)) drop-shadow(0 0 .35em rgba(120, 200, 255, .45)); }
+  .gword img { display: block; width: auto; height: min(1.55em, calc(90vw / var(--n, 8) / .8)); }
+  .gword .sp { display: block; width: min(.5em, calc(30vw / var(--n, 8))); }
+  .bonusintro .byou, .bonusintro .bfs { text-shadow: none; letter-spacing: 0; }
+  .bonusintro .bfs .gword img { height: min(1.45em, calc(90vw / var(--n, 8) / .8)); }
+  /* FRESH POWDER's intro shows that plate as a still (its own .wall), and the plate has no painted flag any more: the
+     flag is set on its pole there - in a box that covers the screen as the plate does, at the flag's place in it */
+  .bonusintro .wall .wflag { display: none; }
+  .bonusintro.z .wall .wflag { display: block; position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+    width: max(100vw, 100vh * 16 / 9); aspect-ratio: 16 / 9; pointer-events: none;
+    background: url("assets/scene/layers/spr_flag.webp") 99.25% 30.25% / 8.96% auto no-repeat; filter: saturate(.85); }
 </style>
 </head>
 <body>
@@ -5537,12 +5551,35 @@ function notice(html, err = false, ms = 3400) {
   if (!el) return;
   el.innerHTML = html;
   el.classList.toggle("err", !!err);
-  // along the foot of the board: as wide as its frame, just under its bottom log
+  // (owner, 2026-11-27, with a picture of it lying across the top of the bar: "make it fit correctly and not overlap
+  // the hud") It sits IN the gap between the board's bottom log and the HUD: over the bar's middle (the balance / win
+  // / bet panel, whose top is lower than the tabs and the spin button at its ends), as wide as that panel and as tall
+  // as the gap is - its type shrinks with it. Where there is no gap to speak of, it rests on the bar's top edge and
+  // lies over the board's log instead, never over the HUD.
   const fr = $("paintframe"), f = fr && fr.getBoundingClientRect();
-  if (f && f.width > 40 && f.bottom < innerHeight - 8) {
-    Object.assign(el.style, { left: (f.left + f.width / 2).toFixed(1) + "px", top: (f.bottom + 2).toFixed(1) + "px", bottom: "auto",
+  const bar = document.querySelector(".hudframe .hudbar"), hb = bar && bar.getBoundingClientRect();
+  const st = { left: "", top: "", bottom: "", width: "", height: "", lineHeight: "", fontSize: "", padding: "", borderWidth: "" };
+  if (f && f.width > 40 && hb && hb.width > 60 && hb.top > f.bottom - 4 && !err) {
+    const gap = hb.top - 3 - (f.bottom + 2), h = Math.max(15, Math.min(26, gap));
+    const hf = document.querySelector(".hudframe"), hfTop = hf ? hf.getBoundingClientRect().top : hb.top;
+    // room above the whole HUD (an upright phone): then it can be as wide as the board, not just the panel
+    const clear = f.bottom + 2 + h + 2 <= hfTop;
+    const top = clear ? f.bottom + 2 + Math.max(0, (hfTop - 2 - (f.bottom + 2) - h) / 2) : gap >= 15 ? f.bottom + 2 + (gap - h) / 2 : hb.top - 3 - h;
+    const cx = clear ? f.left + f.width / 2 : hb.left + hb.width / 2, wd = clear ? Math.min(f.width * .96, innerWidth * .96) : hb.width - 8;
+    Object.assign(st, { left: cx.toFixed(1) + "px", top: top.toFixed(1) + "px", bottom: "auto", width: wd.toFixed(1) + "px",
+      height: h.toFixed(1) + "px", lineHeight: (h - 3).toFixed(1) + "px", fontSize: Math.max(8.5, Math.min(14, h * .56)).toFixed(1) + "px", padding: "0 14px", borderWidth: "1.5px" });
+  } else if (f && f.width > 40 && f.bottom < innerHeight - 8) {
+    // an error (it may run to two lines): under the board at the frame's width, lifted clear of the HUD if it would touch it
+    const hf = document.querySelector(".hudframe"), ht = hf ? hf.getBoundingClientRect().top : innerHeight;
+    Object.assign(st, { left: (f.left + f.width / 2).toFixed(1) + "px", bottom: Math.max(4, innerHeight - ht + 4).toFixed(1) + "px", top: "auto",
       width: Math.min(f.width * .96, innerWidth * .96).toFixed(1) + "px" });
-  } else Object.assign(el.style, { left: "", top: "", bottom: "", width: "" });
+  }
+  Object.assign(el.style, st);
+  // one line, all of it: the type gives way before the words are cut short
+  if (!err && el.scrollWidth > el.clientWidth + 1) {
+    const fs = parseFloat(getComputedStyle(el).fontSize) || 12;
+    el.style.fontSize = Math.max(7.5, fs * el.clientWidth / el.scrollWidth * .97).toFixed(1) + "px";
+  }
   el.classList.add("on");
   clearTimeout(noticeTimer);
   if (ms > 0) noticeTimer = setTimeout(() => el.classList.remove("on"), ms);
@@ -6247,11 +6284,14 @@ function sfxGap(name, gapMs, rate = 1, o) {
 //   the AMOUNT   many symbols breaking at once are each quieter, and climb a hair in pitch along the cluster
 //   the SPEED    Rapid (and a skipped spin) plays the board's sounds a little quicker and higher
 //   the PLACE    a reel's sounds come from where it is, left to right
-const SND_SCALE = [1, 1.1225, 1.2599, 1.4983, 1.6818, 2, 2.2449, 2.5198];
+// (2026-11-27, owner: "the sound fx are way too high pitch": the climb starts a fourth BELOW the root now and tops out a
+// fifth above it - it ran up to two and a half times the pitch - Rapid no longer raises anything, the new sets were
+// re-made lower (dynamics.py) and nothing lands above its own pitch)
+const SND_SCALE = [.7492, .8409, 1, 1.1225, 1.2599, 1.4983];
 let sndChain = 0;
 const sndStep = (n = sndChain) => SND_SCALE[Math.max(0, Math.min(SND_SCALE.length - 1, n))];
 const sndPan = r => (typeof REELS === "number" && REELS > 1) ? (r / (REELS - 1) - .5) * 1.1 : 0;
-const sndFast = () => 1 + (1 - Math.min(1, tempo())) * .2;
+const sndFast = () => 1;   // (speed no longer changes pitch; kept so the call sites read as before)
 
 // A symbol landing makes the sound of what it is: the drawer's coins, the key's clink, the can's knock. Quiet, under the drop note, and thinned out - one every 34 ms at most and the same
 // material not again inside 90 ms - so a board of 49 reads as a patter, never a pile-up.
@@ -6261,7 +6301,7 @@ const LAND_FOLEY = {
   H1: "landWood", H2: "landGlass", H3: "landWood", H4: "landGlass", L1: "landGlass", L2: "landCloth", L3: "landSnow",
   L4: "landCloth", L5: "landCloth", ZP: "landMetal", ST: "landCard", GT: "landCard", GP: "landGlass",
 };
-const LAND_PITCH = { H1: 1.12, H3: .86, H2: .92, H4: 1.18, L1: .76, GP: 1.04, L2: 1.2, L4: .9, L5: 1.05 };
+const LAND_PITCH = { H1: .95, H3: .78, H2: .82, H4: 1, L1: .7, GP: .9, L2: 1, L4: .82, L5: .92 };
 let foleyAt = 0;
 function landFoley(sym, r) {
   const id = sym && artOf(sym.name), key = LAND_FOLEY[id];
@@ -6972,7 +7012,7 @@ const handlers = {
       const winX = cents(w.win) / Math.max(1, bet()), big = Math.min(1, Math.log10(1 + Math.max(0, winX)) / 2);   // 1x .15, 10x .52, 100x 1
       sfx("line", sndStep(), { vol: .8 + .5 * big });
       if (SYM_WIN_SFX[w.symbol]) sfx(SYM_WIN_SFX[w.symbol], 1, { vol: .85 + .4 * Math.min(1, Math.max(0, size - 5) / 10) });
-      if (winX >= 3) setTimeout(() => sfx("iceMult", sndStep(sndChain + 2), { vol: .55 + .6 * big }), 90 * tempo());   // a real win rings
+      if (winX >= 3) setTimeout(() => sfx("iceMult", sndStep(sndChain + 1), { vol: .55 + .6 * big }), 90 * tempo());   // a real win rings
       const parts = [`<b>${(SYM[w.symbol] || { label: w.symbol }).label} x${size}</b>`, "cluster"];
       if (m.maxWin) parts.push("<b>MAX</b>"); else if (mult > 1) parts.push(`<b>x${fmtMult(mult)}</b>`);
       parts.push(`<b>${fmt(cents(w.win))}</b>`);
@@ -7119,7 +7159,7 @@ const handlers = {
           burnMs = Math.max(burnMs, ms);
           clearTimeout(cell._burnT);
           cell._burnT = setTimeout(() => { cell._burnT = 0; setCell(r, y, { name: "X" }); }, ms * .96);
-          setTimeout(() => { sfxGap("iceBreak", 30, rate * (1 + i * .016) * sndFast(), { pan: sndPan(r), vol: breakVol }); multEls[r][y].classList.add("bare"); }, 200 * tempo());   // frame 6: it bursts
+          setTimeout(() => { sfxGap("iceBreak", 30, rate * .94 * (1 + Math.min(i, 8) * .007), { pan: sndPan(r), vol: breakVol }); multEls[r][y].classList.add("bare"); }, 200 * tempo());   // frame 6: it bursts
         } else {
           burstIcon(geo[i]); cell.classList.add("explode");
           setTimeout(() => { sfxGap("symBreak", 38, rate); multEls[r][y].classList.add("bare"); }, BURST_AT * tempo());
@@ -7170,7 +7210,7 @@ const handlers = {
       landers.sort((a, b) => a.time - b.time || b.row - a.row);
       let next = 0;
       // the refill: powder coming down - higher with every cascade of this spin, fuller the more that falls
-      if (!state.skip) sfx(sndChain % 2 ? "snowWhoosh" : "cascade", (.96 + Math.random() * .08) * Math.min(1.5, 1 + sndChain * .07), { vol: Math.min(1.35, .85 + landers.length / 50) });
+      if (!state.skip) sfx(sndChain % 2 ? "snowWhoosh" : "cascade", (.94 + Math.random() * .08) * Math.min(1.18, 1 + sndChain * .03), { vol: Math.min(1.35, .85 + landers.length / 50) });
       sndChain++;
       for (const l of landers) {
         const at2 = Math.max(500 * DROP_CONTACT * t * l.time, next);
@@ -7784,7 +7824,7 @@ function placeWinChip(positions, amount, mult) {
       const p = Math.min(1, (now - t0) / dur);
       if (p >= 1) return;
       paint(from + (to - from) * (1 - Math.pow(1 - p, 3)));
-      if (num.textContent !== shown) { shown = num.textContent; sfxGap("countTick", 70, .9 + .55 * p); }
+      if (num.textContent !== shown) { shown = num.textContent; sfxGap("countTick", 70, .86 + .22 * p); }
       requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
@@ -8652,6 +8692,7 @@ function assetUrls() {
   }
   for (const def of Object.values(SYM)) if (def.img) urls.add(def.img);
   for (const n of ["0","1","2","3","4","5","6","7","8","9","dot","comma","x","dollar"]) urls.add("assets/num/" + n + ".webp");
+  for (const n of "YOUWNFRESPI") urls.add("assets/glacier/" + n + ".webp");   // YOU WON, FREE SPINS
   // the win screen's lettering, named rather than read off WIN_TIERS: that list is declared
   // further down the file than this screen runs
   for (const n of ["total_win", "big_win", "mega_win", "xtreme_win"]) urls.add("assets/" + n + ".webp");
@@ -8949,6 +8990,20 @@ function tvGlitch(el, { strength = 1, every = [1300, 3600], burst = [120, 320] }
   timer = setTimeout(start, rnd(500, 1500));
 }
 
+// A phrase set in the glacier letters (owner, 2026-11-27: "make the you won, free spins wording use the same font we
+// just made"): assets/glacier/A-Z.webp, cut from the same hand as the numerals (art/highpeaks/jobs/abc_glacier.json),
+// with the numerals for any figures in it. A phrase with a character the alphabet has no ice for (another language's
+// letters) is left as type - null - and keeps its lettered style.
+function glacierWord(text) {
+  const t = String(text).toUpperCase().trim();
+  if (!t || /[^A-Z0-9 ]/.test(t)) return null;
+  let html = "";
+  for (const ch of t) {
+    if (ch === " ") html += `<i class="sp"></i>`;
+    else html += `<img src="assets/${/[0-9]/.test(ch) ? "num" : "glacier"}/${ch}.webp" alt="${ch}" draggable="false">`;
+  }
+  return `<span class="gword" style="--n:${t.length}" role="img" aria-label="${t}">${html}</span>`;
+}
 function numeralRow(text) {
   let html = "", sym = "";
   const flush = () => { if (sym) { html += `<span class="sym">${sym.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]))}</span>`; sym = ""; } };
@@ -9546,13 +9601,13 @@ function bonusIntro(spins, extreme, kind = extreme ? "midnight" : "premium", und
     wrap.setAttribute("role", "dialog");
     wrap.setAttribute("aria-label", T(K.name));
     wrap.innerHTML =
-      `<div class="wall"></div>` +
+      `<div class="wall"><i class="wflag"></i></div>` +
       `<div class="inner"><div class="bstack">` +
         `<img class="blogo" src="${K.logo}" alt="${T(K.name)}" draggable="false">` +
-        `<div class="byou">${T("You won")}</div>` +
+        `<div class="byou">${glacierWord(T("You won")) || T("You won")}</div>` +
         (K.noSpins ? `<div class="bfs">${T("3 spins to fill the stash")}</div>` :
         `<div class="bnum" aria-label="${spins}"><i class="brays" aria-hidden="true"></i><div class="bfig">${numeralRow(REDUCED_MOTION ? String(spins) : "0")}</div></div>` +
-        `<div class="bfs">${T("Free spins")}</div>`) +
+        `<div class="bfs">${glacierWord(T("Free spins")) || T("Free spins")}</div>`) +
         `<div class="bhow">${bonusIntroHow(kind)}</div>` +
         `<div class="bcont">${T(TOUCH ? "Tap to continue" : "Click or press Space to continue")}</div>` +
       `</div></div>`;
